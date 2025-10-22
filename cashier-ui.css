@@ -370,7 +370,7 @@
                 margin-top: 15px;
             }
 
-            #PrintReceiptBtn {
+            #ProcessPaymentBtn {
                 background-color: #10b981;
                 color: white;
                 border: none;
@@ -382,7 +382,7 @@
                 transition: 0.3s;
             }
 
-            #PrintReceiptBtn:hover {
+            #ProcessPaymentBtn:hover {
                 background-color: #059669;
             }
 
@@ -401,6 +401,25 @@
 
             #ResetReceiptBtn:hover{
                 background-color:#8b2f2f;
+            }
+
+            #SendToPharmacistBtn{
+                display:none;
+                background-color:#d1fae5;
+                color:#065f46;
+                border:2px solid #065f46;
+                border-radius:8px;
+                font-weight:600;
+                padding:14px;
+                font-size:16px;
+                width:100%;
+                cursor:pointer;
+                transition:all 0.3s ease;
+            }
+
+            #SendToPharmacistBtn:hover {
+                background-color: #065f46;
+                color: white;
             }
 
             /* Print-only styles */
@@ -446,3 +465,212 @@
                     display: none;
                 }
             }
+
+
+            /* ---------- Modal ---------- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 400px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #065f46;
+    text-align: center;
+}
+
+#PaymentDetails {
+    font-size: 1.6ch;
+    margin-top: 10px;
+    line-height: 1.8;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    background-color: #065f46;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modal-actions button:hover {
+    background-color: #047857;
+}
+
+#CancelPaymentBtn {
+    background-color: #b23b3b;
+}
+
+#CancelPaymentBtn:hover {
+    background-color: #8b2f2f;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    width: 350px;
+    max-width: 90%;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.payment-method-section {
+    margin-top: 15px;
+}
+
+#PaymentMethod {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    margin-left: 10px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#ConfirmPaymentBtn {
+    background-color: #065f46;
+    color: white;
+}
+
+#CancelPaymentBtn {
+    background-color: #ccc;
+}
+
+#CashInputSection input {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    margin-top: 5px;
+}
+
+#ChangeDisplay {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* hide printable container by default */
+#PrintableReceipt { display: none; }
+
+/* Print rules: show only PrintableReceipt */
+@media print {
+  body * { visibility: hidden !important; }            /* hide everything */
+  #PrintableReceipt, #PrintableReceipt * { visibility: visible !important; } /* show receipt */
+  #PrintableReceipt { position: absolute; left: 0; top: 0; width: 80mm; /* or 58mm */ 
+                     padding: 8px; font-family: monospace; }
+}
+
+/* --- Printable receipt styling --- */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #PrintableReceipt,
+  #PrintableReceipt * {
+    visibility: visible !important;
+  }
+
+  #PrintableReceipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 58mm; /* or 80mm depending on your printer */
+    padding: 4mm;
+    font-family: "Courier New", monospace;
+    font-size: 12px;
+    color: #000;
+  }
+
+  #PrintableReceipt h2,
+  #PrintableReceipt h3 {
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  #PrintableReceipt .divider {
+    border-top: 1px dashed #000;
+    margin: 4px 0;
+  }
+
+  #PrintableReceipt table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  #PrintableReceipt td {
+    padding: 0;
+  }
+
+  #PrintableReceipt .totals {
+    margin-top: 4px;
+  }
+
+  #PrintableReceipt .totals div {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #PrintableReceipt .footer {
+    text-align: center;
+    margin-top: 6px;
+  }
+}
