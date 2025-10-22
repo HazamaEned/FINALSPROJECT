@@ -406,7 +406,7 @@
             });
 
             // Confirm payment -> build printable receipt, call print, reset
-            $(document).on("click", "#ConfirmPaymentBtn", function(){
+            $(document).on("click", "#ConfirmPaymentBtn", function() {
                 const method = $("#PaymentMethod").val();
                 const methodName = { cash:"Cash", gcash:"GCash", paymaya:"PayMaya", bank:"Bank Transfer" }[method];
 
@@ -415,86 +415,86 @@
                     return;
                 }
 
-                // totals
-                let subtotal = 0;
-                receipt.forEach(it => subtotal += it.price * it.qty);
+                const subtotal = receipt.reduce((sum, it) => sum + it.price * it.qty, 0);
                 const vat = subtotal * 0.12;
                 const hasDiscount = $("#ApplyDiscountCheckBox").is(":checked");
                 const discount = hasDiscount ? subtotal * 0.20 : 0;
                 const total = subtotal + vat - discount;
-                const cashGiven = parseFloat($("#CashGiven").val()) || 0;
-                const change = method === "cash" ? (cashGiven - total) : 0;
 
-                // build printable HTML (inner content only; print CSS controls visibility)
+                // 🔹 Cash validation
+                let cashGiven = 0;
+                if (method === "cash") {
+                    cashGiven = parseFloat($("#CashGiven").val());
+                    if (isNaN(cashGiven) || cashGiven <= 0) {
+                        alert("Please enter the cash amount.");
+                        return;
+                    }
+                    if (cashGiven < total) {
+                        alert("Insufficient cash. Enter an amount equal to or greater than total.");
+                        return;
+                    }
+                }
+
+                const change = method === "cash" ? (cashGiven - total).toFixed(2) : 0;
+
+                // Build printable receipt (same as your existing code)
                 const inner = `
-<div>
-  <h2>PharmaCare Pharmacy</h2>
-  <div style="text-align:center; font-size:11px;">
-    123 Main Street, Pasig City<br>
-    Tel: (02) 1234-5678
-  </div>
-  <div class="divider"></div>
-  <div>Date: ${new Date().toLocaleString()}</div>
-  <div class="divider"></div>
+                    <div>
+                        <h2>PharmaCare Pharmacy</h2>
+                        <div style="text-align:center; font-size:11px;">
+                            123 Main Street, Pasig City<br>
+                            Tel: (02) 1234-5678
+                        </div>
+                        <div class="divider"></div>
+                        <div>Date: ${new Date().toLocaleString()}</div>
+                        <div class="divider"></div>
 
-  <table>
-    ${receipt.map(item => `
-      <tr>
-        <td colspan="2" style="text-align:left;">${escapeHtml(item.name)}</td>
-      </tr>
-      <tr>
-        <td style="text-align:left;">${item.qty} x ₱${item.price.toFixed(2)}</td>
-        <td style="text-align:right;">₱${(item.price * item.qty).toFixed(2)}</td>
-      </tr>
-    `).join('')}
-  </table>
+                        <table>
+                            ${receipt.map(item => `
+                                <tr>
+                                    <td colspan="2" style="text-align:left;">${escapeHtml(item.name)}</td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:left;">${item.qty} x ₱${item.price.toFixed(2)}</td>
+                                    <td style="text-align:right;">₱${(item.price * item.qty).toFixed(2)}</td>
+                                </tr>
+                            `).join('')}
+                        </table>
 
-  <div class="divider"></div>
-  <div class="totals">
-    <div><span>Subtotal:</span><span>₱${subtotal.toFixed(2)}</span></div>
-    <div><span>VAT (12%):</span><span>₱${vat.toFixed(2)}</span></div>
-    ${hasDiscount ? `<div><span>Discount (20%):</span><span>-₱${discount.toFixed(2)}</span></div>` : ''}
-    <div><strong>Total:</strong><strong>₱${total.toFixed(2)}</strong></div>
-    <div><span>Payment Method:</span><span>${methodName}</span></div>
-    ${method === "cash" ? `<div><span>Cash Given:</span><span>₱${cashGiven.toFixed(2)}</span></div>
-                          <div><span>Change:</span><span>₱${change.toFixed(2)}</span></div>` : ''}
-  </div>
+                        <div class="divider"></div>
+                        <div class="totals">
+                            <div><span>Subtotal:</span><span>₱${subtotal.toFixed(2)}</span></div>
+                            <div><span>VAT (12%):</span><span>₱${vat.toFixed(2)}</span></div>
+                            ${hasDiscount ? `<div><span>Discount (20%):</span><span>-₱${discount.toFixed(2)}</span></div>` : ''}
+                            <div><strong>Total:</strong><strong>₱${total.toFixed(2)}</strong></div>
+                            <div><span>Payment Method:</span><span>${methodName}</span></div>
+                            ${method === "cash" ? `<div><span>Cash Given:</span><span>₱${cashGiven.toFixed(2)}</span></div>
+                                                <div><span>Change:</span><span>₱${change}</span></div>` : ''}
+                        </div>
 
-  <div class="divider"></div>
-  <div class="footer">
-    <div>Served by: ${escapeHtml($("#CashierName").text() || "Cashier")}</div>
-    <div>Thank you for your purchase!</div>
-    <div>***************</div>
-  </div>
-</div>
+                        <div class="divider"></div>
+                        <div class="footer">
+                            <div>Served by: ${escapeHtml($("#CashierName").text() || "Cashier")}</div>
+                            <div>Thank you for your purchase!</div>
+                            <div>***************</div>
+                        </div>
+                    </div>
                 `;
 
-                // inject into printable container
                 $("#PrintableReceipt").html(inner);
-
-                // close modal and reset modal fields
                 $("#PaymentModal").fadeOut(150);
                 resetPaymentModal();
 
-                // print after a short delay so DOM updates propagate
                 setTimeout(function(){
                     window.print();
-
-                    // cleanup after print dialog closes
                     $("#PrintableReceipt").empty();
                     receipt.length = 0;
                     $("#ReceiptList").empty();
                     $("#TotalAmount").text("0.00");
-
                     alert(`Payment confirmed via ${methodName}. Thank you!`);
                 }, 250);
             });
 
-            // Cancel payment
-            $("#CancelPaymentBtn").click(function(){
-                $("#PaymentModal").fadeOut(150);
-                resetPaymentModal();
-            });
 
         }); // end dom ready
     })(jQuery);
