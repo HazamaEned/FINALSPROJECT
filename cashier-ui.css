@@ -1,473 +1,469 @@
-            /* ---------- Base Layout ---------- */
-            body {
-                margin: 0;
-                padding: 0;
-                font-family: "Inter", system-ui, sans-serif;
-                background-color: #f3f7f4;
-                color: #1f2937;
-            }
-
-            /* ---------- Top Navigation ---------- */
-            #topnav {
-                background-color: #ffffff;
-                box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px 40px;
-                border-bottom: 3px solid #e3f2e6;
-            }
-
-            #lefttopnav a,
-            #righttopnav a {
-                text-decoration: none;
-                font-weight: 600;
-                border-radius: 12px;
-                padding: 8px 16px;
-                transition: 0.25s ease;
-            }
-
-            #lefttopnav a {
-                color: #065f46;
-            }
-
-            #righttopnav a {
-                color: #b23b3b;
-            }
-
-            #lefttopnav a:hover,
-            #lefttopnav a:focus {
-                background-color: #065f46;
-                color: #ffffff;
-            }
-
-            #righttopnav a:hover,
-            #righttopnav a:focus {
-                background-color: #b23b3b;
-                color: #fff;
-            }
-
-            #CashierName {
-                color: #065f46;
-                font-weight: 600;
-            }
-
-            /* ---------- Cashier Container ---------- */
-            #CashierUIContainer {
-                display: flex;
-                justify-content: space-between;
-                align-items: stretch;
-                height: calc(85vh);
-                padding: 25px 40px;
-                gap: 25px;
-            }
-
-            /* ---------- Left Column ---------- */
-            #LeftArea {
-                display: flex;
-                width: 70%;
-                flex-direction: column;
-                gap: 2%;
-            }
-
-            .panel {
-                background-color: #ffffff;
-                border-radius: 14px;
-                box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-                transition: 0.2s ease;
-            }
-
-            .panel:hover {
-                box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
-            }
-
-            /* ---------- Customer Details ---------- */
-            #CustomerDetailsContainer {
-                flex: 0.5;
-            }
-
-            #CustomerDetailsTitle {
-                font-size: 2.2ch;
-                padding: 18px;
-                font-weight: 700;
-                color: #065f46;
-                border-bottom: 1px solid #e5e7eb;
-                background-color: #f0fdf4;
-                border-top-left-radius: 14px;
-                border-top-right-radius: 14px;
-            }
-
-            #CustomerDetails {
-                display: grid;
-                grid-template-columns: 2fr 1fr;
-                gap: 20px;
-                padding: 20px;
-                font-size: 1.8ch;
-            }
-
-            #CustomerDetails .info {
-                display: grid;
-                grid-template-columns: auto 1fr;
-                row-gap: 12px;
-                column-gap: 20px;
-            }
-
-            #CustomerDetails .info div:nth-child(odd) {
-                font-weight: 600;
-                color: #065f46;
-            }
-
-            #CustomerDetails .info div:nth-child(even) {
-                text-align: right;
-                color: #374151;
-            }
-
-            /* ---------- ID Image Section ---------- */
-            #IdImageContainer {
-                border: 2px dashed #a7f3d0;
-                border-radius: 12px;
-                padding: 12px;
-                text-align: center;
-                background-color: #ecfdf5;
-                transition: 0.3s ease;
-            }
-
-            #IdImageContainer:hover {
-                border-color: #10b981;
-                background-color: #f0fdf4;
-            }
-
-            #UploadIdBtn,
-            #RemoveIdBtn,
-            #ScanButtonContainer button {
-                background-color: #10b981;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 8px 12px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.25s ease;
-            }
-
-            #UploadIdBtn:hover,
-            #ScanButtonContainer button:hover {
-                background-color: #059669;
-            }
-
-            #ScanButtonContainer button{
-                width: 100%;
-                margin-top: 5px;
-            }
-
-            #RemoveIdBtn {
-                background-color: #b23b3b;
-            }
-
-            #RemoveIdBtn:hover {
-                background-color: #8b2f2f;
-            }
-
-            #ApplyDiscountContainer {
-                margin-top: 10px;
-                font-size: 1.7ch;
-                color: #065f46;
-            }
-
-            button:disabled {
-                background-color: #9ca3af !important;
-                color: #f3f4f6 !important;
-            }
-
-
-            /* ---------- Product Panel ---------- */
-            #Products {
-                flex: 2;
-            }
-
-            #ProductSearch {
-                padding: 18px;
-                font-weight: 700;
-                font-size: 2ch;
-                color: #065f46;
-                border-bottom: 1px solid #e5e7eb;
-                background-color: #f0fdf4;
-                border-top-left-radius: 14px;
-                border-top-right-radius: 14px;
-            }
-
-            #SearchBarContainer {
-                padding: 20px;
-            }
-
-            #SearchBarContainer input {
-                width: 100%;
-                border-radius: 8px;
-                border: 1px solid #d1d5db;
-                padding: 10px;
-                font-size: 1.6ch;
-                outline: none;
-                transition: border-color 0.25s;
-            }
-
-            #SearchBarContainer input:focus {
-                border-color: #10b981;
-                box-shadow: 0 0 0 2px rgba(16,185,129,0.2);
-            }
-
-            /* ---------- Process Panel ---------- */
-            #Process {
-                width: 30%;
-            }
-
-            /* ---------- General Panel Style ---------- */
-            #CustomerDetailsContainer,
-            #Products,
-            #Process {
-                background-color: #ffffff;
-                border-radius: 14px;
-                box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            /* ----------- Product Grid Layout ----------- */
-            #ProductGrid {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-                gap: 15px;
-                padding: 20px;
-                overflow-y: auto;
-                max-height: 350px; /* fixed height so it scrolls */
-                border-top: 1px solid #e5e7eb;
-            }
-
-            /* Scrollbar styling */
-            #ProductGrid::-webkit-scrollbar {
-                width: 8px;
-            }
-            #ProductGrid::-webkit-scrollbar-thumb {
-                background-color: #065f46;
-                border-radius: 8px;
-            }
-            #ProductGrid::-webkit-scrollbar-thumb:hover {
-                background-color: #054c38;
-            }
-
-            /* Product Card styling */
-            .product-card {
-                background-color: #ffffff;
-                border-radius: 10px;
-                padding: 10px;
-                box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
-                transition: transform 0.1s ease, box-shadow 0.2s ease;
-            }
-
-            .product-card:hover {
-                transform: translateY(-2px);
-                box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
-                cursor: pointer;
-                background-color: #f0fdf4;
-            }
-
-            .product-name {
-                font-weight: 600;
-                color: #065f46;
-                font-size: 1.9ch;
-            }
-
-            .product-info {
-                font-size: 1.6ch;
-                color: #374151;
-            }
-
-            /* ---------- Receipt (Right Side) ---------- */
-            #Process {
-                width: 30%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                padding: 20px;
-                background-color: #ffffff;
-                border-radius: 14px;
-                box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-            }
-
-            /* Receipt Title */
-            #ReceiptTitle {
-                font-size: 2ch;
-                color: #065f46;
-                font-weight: 700;
-                margin-bottom: 10px;
-                border-bottom: 2px solid #e5e7eb;
-                padding-bottom: 5px;
-            }
-
-            /* Scrollable Receipt List */
-            #ReceiptList {
-                flex: 1;
-                overflow-y: auto;
-                margin-top: 10px;
-                border-bottom: 2px solid #e5e7eb;
-                padding: 10px 0;
-            }
-
-            /* Each item in receipt */
-            .receipt-item {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 8px 0;
-                font-size: 1.8ch;
-                border-bottom: 1px solid #f3f4f6;
-            }
-
-            .item-name {
-                flex: 1;
-                color: #374151;
-            }
-
-            /* Quantity section */
-            .item-qty {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .qty-btn {
-                background-color: #065f46;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                width: 25px;
-                height: 25px;
-                cursor: pointer;
-                font-size: 1.6ch;
-                line-height: 25px;
-            }
-
-            .qty-btn:hover {
-                background-color: #047857;
-            }
-
-            .item-price {
-                min-width: 60px;
-                text-align: right;
-                color: #111827;
-            }
-
-            /* Total section */
-            #ReceiptTotal {
-                font-size: 2ch;
-                text-align: right;
-                color: #065f46;
-                padding-top: 10px;
-                border-top: 2px solid #065f46;
-            }
-
-            /* ---------- Receipt Buttons ---------- */
-            #ReceiptButtons {
-                display: flex;
-                justify-content: flex-end;
-                margin-top: 15px;
-            }
-
-            #ProcessPaymentBtn {
-                background-color: #10b981;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 10px 30%;
-                font-size: 1.7ch;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.3s;
-            }
-
-            #ProcessPaymentBtn:hover {
-                background-color: #059669;
-            }
-
-            #ResetReceiptBtn{
-                background-color:#b23b3b;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                padding: 10px 20px;
-                font-size: 1.7ch;
-                font-weight: 600;
-                cursor: pointer;
-                transition: 0.3s;
-                margin-right: 20px;
-            }
-
-            #ResetReceiptBtn:hover{
-                background-color:#8b2f2f;
-            }
-
-            #SendToPharmacistBtn{
-                display:none;
-                background-color:#d1fae5;
-                color:#065f46;
-                border:2px solid #065f46;
-                border-radius:8px;
-                font-weight:600;
-                padding:14px;
-                font-size:16px;
-                width:100%;
-                cursor:pointer;
-                transition:all 0.3s ease;
-            }
-
-            #SendToPharmacistBtn:hover {
-                background-color: #065f46;
-                color: white;
-            }
-
-            /* Print-only styles */
-            @media print {
-    /* Hide everything except the receipt area */
-                body * {
-                    visibility: hidden;
-                }
-
-                #Process, #Process * {
-                    visibility: visible;
-                }
-
-                #Process {
-                    position: absolute;
-                    left: 0;
-                    top: 0;
-                    width: 70mm; /* like a receipt roll */
-                    font-family: monospace;
-                    background: white;
-                    padding: 10px;
-                    box-shadow: none;
-                    border: none;
-                }
-
-                /* Hide Receipt Buttons */
-                #PrintReceiptBtn {
-                    display: none;
-                }
-
-                #ResetReceiptBtn{
-                    display: none;
-                }
-
-                /* Make sure numeric values print exactly (no rounding off) */
-                .item-price,
-                #TotalAmount {
-                    font-variant-numeric: tabular-nums;
-                    -webkit-font-smoothing: none;
-                }
-
-                .qty-btn {
-                    display: none;
-                }
-            }
-
-
-            /* ---------- Modal ---------- */
+/* ---------- Base Layout ---------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", system-ui, sans-serif;
+    background-color: #f3f7f4;
+    color: #1f2937;
+}
+
+/* ---------- Top Navigation ---------- */
+#topnav {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    border-bottom: 3px solid #e3f2e6;
+}
+
+#lefttopnav a,
+#righttopnav a {
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 8px 16px;
+    transition: 0.25s ease;
+}
+
+#lefttopnav a {
+    color: #065f46;
+}
+
+#righttopnav a {
+    color: #b23b3b;
+}
+
+#lefttopnav a:hover,
+#lefttopnav a:focus {
+    background-color: #065f46;
+    color: #ffffff;
+}
+
+#righttopnav a:hover,
+#righttopnav a:focus {
+    background-color: #b23b3b;
+    color: #fff;
+}
+
+#CashierName {
+    color: #065f46;
+    font-weight: 600;
+}
+
+/* ---------- Cashier Container ---------- */
+#CashierUIContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: calc(85vh);
+    padding: 25px 40px;
+    gap: 25px;
+}
+
+/* ---------- Left Column ---------- */
+#LeftArea {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+    gap: 2%;
+}
+
+.panel {
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: 0.2s ease;
+}
+
+/* ---------- Customer Details ---------- */
+#CustomerDetailsContainer {
+    flex: 0.5;
+}
+
+#CustomerDetailsTitle {
+    font-size: 2.2ch;
+    padding: 18px;
+    font-weight: 700;
+    color: #065f46;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f0fdf4;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+#CustomerDetails {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    padding: 20px;
+    font-size: 1.8ch;
+}
+
+#CustomerDetails .info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    row-gap: 12px;
+    column-gap: 20px;
+}
+
+#CustomerDetails .info div:nth-child(odd) {
+    font-weight: 600;
+    color: #065f46;
+}
+
+#CustomerDetails .info div:nth-child(even) {
+    text-align: right;
+    color: #374151;
+}
+
+/* ---------- ID Image Section ---------- */
+#IdImageContainer {
+    border: 2px dashed #a7f3d0;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    background-color: #ecfdf5;
+    transition: 0.3s ease;
+}
+
+#IdImageContainer:hover {
+    border-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+#UploadIdBtn,
+#RemoveIdBtn,
+#ScanButtonContainer button {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+#UploadIdBtn:hover,
+#ScanButtonContainer button:hover {
+    background-color: #059669;
+}
+
+#ScanButtonContainer button{
+    width: 100%;
+    margin-top: 5px;
+}
+
+#RemoveIdBtn {
+    background-color: #b23b3b;
+}
+
+#RemoveIdBtn:hover {
+    background-color: #8b2f2f;
+}
+
+#ApplyDiscountContainer {
+    margin-top: 10px;
+    font-size: 1.7ch;
+    color: #065f46;
+}
+
+button:disabled {
+    background-color: #9ca3af !important;
+    color: #f3f4f6 !important;
+}
+
+
+/* ---------- Product Panel ---------- */
+#Products {
+    flex: 2;
+}
+
+#ProductSearch {
+    padding: 18px;
+    font-weight: 700;
+    font-size: 2ch;
+    color: #065f46;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #f0fdf4;
+    border-top-left-radius: 14px;
+    border-top-right-radius: 14px;
+}
+
+#SearchBarContainer {
+    padding: 20px;
+}
+
+#SearchBarContainer input {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    padding: 10px;
+    font-size: 1.6ch;
+    outline: none;
+    transition: border-color 0.25s;
+}
+
+#SearchBarContainer input:focus {
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16,185,129,0.2);
+}
+
+/* ---------- Process Panel ---------- */
+#Process {
+    width: 30%;
+}
+
+/* ---------- General Panel Style ---------- */
+#CustomerDetailsContainer,
+#Products,
+#Process {
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ----------- Product Grid Layout ----------- */
+#ProductGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 350px; /* fixed height so it scrolls */
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Scrollbar styling */
+#ProductGrid::-webkit-scrollbar {
+    width: 8px;
+}
+#ProductGrid::-webkit-scrollbar-thumb {
+    background-color: #065f46;
+    border-radius: 8px;
+}
+#ProductGrid::-webkit-scrollbar-thumb:hover {
+    background-color: #054c38;
+}
+
+/* Product Card styling */
+.product-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: #f0fdf4;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #065f46;
+    font-size: 1.9ch;
+}
+
+.product-info {
+    font-size: 1.6ch;
+    color: #374151;
+}
+
+/* ---------- Receipt (Right Side) ---------- */
+#Process {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Receipt Title */
+#ReceiptTitle {
+    font-size: 2ch;
+    color: #065f46;
+    font-weight: 700;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 5px;
+}
+
+/* Scrollable Receipt List */
+#ReceiptList {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 10px;
+    border-bottom: 2px solid #e5e7eb;
+    padding: 10px 0;
+}
+
+/* Each item in receipt */
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 1.8ch;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.item-name {
+    flex: 1;
+    color: #374151;
+}
+
+/* Quantity section */
+.item-qty {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.qty-btn {
+    background-color: #065f46;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 1.6ch;
+    line-height: 25px;
+}
+
+.qty-btn:hover {
+    background-color: #047857;
+}
+
+.item-price {
+    min-width: 60px;
+    text-align: right;
+    color: #111827;
+}
+
+/* Total section */
+#ReceiptTotal {
+    font-size: 2ch;
+    text-align: right;
+    color: #065f46;
+    padding-top: 10px;
+    border-top: 2px solid #065f46;
+}
+
+/* ---------- Receipt Buttons ---------- */
+#ReceiptButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+
+#ProcessPaymentBtn {
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 30%;
+    font-size: 1.7ch;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#ProcessPaymentBtn:hover {
+    background-color: #059669;
+}
+
+#ResetReceiptBtn{
+    background-color:#b23b3b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.7ch;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 20px;
+}
+
+#ResetReceiptBtn:hover{
+    background-color:#8b2f2f;
+}
+
+#SendToPharmacistBtn{
+    display:none;
+    background-color:#d1fae5;
+    color:#065f46;
+    border:2px solid #065f46;
+    border-radius:8px;
+    font-weight:600;
+    padding:14px;
+    font-size:16px;
+    width:100%;
+    cursor:pointer;
+    transition:all 0.3s ease;
+}
+
+#SendToPharmacistBtn:hover {
+    background-color: #065f46;
+    color: white;
+}
+
+    /* Print-only styles */
+@media print {
+/* Hide everything except the receipt area */
+    body * {
+        visibility: hidden;
+    }
+
+    #Process, #Process * {
+        visibility: visible;
+    }
+
+    #Process {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 70mm; /* like a receipt roll */
+        font-family: monospace;
+        background: white;
+        padding: 10px;
+        box-shadow: none;
+        border: none;
+    }
+
+    /* Hide Receipt Buttons */
+    #PrintReceiptBtn {
+        display: none;
+    }
+
+    #ResetReceiptBtn{
+        display: none;
+    }
+
+    /* Make sure numeric values print exactly (no rounding off) */
+    .item-price,
+    #TotalAmount {
+        font-variant-numeric: tabular-nums;
+        -webkit-font-smoothing: none;
+    }
+
+    .qty-btn {
+        display: none;
+    }
+}
+
+
+    /* ---------- Modal ---------- */
 .modal {
     display: none;
     position: fixed;
