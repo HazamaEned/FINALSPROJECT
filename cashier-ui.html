@@ -1,0 +1,276 @@
+<html>
+    <head>
+        <title>Cashier UI</title>
+        <script src="jquery.js"></script>
+        <script src="jquery-ui-1.14.1/jquery-ui.min.js"></script>
+        <link rel = "stylesheet" href = "cashier-ui.css">
+        
+    </head>
+
+    <body>
+        <div id="topnav">
+            <div id="lefttopnav">
+                <b style="font-size: 2vh;">POS Logo</b>
+                <a href="cashier-ui.html" style="background-color: #065f46; color: white;">Cashier UI</a>
+                <a href="#">Transaction History</a>
+            </div>
+            <div id="CashierName">
+                Welcome, <b>Cashier Name</b>
+            </div>
+            <div id="righttopnav">
+                <a href="#">Log Out</a>
+            </div>
+        </div>
+
+        <div id="CashierUIContainer">
+            <div id="LeftArea">
+                <div id="CustomerDetailsContainer" class="panel">
+                    <div id="CustomerDetailsTitle">CUSTOMER DETAILS</div>
+                    <div id="CustomerDetails">
+                        <div class="info">
+                            <div>Customer Type:</div>
+                            <div id="CustomerType">Regular</div>
+                            <div>ID Number:</div>
+                            <div id="IdNumber">N/A</div>
+                            <div>Name:</div>
+                            <div id="CustomerName">Generic Customer</div>
+                        </div>
+
+                        <div class="details">
+                            <div id="IdImageContainer">
+                                <img id="IdPreview" src="" alt="No Image" style="width:100%; height:auto; display:none; border-radius:8px;">
+                                <input type="file" id="IdImageInput" accept="image/*" style="display:none;">
+                                <button id="UploadIdBtn">Upload ID Image</button>
+                                <button id="RemoveIdBtn" style="display:none;">Remove Image</button>
+                            </div>
+
+                            <div id="ScanButtonContainer">
+                                <button>SCAN ID</button>
+                            </div>
+
+                            <div id="ApplyDiscountContainer">
+                                APPLY PWD/SENIOR CITIZEN DISCOUNT <input type="checkbox" id = "ApplyDiscountCheckBox">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Products">
+                    <div id="ProductSearch"><b>PRODUCT SEARCH</b></div>
+                    <div id="SearchBarContainer">
+                        <input type="text" id="SearchInput" placeholder="Search products and brands">
+                    </div>
+
+                    <div id="ProductGrid"></div>
+                </div>
+        </div>
+
+        <div id="Process" class="panel">
+            <div id="ReceiptTitle"><b>RECEIPT</b></div>
+
+            <div id="ReceiptList"></div>
+
+            <div id="ReceiptTotal">
+                <b>Total: ₱<span id="TotalAmount">0.00</span></b>
+            </div>
+
+            <div id="ReceiptButtons">
+                <button id="ResetReceiptBtn">Reset Receipt</button>
+                <button id="PrintReceiptBtn">Print Receipt</button>
+            </div>
+        </div>
+
+
+        <script>
+            $(document).ready(function(){
+
+                // Upload ID logic
+                $("#UploadIdBtn").click(function(){
+                    if (!$(this).prop("disabled")) {
+                        $("#IdImageInput").click();
+                    }
+                });
+
+                $("#IdImageInput").change(function(event){
+                    const file = event.target.files[0];
+                    if(file){
+                        const reader = new FileReader();
+                        reader.onload = function(e){
+                            $("#IdPreview").attr("src", e.target.result).show();
+                            $("#UploadIdBtn").hide();
+                            $("#RemoveIdBtn").show();
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+
+                $("#RemoveIdBtn").click(function(){
+                    $("#IdPreview").attr("src", "").hide();
+                    $("#IdImageInput").val("");
+                    $("#UploadIdBtn").show();
+                    $("#RemoveIdBtn").hide();
+                });
+
+                // Toggle enable/disable for ID and Scan buttons
+                const toggleControls = function(isEnabled) {
+                    $("#UploadIdBtn, #RemoveIdBtn, #ScanButtonContainer button")
+                        .prop("disabled", !isEnabled)
+                        .css({
+                            "opacity": isEnabled ? "1" : "0.5",
+                            "cursor": isEnabled ? "pointer" : "not-allowed"
+                        });
+                };
+
+                // Initially disabled
+                toggleControls(false);
+
+                // Enable only when checkbox is checked
+                $("#ApplyDiscountContainer input[type='checkbox']").change(function(){
+                    toggleControls($(this).is(":checked"));
+                });
+            });
+
+            $(document).ready(function(){
+                const products = [
+                    { name: "Amlodipine", price: 0.19, form: "5 mg Tablet" },
+                    { name: "Amoxicillin", price: 1.38, form: "500 mg Capsule" },
+                    { name: "Aspirin", price: 0.44, form: "80 mg Tablet" },
+                    { name: "Atenolol", price: 1.00, form: "50 mg Tablet" },
+                    { name: "Atorvastatin", price: 0.90, form: "10 mg Tablet" },
+                    { name: "Azithromycin", price: 5.29, form: "500 mg Tablet" },
+                    { name: "Cephalexin", price: 2.5, form: "500 mg Capsule" },
+                    { name: "Cetirizine", price: 0.22, form: "10 mg Tablet" },
+                    { name: "Clindamycin", price: 3.79, form: "300 mg Capsule" },
+                    { name: "Clopidogrel", price: 0.53, form: "75 mg Tablet" },
+                    { name: "Enalapril", price: 2.48, form: "5 mg Tablet" },
+                    { name: "Fluoxetine", price: 11.89, form: "20 mg Capsule" },
+                    { name: "Hydrocortisone", price: 14.43, form: "50 mg/mL, 2 mL Vial" },
+                    { name: "Ibuprofen", price: 0.7, form: "400 mg Tablet" },
+                    { name: "Insulin", price: 107.9, form: "Regular Insulin 100 IU/mL, 10 mL Vial" },
+                    { name: "Levothyroxine", price: 1.9, form: "50 mcg Tablet" },
+                    { name: "Loratadine", price: 0.85, form: "10 mg Tablet" },
+                    { name: "Losartan", price: 0.51, form: "50 mg Tablet" },
+                    { name: "Metformin", price: 0.3, form: "500 mg Tablet" },
+                    { name: "Metoprolol", price: 0.6, form: "50 mg Tablet" },
+                    { name: "Montelukast", price: 1.9, form: "10 mg Tablet" },
+                    { name: "Naproxen", price: 4.03, form: "550 mg Tablet" },
+                    { name: "Omeprazole", price: 18.89, form: "40 mg Vial" },
+                    { name: "Pantoprazole", price: 5.34, form: "40 mg Tablet" },
+                    { name: "Paracetamol", price: 0.34, form: "500 mg Tablet" },
+                    { name: "Ranitidine", price: 0.88, form: "150 mg Tablet" },
+                    { name: "Rosuvastatin", price: 1.89, form: "10 mg Tablet" },
+                    { name: "Salbutamol", price: 1.94, form: "1 mg/mL Respiratory Solution Ampule" },
+                    { name: "Sertraline", price: 4.38, form: "50 mg Tablet" },
+                    { name: "Simvastatin", price: 0.72, form: "20 mg Tablet" }
+                ];
+
+                function displayProducts(list){
+                    $("#ProductGrid").empty();
+                    list.forEach(p => {
+                        $("#ProductGrid").append(`
+                            <div class="product-card" data-name="${p.name}" data-price="${p.price}">
+                                <div class="product-name">${p.name}</div>
+                                <div class="product-info">₱${p.price.toFixed(2)}</div>
+                                <div class="product-info">${p.form}</div>
+                            </div>
+                        `);
+                    });
+                }
+
+                displayProducts(products);
+
+                // Search filter
+                $("#SearchInput").on("input", function(){
+                    const query = $(this).val().toLowerCase();
+                    const filtered = products.filter(p => 
+                        p.name.toLowerCase().includes(query) ||
+                        p.form.toLowerCase().includes(query)
+                    );
+                    displayProducts(filtered);
+                });
+            });
+
+            // --- Receipt Logic ---
+                    const receipt = [];
+
+                    function updateReceipt() {
+                        $("#ReceiptList").empty();
+                        let total = 0;
+
+                        receipt.forEach((item, index) => {
+                            const itemTotal = item.price * item.qty;
+                            total += itemTotal;
+
+                            $("#ReceiptList").append(`
+                                <div class="receipt-item" data-index="${index}">
+                                    <div class="item-name">${item.name}</div>
+                                    <div class="item-qty">
+                                        <button class="qty-btn minus">−</button>
+                                        <span>${item.qty}</span>
+                                        <button class="qty-btn plus">+</button>
+                                    </div>
+                                    <div class="item-price">₱${itemTotal.toFixed(2)}</div>
+                                </div>
+                            `);
+                        });
+
+                        $("#TotalAmount").text(total.toFixed(2));
+                    }
+
+                    // Add product when clicked
+                    $("#ProductGrid").on("click", ".product-card", function() {
+                        const name = $(this).data("name");
+                        const price = parseFloat($(this).data("price"));
+                        const existing = receipt.find(item => item.name === name);
+
+                        if (existing) {
+                            existing.qty++;
+                        } else {
+                            receipt.push({ name, price, qty: 1 });
+                        }
+
+                        updateReceipt();
+                    });
+
+                    // Handle + and − buttons
+                    $("#ReceiptList").on("click", ".qty-btn", function() {
+                        const index = $(this).closest(".receipt-item").data("index");
+                        if ($(this).hasClass("plus")) {
+                            receipt[index].qty++;
+                        } else if ($(this).hasClass("minus")) {
+                            receipt[index].qty--;
+                            if (receipt[index].qty <= 0) {
+                                receipt.splice(index, 1);
+                            }
+                        }
+                        updateReceipt();
+                    });
+
+                    // --- PRINT RECEIPT FUNCTION ---
+                    $("#PrintReceiptBtn").click(function() {
+                        if (receipt.length === 0) {
+                            alert("No items to print.");
+                            return;
+                        }
+                        window.print();
+                    });
+
+                    // --- RESET RECEIPT FUNCTION ---
+                    $("#ResetReceiptBtn").click(function(){
+                        if (receipt.length === 0) {
+                            alert("No items to reset.")
+                            return;
+                        }
+                        
+                        const confirmReset = confirm("Are you sure you want to clear the receipt?");
+                        if (confirmReset) {
+                            receipt.length = 0;
+                            $("#ReceiptList").empty();
+                            $("#TotalAmount").text("0.00");
+                        }
+                    })
+        </script>
+
+
+    </body>
+</html>
