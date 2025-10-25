@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacist Interface</title>
+    <link rel="stylesheet" href="pharmacist.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <img id="apollogo" src="logomed.png" alt="apollogo">
+        </div>
+        <nav id="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon">
+            </a>
+        </nav>
+        <div id="sidebar-footer">
+            <a href="login.html" class="nav-item">
+                <img src="icons/power-off.png" alt="Logout" class="nav-icon">
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Header Section -->
+        <div class="page-header">
+            <h1 class="page-title">Prescription Review Dashboard</h1>
+            <p class="page-subtitle">Review and approve/decline prescription requests from cashiers.</p>
+        </div>
+
+        <!-- Summary Statistics Cards -->
+        <div class="statistics-grid">
+            <div class="stat-card">
+                <div class="stat-number pending">0</div>
+                <div class="stat-label">Pending Review</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number approved">1</div>
+                <div class="stat-label">Approved Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number declined">0</div>
+                <div class="stat-label">Declined Today</div>
+            </div>
+        </div>
+
+        <!-- Pending Prescriptions Section -->
+        <div class="pending-section">
+            <h2 class="section-title">Pending Prescriptions</h2>
+            <div class="pending-panel">
+                <div class="no-pending-message">No pending prescriptions to review.</div>
+            </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="bottom-row">
+            <!-- Recently Approved Section -->
+            <div class="recent-section">
+                <h2 class="section-title">Recently Approved</h2>
+                <div class="recent-panel">
+                    <div class="recent-item">
+                        <div class="item-id">7425def8-22d4-4295-809f-41de1da92bf0</div>
+                        <div class="item-details">
+                            <span class="item-name">undefined</span>
+                            <span class="item-status approved">Approved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recently Declined Section -->
+            <div class="recent-section">
+                <h2 class="section-title">Recently Declined</h2>
+                <div class="recent-panel">
+                    <div class="no-declined-message">No declined prescriptions today.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="jquery.js"></script>
+    <script src="jquery-ui-1.14.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Pharmacist functionality can be added here
+            console.log('Pharmacist dashboard loaded');
+        });
+    </script>
+</body>
+</html>
+
+
+

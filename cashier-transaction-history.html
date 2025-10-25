@@ -6,27 +6,354 @@
         <script src="jquery.js"></script>
         <script src="jquery-ui-1.14.1/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="cashier-transaction-history.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <div id="topnav">
-            <div id="lefttopnav">
-                <b style="font-size: 2vh;">POS Logo</b>
-                <a href="cashier-ui.html" >Cashier UI</a>
-                <a href="cashier-transaction-history.html" style="background-color: #065f46; color: white;">Transaction History</a>
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div id="sidebar-header">
+                <img id="apollogo" src="logomed.png" alt="apollogo">
             </div>
-            <div id="CashierName">
-                Welcome, <b>Cashier Name</b>
-            </div>
-            <div id="righttopnav">
-                <a href="#">Log Out</a>
+            <nav id="sidebar-nav">
+                <a href="#" class="nav-item" onclick="goBack()">
+                    <img src="icons/previous.png" alt="Back" class="nav-icon">
+                </a>
+            </nav>
+            <div id="sidebar-footer">
+                <a href="login.html" class="nav-item">
+                    <img src="icons/power-off.png" alt="Logout" class="nav-icon">
+                </a>
             </div>
         </div>
 
-        <div id="Container">
+        <div id="main-content">
             <div id="TransactionHistoryContainer">
-            </div>
-            <div id="EligibleTransactions">
+                <div id="TransactionHeader">
+                    <h2>Transaction History</h2>
+                    <div id="SearchAndFilter">
+                        <div id="SearchContainer">
+                            <input type="text" id="TransactionSearch" placeholder="Search by Transaction ID...">
+                            <button id="SearchBtn">Search</button>
+                        </div>
+                        <div id="FilterContainer">
+                            <select id="ItemTypeFilter">
+                                <option value="all">All Items</option>
+                                <option value="otc">OTC Only</option>
+                                <option value="rx">RX Only</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="TransactionList">
+                    <!-- Transactions will be populated here -->
+                </div>
             </div>
         </div>
+
+        <!-- Exchange Modal -->
+        <div id="ExchangeModal" class="modal">
+            <div class="modal-content">
+                <h2>Exchange Item</h2>
+                <div id="ExchangeDetails">
+                    <div class="exchange-section">
+                        <h3>Original Item</h3>
+                        <div id="OriginalItemInfo"></div>
+                    </div>
+                    <div class="exchange-section">
+                        <h3>Select New Item</h3>
+                        <select id="NewItemSelect">
+                            <option value="">Choose replacement item...</option>
+                        </select>
+                        <div id="NewItemInfo"></div>
+                    </div>
+                    <div class="exchange-section">
+                        <h3>Price Difference</h3>
+                        <div id="PriceDifference"></div>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button id="ConfirmExchangeBtn">Confirm Exchange</button>
+                    <button id="CancelExchangeBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Navigation function
+            function goBack() {
+                // Check if user came from cashier or admin interface
+                if (document.referrer.includes('cashier-ui.html')) {
+                    window.location.href = 'cashier-ui.html';
+                } else if (document.referrer.includes('admin.html')) {
+                    window.location.href = 'admin.html';
+                } else {
+                    // Default fallback
+                    window.history.back();
+                }
+            }
+
+            $(document).ready(function() {
+                // Fake transaction data
+                const transactions = [
+                    {
+                        id: "TXN001",
+                        date: "2024-01-15 14:30:25",
+                        customer: "edlon",
+                        items: [
+                            { name: "Aspirin", type: "otc", price: 0.44, quantity: 2 },
+                            { name: "Paracetamol", type: "otc", price: 0.34, quantity: 1 }
+                        ],
+                        total: 1.22,
+                        paymentMethod: "Cash",
+                        cashier: "ened"
+                    },
+                    {
+                        id: "TXN002", 
+                        date: "2024-01-15 15:45:12",
+                        customer: "yolo",
+                        items: [
+                            { name: "Amlodipine", type: "rx", price: 0.19, quantity: 1 },
+                            { name: "Metformin", type: "rx", price: 0.30, quantity: 1 }
+                        ],
+                        total: 0.49,
+                        paymentMethod: "Card",
+                        cashier: "keli"
+                    },
+                    {
+                        id: "TXN003",
+                        date: "2024-01-15 16:20:45", 
+                        customer: "maramba",
+                        items: [
+                            { name: "Ibuprofen", type: "otc", price: 0.70, quantity: 1 },
+                            { name: "Cetirizine", type: "otc", price: 0.22, quantity: 2 }
+                        ],
+                        total: 1.14,
+                        paymentMethod: "GCash",
+                        cashier: "dean"
+                    },
+                    {
+                        id: "TXN004",
+                        date: "2024-01-15 17:10:30",
+                        customer: "eded",
+                        items: [
+                            { name: "Atorvastatin", type: "rx", price: 0.90, quantity: 1 },
+                            { name: "Losartan", type: "rx", price: 0.51, quantity: 1 }
+                        ],
+                        total: 1.41,
+                        paymentMethod: "Cash",
+                        cashier: "asasasa"
+                    },
+                    {
+                        id: "TXN005",
+                        date: "2024-01-15 18:05:15",
+                        customer: "sasasas",
+                        items: [
+                            { name: "Loratadine", type: "otc", price: 0.85, quantity: 1 },
+                            { name: "Naproxen", type: "otc", price: 4.03, quantity: 1 }
+                        ],
+                        total: 4.88,
+                        paymentMethod: "Card",
+                        cashier: "hohoho"
+                    }
+                ];
+
+                // Available items for exchange
+                const availableItems = [
+                    { name: "Aspirin", price: 0.44, type: "otc" },
+                    { name: "Paracetamol", price: 0.34, type: "otc" },
+                    { name: "Ibuprofen", price: 0.70, type: "otc" },
+                    { name: "Cetirizine", price: 0.22, type: "otc" },
+                    { name: "Loratadine", price: 0.85, type: "otc" },
+                    { name: "Naproxen", price: 4.03, type: "otc" }
+                ];
+
+                let filteredTransactions = transactions;
+                let selectedTransaction = null;
+
+                // Display transactions
+                function displayTransactions(transactionsToShow) {
+                    const transactionList = $('#TransactionList');
+                    transactionList.empty();
+
+                    if (transactionsToShow.length === 0) {
+                        transactionList.html('<div class="no-transactions">No transactions found</div>');
+                        return;
+                    }
+
+                    transactionsToShow.forEach(transaction => {
+                        const hasOTC = transaction.items.some(item => item.type === 'otc');
+                        const exchangeButton = hasOTC ? 
+                            `<button class="exchange-btn" data-transaction-id="${transaction.id}">Exchange Item</button>` : 
+                            '<span class="no-exchange">RX Only</span>';
+
+                        const itemsList = transaction.items.map(item => 
+                            `<div class="transaction-item">
+                                <span class="item-name">${item.name}</span>
+                                <span class="item-type ${item.type}">${item.type.toUpperCase()}</span>
+                                <span class="item-quantity">Qty: ${item.quantity}</span>
+                                <span class="item-price">₱${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>`
+                        ).join('');
+
+                        const transactionCard = `
+                            <div class="transaction-card">
+                                <div class="transaction-header">
+                                    <div class="transaction-id">${transaction.id}</div>
+                                    <div class="transaction-date">${transaction.date}</div>
+                                </div>
+                                <div class="transaction-details">
+                                    <div class="customer-info">
+                                        <strong>Customer:</strong> ${transaction.customer}
+                                    </div>
+                                    <div class="items-section">
+                                        <strong>Items:</strong>
+                                        <div class="items-list">${itemsList}</div>
+                                    </div>
+                                    <div class="transaction-total">
+                                        <strong>Total: ₱${transaction.total.toFixed(2)}</strong>
+                                        <span class="payment-method">${transaction.paymentMethod}</span>
+                                    </div>
+                                    <div class="transaction-actions">
+                                        ${exchangeButton}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        transactionList.append(transactionCard);
+                    });
+                }
+
+                // Search functionality
+                $('#SearchBtn').on('click', function() {
+                    const searchTerm = $('#TransactionSearch').val().toLowerCase();
+                    if (searchTerm) {
+                        filteredTransactions = transactions.filter(t => t.id.toLowerCase().includes(searchTerm));
+                    } else {
+                        filteredTransactions = transactions;
+                    }
+                    applyFilter();
+                });
+
+                $('#TransactionSearch').on('keypress', function(e) {
+                    if (e.which === 13) {
+                        $('#SearchBtn').click();
+                    }
+                });
+
+                // Filter functionality
+                $('#ItemTypeFilter').on('change', function() {
+                    applyFilter();
+                });
+
+                function applyFilter() {
+                    const filter = $('#ItemTypeFilter').val();
+                    let filtered = filteredTransactions;
+
+                    if (filter === 'otc') {
+                        filtered = filtered.filter(t => t.items.some(item => item.type === 'otc'));
+                    } else if (filter === 'rx') {
+                        filtered = filtered.filter(t => t.items.some(item => item.type === 'rx'));
+                    }
+
+                    displayTransactions(filtered);
+                }
+
+                // Exchange functionality
+                $(document).on('click', '.exchange-btn', function() {
+                    const transactionId = $(this).data('transaction-id');
+                    selectedTransaction = transactions.find(t => t.id === transactionId);
+                    
+                    if (selectedTransaction) {
+                        openExchangeModal();
+                    }
+                });
+
+                function openExchangeModal() {
+                    // Populate original item info
+                    const otcItems = selectedTransaction.items.filter(item => item.type === 'otc');
+                    const originalItemHtml = otcItems.map(item => 
+                        `<div class="item-detail">
+                            <strong>${item.name}</strong> - Qty: ${item.quantity} - ₱${(item.price * item.quantity).toFixed(2)}
+                        </div>`
+                    ).join('');
+                    $('#OriginalItemInfo').html(originalItemHtml);
+
+                    // Populate new item select
+                    const newItemSelect = $('#NewItemSelect');
+                    newItemSelect.empty();
+                    newItemSelect.append('<option value="">Choose replacement item...</option>');
+                    availableItems.forEach(item => {
+                        newItemSelect.append(`<option value="${item.name}" data-price="${item.price}">${item.name} - ₱${item.price.toFixed(2)}</option>`);
+                    });
+
+                    $('#ExchangeModal').css('display', 'flex').show();
+                }
+
+                // New item selection
+                $('#NewItemSelect').on('change', function() {
+                    const selectedItem = $(this).find('option:selected');
+                    const itemName = selectedItem.val();
+                    const itemPrice = parseFloat(selectedItem.data('price'));
+
+                    if (itemName) {
+                        const originalTotal = selectedTransaction.items
+                            .filter(item => item.type === 'otc')
+                            .reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                        
+                        const priceDiff = itemPrice - originalTotal;
+                        const differenceText = priceDiff > 0 ? 
+                            `Customer owes: ₱${priceDiff.toFixed(2)}` : 
+                            `Refund to customer: ₱${Math.abs(priceDiff).toFixed(2)}`;
+
+                        $('#NewItemInfo').html(`
+                            <div class="new-item-detail">
+                                <strong>${itemName}</strong> - ₱${itemPrice.toFixed(2)}
+                            </div>
+                        `);
+
+                        $('#PriceDifference').html(`
+                            <div class="price-diff ${priceDiff > 0 ? 'owe' : 'refund'}">
+                                ${differenceText}
+                            </div>
+                        `);
+                    } else {
+                        $('#NewItemInfo').empty();
+                        $('#PriceDifference').empty();
+                    }
+                });
+
+                // Confirm exchange
+                $('#ConfirmExchangeBtn').on('click', function() {
+                    const newItemName = $('#NewItemSelect').val();
+                    if (!newItemName) {
+                        alert('Please select a replacement item');
+                        return;
+                    }
+
+                    const newItemPrice = parseFloat($('#NewItemSelect option:selected').data('price'));
+                    const originalTotal = selectedTransaction.items
+                        .filter(item => item.type === 'otc')
+                        .reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                    
+                    const priceDiff = newItemPrice - originalTotal;
+
+                    if (confirm(`Confirm exchange? ${priceDiff > 0 ? 'Customer owes' : 'Refund'} ₱${Math.abs(priceDiff).toFixed(2)}`)) {
+                        alert('Exchange processed successfully!');
+                        $('#ExchangeModal').hide();
+                        // Here you would update the transaction in your backend
+                    }
+                });
+
+                // Cancel exchange
+                $('#CancelExchangeBtn').on('click', function() {
+                    $('#ExchangeModal').hide();
+                });
+
+                // Initialize display
+                displayTransactions(transactions);
+            });
+        </script>
     </body>
 </html>

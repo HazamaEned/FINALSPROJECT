@@ -1,0 +1,196 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Settings</title>
+        <script src="jquery.js"></script>
+        <script src="jquery-ui-1.14.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="settings.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div id="sidebar-header">
+                <img id="apollogo" src="logomed.png" alt="apollogo">
+            </div>
+            <nav id="sidebar-nav">
+                <a href="#" class="nav-item" onclick="goBack()">
+                    <img src="icons/previous.png" alt="Back" class="nav-icon">
+                </a>
+            </nav>
+            <div id="sidebar-footer">
+                <a href="login.html" class="nav-item">
+                    <img src="icons/power-off.png" alt="Logout" class="nav-icon">
+                </a>
+            </div>
+        </div>
+
+        <div id="main-content">
+            <div id="SettingsContainer">
+                <div id="SettingsHeader">
+                    <h2>Settings</h2>
+                    <p>Manage your POS system preferences and configurations</p>
+                </div>
+                
+                <div id="SettingsContent">
+                    <!-- General Settings -->
+                    <div class="settings-section">
+                        <h3>General Settings</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <label for="storeName">Store Name</label>
+                                <input type="text" id="storeName" value="Apollo Pharmacy" placeholder="Enter store name">
+                            </div>
+                            <div class="setting-item">
+                                <label for="storeAddress">Store Address</label>
+                                <input type="text" id="storeAddress" value="123 Pasig City" placeholder="Enter store address">
+                            </div>
+                            <div class="setting-item">
+                                <label for="storePhone">Phone Number</label>
+                                <input type="text" id="storePhone" value="(02) 1234-5678" placeholder="Enter phone number">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receipt Settings -->
+                    <div class="settings-section">
+                        <h3>Receipt Settings</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <label for="receiptHeader">Receipt Header</label>
+                                <input type="text" id="receiptHeader" value="Apollo Pharmacy" placeholder="Enter receipt header">
+                            </div>
+                            <div class="setting-item">
+                                <label for="receiptFooter">Receipt Footer</label>
+                                <textarea id="receiptFooter" placeholder="Enter receipt footer message">Thank you for your purchase!</textarea>
+                            </div>
+                            <div class="setting-item">
+                                <label for="receiptWidth">Receipt Width (mm)</label>
+                                <select id="receiptWidth">
+                                    <option value="58">58mm (Standard)</option>
+                                    <option value="80">80mm (Wide)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tax Settings -->
+                    <div class="settings-section">
+                        <h3>Tax Settings</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <label for="vatRate">VAT Rate (%)</label>
+                                <input type="number" id="vatRate" value="12" min="0" max="100" step="0.1">
+                            </div>
+                            <div class="setting-item">
+                                <label for="discountRate">PWD/Senior Discount Rate (%)</label>
+                                <input type="number" id="discountRate" value="20" min="0" max="100" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Settings -->
+                    <div class="settings-section">
+                        <h3>User Settings</h3>
+                        <div class="settings-group">
+                            <div class="setting-item">
+                                <label for="cashierName">Cashier Name</label>
+                                <input type="text" id="cashierName" value="Edlon Manaloto" placeholder="Enter cashier name">
+                            </div>
+                            <div class="setting-item">
+                                <label for="autoLogout">Auto Logout (minutes)</label>
+                                <input type="number" id="autoLogout" value="30" min="5" max="480">
+                            </div>
+                        </div>
+                    </div>
+
+               
+
+                    <!-- Action Buttons -->
+                    <div class="settings-actions">
+                        <button id="SaveSettingsBtn" class="btn-primary">Save Settings</button>
+                        <button id="ResetSettingsBtn" class="btn-secondary">Reset to Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            // Navigation function
+            function goBack() {
+                // Check if user came from cashier or admin interface
+                if (document.referrer.includes('cashier-ui.html')) {
+                    window.location.href = 'cashier-ui.html';
+                } else if (document.referrer.includes('admin.html')) {
+                    window.location.href = 'admin.html';
+                } else {
+                    // Default fallback
+                    window.history.back();
+                }
+            }
+
+            $(document).ready(function() {
+                // Save settings
+                $('#SaveSettingsBtn').on('click', function() {
+                    const settings = {
+                        storeName: $('#storeName').val(),
+                        storeAddress: $('#storeAddress').val(),
+                        storePhone: $('#storePhone').val(),
+                        receiptHeader: $('#receiptHeader').val(),
+                        receiptFooter: $('#receiptFooter').val(),
+                        receiptWidth: $('#receiptWidth').val(),
+                        vatRate: parseFloat($('#vatRate').val()),
+                        discountRate: parseFloat($('#discountRate').val()),
+                        cashierName: $('#cashierName').val(),
+                        autoLogout: parseInt($('#autoLogout').val()),
+                       
+                    };
+                    
+                    // Here you would save to localStorage or send to server
+                    localStorage.setItem('posSettings', JSON.stringify(settings));
+                    alert('Settings saved successfully!');
+                });
+
+                // Reset settings
+                $('#ResetSettingsBtn').on('click', function() {
+                    if (confirm('Are you sure you want to reset all settings to default?')) {
+                        // Reset to default values
+                        $('#storeName').val('PharmaCare Pharmacy');
+                        $('#storeAddress').val('123 Main Street, Pasig City');
+                        $('#storePhone').val('(02) 1234-5678');
+                        $('#receiptHeader').val('PharmaCare Pharmacy');
+                        $('#receiptFooter').val('Thank you for your purchase!');
+                        $('#receiptWidth').val('58');
+                        $('#vatRate').val('12');
+                        $('#discountRate').val('20');
+                        $('#cashierName').val('Edlon Manaloto');
+                        $('#autoLogout').val('30');
+                        
+                        localStorage.removeItem('posSettings');
+                        alert('Settings reset to default!');
+                    }
+                });
+
+
+                // Load saved settings
+                const savedSettings = localStorage.getItem('posSettings');
+                if (savedSettings) {
+                    const settings = JSON.parse(savedSettings);
+                    $('#storeName').val(settings.storeName || 'PharmaCare Pharmacy');
+                    $('#storeAddress').val(settings.storeAddress || '123 Main Street, Pasig City');
+                    $('#storePhone').val(settings.storePhone || '(02) 1234-5678');
+                    $('#receiptHeader').val(settings.receiptHeader || 'PharmaCare Pharmacy');
+                    $('#receiptFooter').val(settings.receiptFooter || 'Thank you for your purchase!');
+                    $('#receiptWidth').val(settings.receiptWidth || '58');
+                    $('#vatRate').val(settings.vatRate || 12);
+                    $('#discountRate').val(settings.discountRate || 20);
+                    $('#cashierName').val(settings.cashierName || 'Edlon Manaloto');
+                    $('#autoLogout').val(settings.autoLogout || 30);
+                }
+            });
+        </script>
+    </body>
+</html>

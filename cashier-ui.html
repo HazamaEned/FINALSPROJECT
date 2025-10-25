@@ -1,11 +1,13 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Cashier UI</title>
-    <script src="jquery.js"></script>
-    <script src="jquery-ui-1.14.1/jquery-ui.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier Interface</title>
     <link rel="stylesheet" href="cashier-ui.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         /* --- Minimal print styling for the receipt (58mm thermal layout) --- */
@@ -36,413 +38,350 @@
         #PrintableReceipt { display:none; }
     </style>
 </head>
-
 <body>
-    <div id="topnav">
-        <div id="lefttopnav">
-            <b style="font-size: 2vh;">POS Logo</b>
-            <a href="cashier-ui.html" style="background-color: #065f46; color: white;">Cashier UI</a>
-            <a href="cashier-transaction-history.html">Transaction History</a>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <img id="apollogo" src="logomed.png" alt="apollogo">
         </div>
-        <div id="CashierName">
-            Welcome, <b>Cashier Name</b>
-        </div>
-        <div id="righttopnav">
-            <a href="#">Log Out</a>
+        <nav id="sidebar-nav">
+            <a href="#" class="nav-item active">
+                <img src="icons/pos.png" alt="POS" class="nav-icon">
+            </a>
+            <a href="cashier-transaction-history.html" class="nav-item">
+                <img src="icons/history.png" alt="History" class="nav-icon">
+            </a>
+            <a href="settings.html" class="nav-item">
+                <img src="icons/setting.png" alt="Settings" class="nav-icon">
+            </a>
+        </nav>
+        <div id="sidebar-footer">
+            <a href="login.html" class="nav-item">
+                <img src="icons/power-off.png" alt="Logout" class="nav-icon">
+            </a>
         </div>
     </div>
 
-    <div id="CashierUIContainer">
-        <div id="LeftArea">
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Top Navigation -->
+        <div id="topnav">
+        </div>
 
+        <!-- Cashier UI Container -->
+        <div id="CashierUIContainer">
+            <!-- Left Area -->
+            <div id="LeftArea">
+                <!-- Products Panel -->
+                <div id="Products" class="panel">
+                    <div id="ProductSearch">Product Search</div>
+                    <div id="SearchBarContainer">
+                        <input type="text" id="SearchBar" placeholder="Search products...">
+                    </div>
+                    <div id="ProductGrid">
+                        <!-- Product cards will be dynamically added here -->
+                    </div>
+        </div>
+    </div>
+
+            <!-- Right Area -->
+            <div id="RightArea">
+                <!-- Customer Details Panel -->
             <div id="CustomerDetailsContainer" class="panel">
-                <div id="CustomerDetailsTitle">CUSTOMER DETAILS</div>
+                    <div id="CustomerDetailsTitle">Customer Details</div>
                 <div id="CustomerDetails">
                     <div class="info">
-                        <div>Customer Type:</div>
-                        <div id="CustomerType">Regular</div>
-                        <div>ID Number:</div>
-                        <div id="IdNumber">N/A</div>
-                        <div>Name:</div>
-                        <div id="CustomerName">Generic Customer</div>
+                            <div class="info-row">
+                                <span class="info-label">Customer Type:</span>
+                                <span class="info-value" id="CustomerType">Regular</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">ID Number:</span>
+                                <span class="info-value" id="CustomerIdNumber">N/A</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value" id="CustomerName">Generic Customer</span>
+                            </div>
                     </div>
 
-                    <div class="details">
                         <div id="IdImageContainer">
-                            <img id="IdPreview" src="" alt="No Image" style="width:100%; height:auto; display:none; border-radius:8px;">
-                            <input type="file" id="IdImageInput" accept="image/*" style="display:none;">
+                            <div id="IdImagePreview"></div>
                             <button id="UploadIdBtn">Upload ID Image</button>
-                            <button id="RemoveIdBtn" style="display:none;">Remove Image</button>
+                            <button id="RemoveIdBtn" style="display: none;">Remove</button>
                         </div>
 
                         <div id="ScanButtonContainer">
-                            <button>SCAN ID</button>
+                            <button id="ScanIdBtn">SCAN ID</button>
                         </div>
 
                         <div id="ApplyDiscountContainer">
-                            APPLY PWD/SENIOR CITIZEN DISCOUNT <input type="checkbox" id="ApplyDiscountCheckBox">
-                        </div>
+                            <input type="checkbox" id="ApplyDiscount">
+                            <label for="ApplyDiscount">APPLY PWD/SENIOR CITIZEN DISCOUNT</label>
                     </div>
                 </div>
             </div>
 
-            <div id="Products">
-                <div id="ProductSearch"><b>PRODUCT SEARCH</b></div>
-                <div id="SearchBarContainer">
-                    <input type="text" id="SearchInput" placeholder="Search products and brands">
+                <!-- Process Panel -->
+                <div id="Process" class="panel">
+                    <div id="ReceiptTitle">Receipt</div>
+                    <div id="ReceiptList">
+                        <!-- Receipt items will be dynamically added here -->
                 </div>
-
-                <div id="ProductGrid"></div>
+                    <div id="ReceiptTotal">
+                        Total: ₱<span id="TotalAmount">0.00</span>
             </div>
+                    <div id="ReceiptButtons">
+                        <div>
+                            <button id="ProcessPaymentBtn">Process Payment</button>
+                            <button id="ResetReceiptBtn">Reset</button>
         </div>
-
-        <div id="Process" class="panel">
-            <div id="ReceiptTitle"><b>RECEIPT</b></div>
-
-            <div id="ReceiptList"></div>
-
-            <div id="ReceiptTotal">
-                <b>Total: ₱<span id="TotalAmount">0.00</span></b>
+                        <button id="SendToPharmacistBtn">Send to Pharmacist</button>
             </div>
-
-           <div id="ReceiptButtons" style="display:flex; flex-direction:column; gap:8px;">
-                <div style="display:flex; gap:8px;">
-                    <button id="ResetReceiptBtn" style="flex:1;">Reset Receipt</button>
-                    <button id="ProcessPaymentBtn" style="flex:1;">Process Payment</button>
                 </div>
-                <button id="SendToPharmacistBtn" >Send to Pharmacist</button>
             </div>
-
         </div>
     </div>
 
     <!-- Payment Modal -->
-    <div id="PaymentModal" class="modal" style="display:none;">
+    <div id="PaymentModal" class="modal">
         <div class="modal-content">
             <h2>Payment Summary</h2>
-            <div id="PaymentDetails"></div>
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 15px 0;">
+            <div id="PaymentDetails">
+                <p><b>Gross Subtotal:</b> ₱<span id="GrossSubtotal">0.00</span></p>
+                <p><b>VATable Amount:</b> ₱<span id="VATableAmount">0.00</span></p>
+                <p><b>VAT (12%):</b> ₱<span id="VATAmount">0.00</span></p>
+            </div>
+            <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 15px 0;">
+            <div id="TotalDue">
+                <p><b>Total Due:</b> ₱<span id="ModalTotalAmount">0.00</span></p>
+            </div>
 
             <div class="payment-method-section">
                 <h3>Select Payment Method</h3>
                 <select id="PaymentMethod">
                     <option value="cash">Cash</option>
+                    <option value="card">Card</option>
                     <option value="gcash">GCash</option>
-                    <option value="paymaya">PayMaya</option>
-                    <option value="bank">Bank Transfer</option>
                 </select>
             </div>
 
-            <!-- Cash input area (hidden by default) -->
-            <div id="CashInputSection" style="display:none; margin-top: 15px;">
-                <label for="CashGiven"><b>Cash Given:</b></label>
-                <input type="number" id="CashGiven" min="0" placeholder="Enter cash amount">
-                <p id="ChangeDisplay"><b>Change:</b> ₱0.00</p>
+            <div id="CashInputSection">
+                <label for="CashAmount"><b>Cash Given:</b></label>
+                <input type="number" id="CashAmount" step="0.01" min="0" placeholder="Enter cash amount">
+                <div id="ChangeDisplay"><b>Change:</b> ₱0.00</div>
             </div>
 
-            <div class="modal-actions" style="margin-top:12px;">
+            <div class="modal-actions">
                 <button id="ConfirmPaymentBtn">Confirm Payment</button>
                 <button id="CancelPaymentBtn">Cancel</button>
             </div>
         </div>
     </div>
 
+    <!-- Hidden printable area (must be present before </body>) -->
+    <div id="PrintableReceipt" style="display:none;"></div>
+
+    <script src="jquery.js"></script>
+    <script src="jquery-ui-1.14.1/jquery-ui.js"></script>
     <script>
-    (function($){
-        // Single unified script for behavior
+        // Drug data
+      const drugs = [
+  { name: "Paracetamol", price: 4.24, form: "500mg Tablet", type: "otc" },
+  { name: "Ibuprofen", price: 6.50, form: "200mg Tablet", type: "otc" },
+  { name: "Naproxen", price: 23.00, form: "550mg Tablet", type: "otc" },
+  { name: "Aspirin", price: 1.58, form: "30mg Tablet", type: "otc" },
+  { name: "Aspirin", price: 2.63, form: "100mg Tablet", type: "otc" },
+  { name: "Diclofenac", price: 1.84, form: "50mg Tablet", type: "rx" },
+  { name: "Amlodipine", price: 6.04, form: "5mg Tablet", type: "rx" },
+  { name: "Losartan", price: 4.99, form: "50mg Tablet", type: "rx" },
+  { name: "Atenolol", price: 3.68, form: "50mg Tablet", type: "rx" },
+  { name: "Metoprolol", price: 3.41, form: "100mg Tablet", type: "rx" },
+  { name: "Enalapril", price: 5.78, form: "5mg Tablet", type: "rx" },
+  { name: "Enalapril", price: 7.09, form: "10mg Tablet", type: "rx" },
+  { name: "Simvastatin", price: 5.25, form: "20mg Tablet", type: "rx" },
+  { name: "Atorvastatin", price: 12.08, form: "20mg Tablet", type: "rx" },
+  { name: "Rosuvastatin", price: 16.80, form: "20mg Tablet", type: "rx" },
+  { name: "Metformin", price: 2.10, form: "500mg Tablet", type: "rx" },
+  { name: "Ganoderma Ginseng", price: 11.50, form: "400mg Capsule", type: "otc" },
+  { name: "Glimepiride", price: 16.50, form: "3mg Tablet", type: "rx" },
+  { name: "Clopidrogel", price: 11.55, form: "75mg Tablet", type: "rx" },
+  { name: "Dexamethasone", price: 2.36, form: "500mcg Tablet", type: "rx" },
+  { name: "Amoxicillin", price: 4.46, form: "500mg Capsule", type: "rx" },
+  { name: "Co-amoxiclav", price: 42.00, form: "500mg/125mg Tablet", type: "rx" },
+  { name: "Azithromycin", price: 122.00, form: "500mg Tablet", type: "rx" },
+  { name: "Clarithromycin", price: 31.50, form: "500mg Tablet", type: "rx" },
+  { name: "Levofloxacin", price: 29.66, form: "500mg Tablet", type: "rx" },
+  { name: "Doxofylline", price: 19.50, form: "200mg Tablet", type: "rx" },
+  { name: "Cefalexin", price: 8.93, form: "250mg Capsule", type: "rx" },
+  { name: "Clindamycin", price: 9.71, form: "150mg Capsule", type: "rx" },
+  { name: "Trimetazidine", price: 12.34, form: "35mg Tablet", type: "rx" },
+  { name: "Metronidazole", price: 2.75, form: "500mg Tablet", type: "rx" },
+  { name: "Omeprazole", price: 6.30, form: "20mg Capsule", type: "rx" },
+  { name: "Esomeprazole", price: 26.25, form: "40mg Tablet", type: "rx" },
+  { name: "Ranitidine", price: 3.15, form: "150mg Tablet", type: "rx" },
+  { name: "Antacid", price: 4.20, form: "300mg/200mg ChewTablet", type: "otc" },
+  { name: "Salbutamol", price: 49.35, form: "60ml Syrup", type: "rx" },
+  { name: "Salbutamol", price: 1.84, form: "2mg Tablet", type: "rx" },
+  { name: "Furesomide", price: 2.89, form: "20mg Tablet", type: "rx" },
+  { name: "Fluticasone Propionate", price: 342.50, form: "0.05% 5g Cream", type: "rx" },
+  { name: "Montelukast", price: 17.85, form: "5mg Tablet", type: "rx" },
+  { name: "Cetirizine", price: 2.63, form: "10mg Tablet", type: "otc" },
+  { name: "Loratadine", price: 5.00, form: "10mg Tablet", type: "otc" },
+  { name: "Chlorpheniramine", price: 2.63, form: "5mg Tablet", type: "otc" },
+  { name: "Domperidone", price: 5.51, form: "10mg Tablet", type: "rx" },
+  { name: "Dextromethorphan", price: 1.75, form: "10mg Tablet", type: "otc" },
+  { name: "Diazepam", price: 11.00, form: "5mg Tablet", type: "rx" },
+  { name: "Fluoxetine", price: 41.25, form: "20mg Capsule", type: "rx" },
+  { name: "Sertraline", price: 44.00, form: "50mg Tablet", type: "rx" },
+  { name: "Hydrochlorothiazide", price: 4.90, form: "12.5mg Tablet", type: "rx" },
+  { name: "Spironolactone", price: 6.50, form: "25mg Tablet", type: "rx" },
+  { name: "Warfarin", price: 26.50, form: "1mg Tablet", type: "rx" },
+  { name: "Ferrous sulfate", price: 2.25, form: "60mg Tablet", type: "otc" },
+  { name: "Folic acid", price: 3.50, form: "5mg Capsule", type: "otc" },
+  { name: "Vitamin C", price: 2.50, form: "100mg Tablet", type: "otc" },
+  { name: "Multivitamin", price: 10.75, form: "Tablet", type: "otc" },
+  { name: "Calcium carbonate", price: 2.75, form: "500mg Tablet", type: "otc" },
+  { name: "Methylprednisolone", price: 9.00, form: "4mg Tablet", type: "rx" },
+  { name: "Hydrocortisone", price: 140.00, form: "1% 5g Tube", type: "rx" },
+  { name: "Mupirocin", price: 162.00, form: "2% 5g Tube", type: "rx" },
+  { name: "Clotrimazole", price: 136.00, form: "1% 3.5g Tube", type: "rx" },
+  { name: "Fluconazole", price: 171.75, form: "50mg Capsule", type: "rx" },
+  { name: "Ketoconazole", price: 136.50, form: "2% 15g Cream", type: "rx" },
+  { name: "Loperamide", price: 8.75, form: "2mg Capsule", type: "otc" },
+  { name: "Oral rehydration salts", price: 16.50, form: "2.17g Sachet", type: "otc" },
+  { name: "Sitagliptin", price: 19.00, form: "50mg Tablet", type: "rx" },
+  { name: "Empagliflozin", price: 53.75, form: "10mg Tablet", type: "rx" },
+  { name: "Allopurinol", price: 1.75, form: "100mg Tablet", type: "rx" },
+  { name: "Colchicine", price: 3.50, form: "500mcg Tablet", type: "rx" },
+  { name: "Chloramphenicol", price: 5.00, form: "500mg Capsule", type: "rx" },
+  { name: "Tetracycline", price: 10.50, form: "500mg Capsule", type: "rx" },
+  { name: "Prednisolone", price: 210.00, form: "1% 5ml Bottle", type: "rx" },
+  { name: "Benzathine penicillin G", price: 259.00, form: "1.2m units Solution Vial", type: "rx" },
+  { name: "Clotrimazole", price: 130.20, form: "1% 20g Cream", type: "rx" },
+  { name: "Dibencozide", price: 51.25, form: "3mg Capsule", type: "rx" },
+  { name: "Salicylic acid", price: 22.00, form: "10% 15ml Bottle", type: "otc" },
+  { name: "Benzoyl peroxide", price: 523.50, form: "15g Bottle", type: "rx" },
+  { name: "Sildenafil", price: 49.00, form: "50mg Tablet", type: "rx" },
+  { name: "Tamsulosin", price: 37.01, form: "400mcg Tablet", type: "rx" },
+  { name: "Finasteride", price: 27.04, form: "5mg Tablet", type: "rx" },
+  { name: "Meclizine", price: 14.75, form: "25mg ChewTablet", type: "otc" },
+  { name: "Potassium citrate", price: 11.00, form: "1080mg ERTablet", type: "rx" },
+  { name: "Ondansetron", price: 107.00, form: "8mg Tablet", type: "rx" },
+  { name: "Sodium bicarbonate", price: 200.00, form: "650mg Tablet", type: "otc" },
+  { name: "Pantoprazole", price: 9.71, form: "40mg Tablet", type: "rx" },
+  { name: "Mefenamic", price: 3.15, form: "500mg Tablet", type: "otc" },
+  { name: "Piracetam", price: 10.50, form: "800mg Tablet", type: "rx" },
+  { name: "Ibuprofen + Paracetamol", price: 10.00, form: "200mg Tablet", type: "otc" },
+  { name: "Lagundi", price: 121.20, form: "600mg/5ml Bottle", type: "otc" },
+  { name: "Oxymetazoline", price: 185.75, form: "10ml Bottle", type: "otc" }
+];
 
-        const drugs = [
-            { name: "Amlodipine", price: 0.19, form: "5 mg Tablet", type: "rx" },
-            { name: "Amoxicillin", price: 1.38, form: "500 mg Capsule", type: "rx" },
-            { name: "Aspirin", price: 0.44, form: "80 mg Tablet", type: "otc" },
-            { name: "Atenolol", price: 1.00, form: "50 mg Tablet", type: "rx" },
-            { name: "Atorvastatin", price: 0.90, form: "10 mg Tablet", type: "rx" },
-            { name: "Azithromycin", price: 5.29, form: "500 mg Tablet", type: "rx" },
-            { name: "Cephalexin", price: 2.50, form: "500 mg Capsule", type: "rx" },
-            { name: "Cetirizine", price: 0.22, form: "10 mg Tablet", type: "otc" },
-            { name: "Clindamycin", price: 3.79, form: "300 mg Capsule", type: "rx" },
-            { name: "Clopidogrel", price: 0.53, form: "75 mg Tablet", type: "rx" },
-            { name: "Enalapril", price: 2.48, form: "5 mg Tablet", type: "rx" },
-            { name: "Fluoxetine", price: 11.89, form: "20 mg Capsule", type: "rx" },
-            { name: "Hydrocortisone", price: 14.43, form: "50 mg/mL, 2 mL Vial", type: "rx" },
-            { name: "Ibuprofen", price: 0.70, form: "400 mg Tablet", type: "otc" },
-            { name: "Insulin", price: 107.90, form: "Regular Insulin 100 IU/mL, 10 mL Vial", type: "rx" },
-            { name: "Levothyroxine", price: 1.90, form: "50 mcg Tablet", type: "rx" },
-            { name: "Loratadine", price: 0.85, form: "10 mg Tablet", type: "otc" },
-            { name: "Losartan", price: 0.51, form: "50 mg Tablet", type: "rx" },
-            { name: "Metformin", price: 0.30, form: "500 mg Tablet", type: "rx" },
-            { name: "Metoprolol", price: 0.60, form: "50 mg Tablet", type: "rx" },
-            { name: "Montelukast", price: 1.90, form: "10 mg Tablet", type: "rx" },
-            { name: "Naproxen", price: 4.03, form: "550 mg Tablet", type: "otc" },
-            { name: "Omeprazole", price: 18.89, form: "40 mg Vial", type: "rx" },
-            { name: "Pantoprazole", price: 5.34, form: "40 mg Tablet", type: "rx" },
-            { name: "Paracetamol", price: 0.34, form: "500 mg Tablet", type: "otc" },
-            { name: "Ranitidine", price: 0.88, form: "150 mg Tablet", type: "rx" },
-            { name: "Rosuvastatin", price: 1.89, form: "10 mg Tablet", type: "rx" },
-            { name: "Salbutamol", price: 1.94, form: "1 mg/mL Respiratory Solution Ampule", type: "rx" },
-            { name: "Sertraline", price: 4.38, form: "50 mg Tablet", type: "rx" },
-            { name: "Simvastatin", price: 0.72, form: "20 mg Tablet", type: "rx" }
-        ];
+     
 
-        const receipt = [];
+        let cart = [];
+        let totalAmount = 0;
 
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#39;");
-        }
-
-        function displayProducts(list) {
-            $("#ProductGrid").empty();
-            list.forEach(p => {
-                const tag = p.type === 'rx' ? 'RX' : 'OTC';
-                $("#ProductGrid").append(`
-                    <div class="product-card" data-name="${escapeHtml(p.name)}" data-price="${p.price}">
-                        <div class="product-header">
-                            <span class="product-type ${p.type}" style="font-weight:700; color:#065f46">${tag}</span>
-                        </div>
-                        <div class="product-name">${escapeHtml(p.name)}</div>
-                        <div class="product-info">₱${p.price.toFixed(2)}</div>
-                        <div class="product-info">${escapeHtml(p.form)}</div>
-                    </div>
-                `);
-            });
-        }
-
-        function resetPaymentModal() {
-            $("#PaymentMethod").val("cash");
-            $("#CashGiven").val("");
-            $("#ChangeDisplay").text("");
-            $("#CashInputSection").hide();
-        }
-
-        function updateReceipt() {
-            $("#ReceiptList").empty();
-            let total = 0;
-            let hasRx = false; // check for RX items
-
-            receipt.forEach((item, index) => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-
-                // Check if the product is prescription (rx)
-                const product = drugs.find(d => d.name === item.name);
-                if (product && product.type === "rx") {
-                    hasRx = true;
-                }
-
-                $("#ReceiptList").append(`
-                    <div class="receipt-item" data-index="${index}">
-                        <div class="item-name">${item.name}</div>
-                        <div class="item-qty">
-                            <button class="qty-btn minus">−</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn plus">+</button>
-                        </div>
-                        <div class="item-price">₱${itemTotal.toFixed(2)}</div>
-                    </div>
-                `);
-            });
-
-            $("#TotalAmount").text(total.toFixed(2));
-
-            // Show/hide Send to Pharmacist button
-            if (hasRx) {
-                $("#SendToPharmacistBtn").show();
-            } else {
-                $("#SendToPharmacistBtn").hide();
-            }
-        }
-
-
-        // DOM ready
-        $(function(){
-
-            // display initial products
-            displayProducts(drugs);
-
-            // Search
-            $("#SearchInput").on("input", function(){
-                const q = $(this).val().toLowerCase();
-                const filtered = drugs.filter(p =>
-                    p.name.toLowerCase().includes(q) ||
-                    p.form.toLowerCase().includes(q)
-                );
-                displayProducts(filtered);
-            });
-
-            // Upload ID logic
-            $("#UploadIdBtn").click(function(){
-                if (!$(this).prop("disabled")) {
-                    $("#IdImageInput").click();
-                }
-            });
-
-            $("#IdImageInput").change(function(event){
-                const file = event.target.files[0];
-                if(file){
-                    const reader = new FileReader();
-                    reader.onload = function(e){
-                        $("#IdPreview").attr("src", e.target.result).show();
-                        $("#UploadIdBtn").hide();
-                        $("#RemoveIdBtn").show();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-
-            $("#RemoveIdBtn").click(function(){
-                $("#IdPreview").attr("src", "").hide();
-                $("#IdImageInput").val("");
-                $("#UploadIdBtn").show();
-                $("#RemoveIdBtn").hide();
-            });
-
-            // Toggle enable/disable for ID and Scan buttons
-            const toggleControls = function(isEnabled) {
-                $("#UploadIdBtn, #RemoveIdBtn, #ScanButtonContainer button")
-                    .prop("disabled", !isEnabled)
-                    .css({
-                        "opacity": isEnabled ? "1" : "0.5",
-                        "cursor": isEnabled ? "pointer" : "not-allowed"
-                    });
-            };
-
-            // Initially disabled
-            toggleControls(false);
-
-            // Enable only when checkbox is checked
-            $("#ApplyDiscountCheckBox").change(function(){
-                toggleControls($(this).is(":checked"));
-            });
-
-            // Add product when clicked
-            $("#ProductGrid").on("click", ".product-card", function() {
-                const name = $(this).data("name");
-                const price = parseFloat($(this).data("price"));
-                const existing = receipt.find(item => item.name === name);
-
-                if (existing) {
-                    existing.qty++;
-                } else {
-                    receipt.push({ name, price, qty: 1 });
-                }
-                updateReceipt();
-            });
-
-            // Quantity buttons
-            $("#ReceiptList").on("click", ".qty-btn", function() {
-                const index = $(this).closest(".receipt-item").data("index");
-                if ($(this).hasClass("plus")) {
-                    receipt[index].qty++;
-                } else if ($(this).hasClass("minus")) {
-                    receipt[index].qty--;
-                    if (receipt[index].qty <= 0) {
-                        receipt.splice(index, 1);
-                    }
-                }
-                updateReceipt();
-            });
-
-            // Reset receipt
-            $("#ResetReceiptBtn").click(function(){
-                if (receipt.length === 0) {
-                    alert("No items to reset.");
-                    return;
-                }
-                if (!confirm("Clear the receipt?")) return;
-                receipt.length = 0;
-                $("#ReceiptList").empty();
-                $("#TotalAmount").text("0.00");
-            });
-
-            // Process payment: show modal
-            $("#ProcessPaymentBtn").click(function() {
-                if (receipt.length === 0) {
-                    alert("No items to process.");
-                    return;
-                }
-
-                const subtotal = receipt.reduce((s, it) => s + it.price * it.qty, 0);
-                const vat = subtotal * 0.12;
-                const hasDiscount = $("#ApplyDiscountCheckBox").is(":checked");
-                const discountRate = hasDiscount ? 0.20 : 0;
-                const discountAmount = subtotal * discountRate;
-                const totalDue = subtotal + vat - discountAmount;
-
-                window.totalDue = totalDue; // store for change calc
-
-                $("#PaymentDetails").html(`
-                    <p><b>Gross Subtotal:</b> ₱${subtotal.toFixed(2)}</p>
-                    <p><b>VATable Amount:</b> ₱${(subtotal - vat).toFixed(2)}</p>
-                    <p><b>VAT (12%):</b> ₱${vat.toFixed(2)}</p>
-                    ${hasDiscount ? `<p><b>Discount (20%):</b> -₱${discountAmount.toFixed(2)}</p>` : ""}
-                    <hr>
-                    <p><b>Total Due:</b> ₱${totalDue.toFixed(2)}</p>
-                `);
-
-                $("#PaymentModal").fadeIn(150);
-
-                // Show/hide cash input immediately depending on currently selected method
-                const currentMethod = $("#PaymentMethod").val();
-                if (currentMethod === "cash") $("#CashInputSection").show();
-                else $("#CashInputSection").hide();
+        // Initialize the interface
+        $(document).ready(function() {
+            displayProducts();
+            updateReceipt();
+            
+            // Search functionality
+            $('#SearchBar').on('input', function() {
+                const searchTerm = $(this).val().toLowerCase();
+                filterProducts(searchTerm);
             });
 
             // Payment method change
-            $(document).on("change", "#PaymentMethod", function(){
+            $('#PaymentMethod').on('change', function() {
                 const method = $(this).val();
-                if (method === "cash") $("#CashInputSection").slideDown(150);
-                else $("#CashInputSection").slideUp(150);
+                if (method === 'cash') {
+                    $('#CashInputSection').show();
+                } else {
+                    $('#CashInputSection').hide();
+                }
+            });
+            
+            // Initialize payment method on modal open
+            $('#ProcessPaymentBtn').on('click', function() {
+                if (cart.length === 0) {
+                    alert('Cart is empty!');
+                    return;
+                }
+
+                // Calculate payment details
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const vat = subtotal * 0.12;
+                const vatableAmount = subtotal - vat;
+                const hasDiscount = $('#ApplyDiscount').is(':checked');
+                const discount = hasDiscount ? subtotal * 0.20 : 0;
+                const totalDue = subtotal + vat - discount;
+                
+                // Update payment details
+                $('#GrossSubtotal').text(subtotal.toFixed(2));
+                $('#VATableAmount').text(vatableAmount.toFixed(2));
+                $('#VATAmount').text(vat.toFixed(2));
+                $('#ModalTotalAmount').text(totalDue.toFixed(2));
+                
+                // Show/hide cash input based on current selection
+                const method = $('#PaymentMethod').val();
+                if (method === 'cash') {
+                    $('#CashInputSection').show();
+                } else {
+                    $('#CashInputSection').hide();
+                }
+                
+                $('#PaymentModal').css('display', 'flex').show();
             });
 
-            // Cash given input update
-            $(document).on("input", "#CashGiven", function(){
-                const cash = parseFloat($(this).val()) || 0;
-                const change = cash - (window.totalDue || 0);
-                $("#ChangeDisplay").html(`<b>Change:</b> ₱${change >= 0 ? change.toFixed(2) : "0.00"}`);
+            // Cash amount input
+            $('#CashAmount').on('input', function() {
+                const cashAmount = parseFloat($(this).val()) || 0;
+                const total = parseFloat($('#ModalTotalAmount').text());
+                const change = cashAmount - total;
+                $('#ChangeDisplay').html(`<b>Change:</b> ₱${change >= 0 ? change.toFixed(2) : "0.00"}`);
             });
 
-            // Confirm payment -> build printable receipt, call print, reset
-            $(document).on("click", "#ConfirmPaymentBtn", function() {
-                const method = $("#PaymentMethod").val();
-                const methodName = { cash:"Cash", gcash:"GCash", paymaya:"PayMaya", bank:"Bank Transfer" }[method];
 
-                if (receipt.length === 0) {
+            // Cancel payment
+            $('#CancelPaymentBtn').on('click', function() {
+                $('#PaymentModal').hide();
+            });
+
+            // Confirm payment
+            $('#ConfirmPaymentBtn').on('click', function() {
+                const method = $('#PaymentMethod').val();
+                const methodName = { cash:"Cash", card:"Card", gcash:"GCash" }[method];
+                
+                if (cart.length === 0) {
                     alert("No items to print.");
                     return;
                 }
 
-                const subtotal = receipt.reduce((sum, it) => sum + it.price * it.qty, 0);
-                const vat = subtotal * 0.12;
-                const hasDiscount = $("#ApplyDiscountCheckBox").is(":checked");
-                const discount = hasDiscount ? subtotal * 0.20 : 0;
-                const total = subtotal + vat - discount;
-
-                // 🔹 Cash validation
-                let cashGiven = 0;
-                if (method === "cash") {
-                    cashGiven = parseFloat($("#CashGiven").val());
-                    if (isNaN(cashGiven) || cashGiven <= 0) {
-                        alert("Please enter the cash amount.");
-                        return;
-                    }
-                    if (cashGiven < total) {
-                        alert("Insufficient cash. Enter an amount equal to or greater than total.");
+                if (method === 'cash') {
+                    const cashAmount = parseFloat($('#CashAmount').val()) || 0;
+                    if (cashAmount < totalAmount) {
+                        alert('Insufficient cash amount!');
                         return;
                     }
                 }
 
-                const change = method === "cash" ? (cashGiven - total).toFixed(2) : 0;
+                // Calculate totals with VAT and discount
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const vat = subtotal * 0.12;
+                const hasDiscount = $('#ApplyDiscount').is(':checked');
+                const discount = hasDiscount ? subtotal * 0.20 : 0;
+                const total = subtotal + vat - discount;
+                const change = method === 'cash' ? (parseFloat($('#CashAmount').val()) - total).toFixed(2) : 0;
 
-                // Build printable receipt (same as your existing code)
+                // Build printable receipt
                 const inner = `
                     <div>
-                        <h2>PharmaCare Pharmacy</h2>
+                        <h2>Apollo Pharmacy</h2>
                         <div style="text-align:center; font-size:11px;">
-                            123 Main Street, Pasig City<br>
+                                Pasig City<br>
                             Tel: (02) 1234-5678
                         </div>
                         <div class="divider"></div>
@@ -450,13 +389,13 @@
                         <div class="divider"></div>
 
                         <table>
-                            ${receipt.map(item => `
+                            ${cart.map(item => `
                                 <tr>
-                                    <td colspan="2" style="text-align:left;">${escapeHtml(item.name)}</td>
+                                    <td colspan="2" style="text-align:left;">${item.name}</td>
                                 </tr>
                                 <tr>
-                                    <td style="text-align:left;">${item.qty} x ₱${item.price.toFixed(2)}</td>
-                                    <td style="text-align:right;">₱${(item.price * item.qty).toFixed(2)}</td>
+                                    <td style="text-align:left;">${item.quantity} x ₱${item.price.toFixed(2)}</td>
+                                    <td style="text-align:right;">₱${(item.price * item.quantity).toFixed(2)}</td>
                                 </tr>
                             `).join('')}
                         </table>
@@ -468,40 +407,172 @@
                             ${hasDiscount ? `<div><span>Discount (20%):</span><span>-₱${discount.toFixed(2)}</span></div>` : ''}
                             <div><strong>Total:</strong><strong>₱${total.toFixed(2)}</strong></div>
                             <div><span>Payment Method:</span><span>${methodName}</span></div>
-                            ${method === "cash" ? `<div><span>Cash Given:</span><span>₱${cashGiven.toFixed(2)}</span></div>
+                            ${method === "cash" ? `<div><span>Cash Given:</span><span>₱${parseFloat($('#CashAmount').val()).toFixed(2)}</span></div>
                                                 <div><span>Change:</span><span>₱${change}</span></div>` : ''}
                         </div>
 
                         <div class="divider"></div>
                         <div class="footer">
-                            <div>Served by: ${escapeHtml($("#CashierName").text() || "Cashier")}</div>
+                            <div>Served by: Cashier Name</div>
                             <div>Thank you for your purchase!</div>
                             <div>***************</div>
                         </div>
                     </div>
                 `;
 
-                $("#PrintableReceipt").html(inner);
-                $("#PaymentModal").fadeOut(150);
-                resetPaymentModal();
+                $('#PrintableReceipt').html(inner);
+                $('#PaymentModal').hide();
 
                 setTimeout(function(){
                     window.print();
-                    $("#PrintableReceipt").empty();
-                    receipt.length = 0;
-                    $("#ReceiptList").empty();
-                    $("#TotalAmount").text("0.00");
+                    $('#PrintableReceipt').empty();
+                    resetReceipt();
                     alert(`Payment confirmed via ${methodName}. Thank you!`);
                 }, 250);
             });
 
+            // Reset receipt
+            $('#ResetReceiptBtn').on('click', function() {
+                resetReceipt();
+            });
 
-        }); // end dom ready
-    })(jQuery);
+            // Upload ID button
+            $('#UploadIdBtn').on('click', function() {
+                // File upload logic here
+                alert('ID upload functionality would be implemented here');
+            });
+
+            // Scan ID button
+            $('#ScanIdBtn').on('click', function() {
+                // ID scanning logic here
+                alert('ID scanning functionality would be implemented here');
+            });
+
+            // Remove ID button
+            $('#RemoveIdBtn').on('click', function() {
+                $('#IdImagePreview').empty();
+                $('#UploadIdBtn').show();
+                $('#RemoveIdBtn').hide();
+            });
+        });
+
+        // Display drugs in the grid
+        function displayProducts() {
+            const productGrid = $('#ProductGrid');
+            productGrid.empty();
+            
+            drugs.forEach((drug, index) => {
+                const tag = drug.type === 'rx' ? 'RX' : 'OTC';
+                const productCard = $(`
+                    <div class="product-card" data-product-id="${index}">
+                        <div class="product-header">
+                            <span class="product-type ${drug.type}">${tag}</span>
+                        </div>
+                        <div class="product-name">${drug.name}</div>
+                        <div class="product-info">₱${drug.price.toFixed(2)}</div>
+                        <div class="product-info">${drug.form}</div>
+                    </div>
+                `);
+                
+                productCard.on('click', function() {
+                    addToCart(drug, index);
+                });
+                
+                productGrid.append(productCard);
+            });
+        }
+
+        // Filter products based on search
+        function filterProducts(searchTerm) {
+            $('.product-card').each(function() {
+                const productName = $(this).find('.product-name').text().toLowerCase();
+                if (productName.includes(searchTerm)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+
+        // Add drug to cart
+        function addToCart(drug, index) {
+            const existingItem = cart.find(item => item.id === index);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: index,
+                    name: drug.name,
+                    price: drug.price,
+                    quantity: 1
+                });
+            }
+            
+            updateReceipt();
+        }
+
+        // Update receipt display
+        function updateReceipt() {
+            const receiptList = $('#ReceiptList');
+            receiptList.empty();
+            
+            totalAmount = 0;
+            let hasRx = false; // check for RX items
+            
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                totalAmount += itemTotal;
+                
+                // Check if the product is prescription (rx)
+                const drug = drugs.find(d => d.name === item.name);
+                if (drug && drug.type === "rx") {
+                    hasRx = true;
+                }
+                
+                const receiptItem = $(`
+                    <div class="receipt-item">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-qty">
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                        </div>
+                        <div class="item-price">₱${itemTotal.toFixed(2)}</div>
+                    </div>
+                `);
+                
+                receiptList.append(receiptItem);
+            });
+            
+            $('#TotalAmount').text(totalAmount.toFixed(2));
+            
+            // Show/hide Send to Pharmacist button
+            if (hasRx) {
+                $('#SendToPharmacistBtn').show();
+            } else {
+                $('#SendToPharmacistBtn').hide();
+            }
+        }
+
+        // Update item quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.id !== productId);
+                }
+                updateReceipt();
+            }
+        }
+
+            // Reset receipt
+        function resetReceipt() {
+            cart = [];
+            totalAmount = 0;
+            updateReceipt();
+        }
     </script>
-
-    <!-- Hidden printable area (must be present before </body>) -->
-    <div id="PrintableReceipt" style="display:none;"></div>
-
 </body>
 </html>

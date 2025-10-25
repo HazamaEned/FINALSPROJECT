@@ -1,0 +1,317 @@
+/* ---------- Base Layout ---------- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Work Sans", system-ui, sans-serif;
+    background-color: #e5e7eb;
+    color: #1f2937;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ---------- Sidebar ---------- */
+#sidebar {
+    width: 80px;
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+#sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 25px;
+}
+
+#apollogo {
+    width: 66px;
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+}
+
+
+#logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #C43E38; /* Accent Red */
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+#sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.nav-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    color: #C43E38; /* Accent Red */
+}
+
+.nav-item:hover {
+    background-color: #FCE8E7; /* Light Red Hover */
+    transform: scale(1.05);
+    color: #C43E38;
+}
+
+.nav-item.active {
+    background-color: #C43E38; /* Accent Red */
+    color: white;
+    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    /* Adjusted filter for C43E38 Red */
+    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
+    transition: filter 0.2s ease;
+}
+
+.nav-item:hover .nav-icon {
+    /* Adjusted filter for C43E38 Red */
+    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
+}
+
+.nav-item.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+}
+
+#sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+/* ---------- Main Content ---------- */
+#main-content {
+    flex: 1;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #e5e7eb;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
+/*----------- Settings Container -----------*/
+#SettingsContainer {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 12px;
+    transition: 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+}
+
+#SettingsHeader {
+    padding: 20px 25px;
+    border-bottom: 2px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+
+#SettingsHeader h2 {
+    margin: 0 0 8px 0;
+    color: #C43E38; /* Accent Red */
+    font-size: 1.8rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+#SettingsHeader p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 1rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+#SettingsContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: 25px;
+    max-height: calc(100vh - 200px);
+}
+
+/* Scrollbar styling */
+#SettingsContent::-webkit-scrollbar {
+    width: 8px;
+}
+
+#SettingsContent::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+#SettingsContent::-webkit-scrollbar-thumb {
+    background-color: #C43E38; /* Accent Red */
+    border-radius: 4px;
+}
+
+#SettingsContent::-webkit-scrollbar-thumb:hover {
+    background-color: #8B2F2F; /* Darker Red */
+}
+
+/* Settings Sections */
+.settings-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.settings-section h3 {
+    margin: 0 0 20px 0;
+    color: #C43E38; /* Accent Red */
+    font-size: 1.3rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+}
+
+.settings-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.setting-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.setting-item label {
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.95rem;
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+.setting-item input,
+.setting-item select,
+.setting-item textarea {
+    padding: 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: "Work Sans", system-ui, sans-serif;
+    transition: border-color 0.2s ease;
+    background-color: #ffffff;
+}
+
+.setting-item input:focus,
+.setting-item select:focus,
+.setting-item textarea:focus {
+    outline: none;
+    border-color: #C43E38; /* Accent Red on Focus */
+    box-shadow: 0 0 0 3px rgba(196, 62, 56, 0.1);
+}
+
+.setting-item textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.setting-item input[type="number"] {
+    width: 120px;
+}
+
+/* Action Buttons */
+.settings-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-outline {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #C43E38; /* Accent Red */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #8B2F2F; /* Darker Red */
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #6b7280;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563;
+    transform: translateY(-1px);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #C43E38; /* Accent Red */
+    border: 2px solid #C43E38; /* Accent Red Border */
+}
+
+.btn-outline:hover {
+    background-color: #C43E38; /* Accent Red */
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-group {
+        gap: 15px;
+    }
+    
+    .settings-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-outline {
+        width: 100%;
+    }
+}

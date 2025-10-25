@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Interface</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <img id="apollogo" src="logomed.png" alt="apollogo">
+        </div>
+
+        <nav id="sidebar-nav">
+            <a href="#" class="nav-item active" data-tab="dashboard">
+                <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon">
+            </a>
+            <a href="account.html" class="nav-item">
+                <img src="icons/account.png" alt="Account Management" class="nav-icon">
+            </a>
+            <a href="cashier-transaction-history.html" class="nav-item">
+                <img src="icons/history.png" alt="Transaction History" class="nav-icon">
+            </a>
+            <a href="settings.html" class="nav-item">
+                <img src="icons/setting.png" alt="Settings" class="nav-icon">
+            </a>
+        </nav>
+
+        <div id="sidebar-footer">
+            <a href="login.html" class="nav-item">
+                <img src="icons/power-off.png" alt="Logout" class="nav-icon">
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content">
+        <!-- Top Navigation -->
+        <div id="topnav"></div>
+
+        <!-- Dashboard Content -->
+        <div id="DashboardContainer">
+
+            <!-- KPI Grid -->
+            <div class="kpi-grid">
+                <div class="kpi-card revenue-card">
+                    <div class="kpi-value">P000,000</div>
+                    <div class="kpi-trend positive">
+                        <span class="trend-icon">↗</span>
+                        <span>+0% Since last week</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-value">P000,000</div>
+                    <div class="kpi-label">Total Profit</div>
+                    <div class="kpi-trend positive">
+                        <span class="trend-icon">↗</span>
+                        <span>+0% Since last week</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-value">P000,000</div>
+                    <div class="kpi-label">Total Cost</div>
+                    <div class="kpi-trend negative">
+                        <span class="trend-icon">↘</span>
+                        <span>-0% Since last week</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-value">P000,000</div>
+                    <div class="kpi-label">XX</div>
+                    <div class="kpi-trend positive">
+                        <span class="trend-icon">↗</span>
+                        <span>+0% Since last week</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Total Revenue Chart -->
+                <div class="chart-panel">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Total Revenue</h3>
+                        <div class="chart-controls">
+                            <button class="nav-btn">‹</button>
+                            <select class="time-selector">
+                                <option>This Month</option>
+                            </select>
+                            <button class="nav-btn">›</button>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="y-axis-labels">
+                            <div class="y-label">0k</div>
+                            <div class="y-label">0k</div>
+                            <div class="y-label">0k</div>
+                            <div class="y-label">0k</div>
+                            <div class="y-label">0k</div>
+                        </div>
+
+                        <div class="chart-area">
+                            <div class="bars-container">
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 45%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                                <div class="bar" style="height: 55%"></div>
+                                <div class="bar" style="height: 80%"></div>
+                                <div class="bar" style="height: 65%"></div>
+                                <div class="bar highlighted" style="height: 95%">
+                                    <div class="tooltip">
+                                        <div class="tooltip-value">P9999</div>
+                                        <div class="tooltip-trend">+X% ↗</div>
+                                    </div>
+                                </div>
+                                <div class="bar" style="height: 50%"></div>
+                                <div class="bar" style="height: 75%"></div>
+                                <div class="bar" style="height: 40%"></div>
+                                <div class="bar" style="height: 85%"></div>
+                                <div class="bar" style="height: 60%"></div>
+                                <div class="bar" style="height: 70%"></div>
+                                <div class="bar" style="height: 55%"></div>
+                            </div>
+
+                            <div class="x-axis-labels">
+                                <div class="x-label">01</div>
+                                <div class="x-label">02</div>
+                                <div class="x-label">03</div>
+                                <div class="x-label">04</div>
+                                <div class="x-label">05</div>
+                                <div class="x-label">06</div>
+                                <div class="x-label">07</div>
+                                <div class="x-label">08</div>
+                                <div class="x-label">09</div>
+                                <div class="x-label">10</div>
+                                <div class="x-label">11</div>
+                                <div class="x-label">12</div>
+                                <div class="x-label">13</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Products Panel -->
+                <div class="products-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Top Products</h3>
+                        <select class="time-selector">
+                            <option>This Month</option>
+                        </select>
+                    </div>
+
+                    <div class="products-list">
+                        <div class="product-item">
+                            <div class="product-image">
+                                <div class="product-placeholder">💊</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Keytruda (Pembrolizumab)</div>
+                                <div class="product-sold">359 sold</div>
+                            </div>
+                            <div class="product-price">PX.XX</div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <div class="product-placeholder">💊</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Ozempic (semaglutide)</div>
+                                <div class="product-sold">300 sold</div>
+                            </div>
+                            <div class="product-price">PX.XX</div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <div class="product-placeholder">💊</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Dupixent (dupilumab)</div>
+                                <div class="product-sold">289 sold</div>
+                            </div>
+                            <div class="product-price">PX.XX</div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <div class="product-placeholder">💊</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Eliquis (apixaban)</div>
+                                <div class="product-sold">248 sold</div>
+                            </div>
+                            <div class="product-price">PX,XX</div>
+                        </div>
+
+                        <div class="product-item">
+                            <div class="product-image">
+                                <div class="product-placeholder">💊</div>
+                            </div>
+                            <div class="product-info">
+                                <div class="product-name">Darzalex (daratumumab)</div>
+                                <div class="product-sold">220 sold</div>
+                            </div>
+                            <div class="product-price">PX.XX</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Grid -->
+            <div class="bottom-grid">
+                <div class="table-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Recent Order</h3>
+                        <button class="view-all-btn">View All</button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="orders-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Medicine Name</th>
+                                    <th>Price</th>
+                                    <th>Order Status</th>
+                                    <th>Payment Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD576</td>
+                                    <td>Paracetamol (2), Ibuprofen (1)</td>
+                                    <td>$25.50</td>
+                                    <td><span class="status-badge paid">Paid</span></td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td><span class="action-dots">⋯</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD575</td>
+                                    <td>Amoxicillin (3), Cetirizine (2)</td>
+                                    <td>P42.00</td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td><span class="status-badge in-progress">In progress</span></td>
+                                    <td><span class="action-dots">⋯</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD574</td>
+                                    <td>Loratadine (1), Omeprazole (1)</td>
+                                    <td>P15.00</td>
+                                    <td><span class="status-badge paid">Paid</span></td>
+                                    <td><span class="status-badge pending">Pending</span></td>
+                                    <td><span class="action-dots">⋯</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD573</td>
+                                    <td>Aspirin (4), Hydrocodone (1)</td>
+                                    <td>P48.00</td>
+                                    <td><span class="status-badge paid">Paid</span></td>
+                                    <td><span class="status-badge completed">Completed</span></td>
+                                    <td><span class="action-dots">⋯</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- End DashboardContainer -->
+    </div> <!-- End Main Content -->
+
+    <script src="jquery.js"></script>
+    <script src="jquery-ui-1.14.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            console.log('Admin dashboard loaded');
+        });
+    </script>
+
+</body>
+</html>

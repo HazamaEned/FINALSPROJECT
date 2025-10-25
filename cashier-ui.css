@@ -1,154 +1,227 @@
-/* ---------- Base Layout ---------- */
 body {
     margin: 0;
     padding: 0;
-    font-family: "Inter", system-ui, sans-serif;
-    background-color: #f3f7f4;
+    font-family: "Work Sans", system-ui, sans-serif;
+    background-color: #e5e7eb;
     color: #1f2937;
-}
-
-/* ---------- Top Navigation ---------- */
-#topnav {
-    background-color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     display: flex;
-    justify-content: space-between;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#sidebar {
+    width: 80px;
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 15px 40px;
-    border-bottom: 3px solid #e3f2e6;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
 }
 
-#lefttopnav a,
-#righttopnav a {
-    text-decoration: none;
-    font-weight: 600;
+#sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 25px;
+}
+
+#apollogo {
+    width: 66px;
+    height: auto;
+    padding: 0;
+    margin: 0 auto;
+    display: block;
+}
+
+#logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #C43E38;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+#sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.nav-item {
+    width: 50px;
+    height: 50px;
     border-radius: 12px;
-    padding: 8px 16px;
-    transition: 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    position: relative;
+    color: #C43E38;
 }
 
-#lefttopnav a {
-    color: #065f46;
+.nav-item:hover {
+    background-color: #FCE8E7;
+    transform: scale(1.05);
+    color: #C43E38;
 }
 
-#righttopnav a {
-    color: #b23b3b;
+.nav-item.active {
+    background-color: #C43E38;
+    color: white;
+    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3);
 }
 
-#lefttopnav a:hover,
-#lefttopnav a:focus {
-    background-color: #065f46;
-    color: #ffffff;
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    display: block;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
+    transition: all 0.2s ease;
 }
 
-#righttopnav a:hover,
-#righttopnav a:focus {
-    background-color: #b23b3b;
-    color: #fff;
+.nav-item:hover .nav-icon {
+    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
 }
 
-#CashierName {
-    color: #065f46;
-    font-weight: 600;
+.nav-item.active .nav-icon {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
 }
 
-/* ---------- Cashier Container ---------- */
+#sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+#main-content {
+    flex: 1;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #e5e7eb;
+    padding: 20px;
+    padding-bottom: 40px;
+}
+
 #CashierUIContainer {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    height: calc(85vh);
-    padding: 25px 40px;
-    gap: 25px;
+    flex: 1;
+    gap: 20px;
+    min-height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-/* ---------- Left Column ---------- */
 #LeftArea {
     display: flex;
-    width: 70%;
+    width: 60%;
     flex-direction: column;
-    gap: 2%;
+}
+
+#RightArea {
+    display: flex;
+    width: 40%;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .panel {
     background-color: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
     transition: 0.2s ease;
 }
 
-/* ---------- Customer Details ---------- */
 #CustomerDetailsContainer {
-    flex: 0.5;
+    flex: none;
+    min-height: 180px;
 }
 
 #CustomerDetailsTitle {
     font-size: 2.2ch;
     padding: 18px;
     font-weight: 700;
-    color: #065f46;
+    color: #C43E38;
     border-bottom: 1px solid #e5e7eb;
-    background-color: #f0fdf4;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
+    background-color: #FCE8E7;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 #CustomerDetails {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    padding: 20px;
-    font-size: 1.8ch;
+    padding: 15px;
+    font-size: 1.6ch;
 }
 
 #CustomerDetails .info {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    row-gap: 12px;
-    column-gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 15px;
 }
 
-#CustomerDetails .info div:nth-child(odd) {
+#CustomerDetails .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 0;
+}
+
+#CustomerDetails .info-label {
     font-weight: 600;
-    color: #065f46;
+    color: #C43E38;
+    flex-shrink: 0;
 }
 
-#CustomerDetails .info div:nth-child(even) {
-    text-align: right;
+#CustomerDetails .info-value {
     color: #374151;
+    text-align: right;
+    flex: 1;
+    margin-left: 10px;
 }
 
-/* ---------- ID Image Section ---------- */
 #IdImageContainer {
-    border: 2px dashed #a7f3d0;
+    border: 2px dashed #F8B3B3;
     border-radius: 12px;
     padding: 12px;
     text-align: center;
-    background-color: #ecfdf5;
+    background-color: #FCE8E7;
     transition: 0.3s ease;
 }
 
 #IdImageContainer:hover {
-    border-color: #10b981;
-    background-color: #f0fdf4;
+    border-color: #C43E38;
+    background-color: #FCE8E7;
 }
 
 #UploadIdBtn,
 #RemoveIdBtn,
 #ScanButtonContainer button {
-    background-color: #10b981;
+    background-color: #E7AB0F;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
+    border-radius: 6px;
+    padding: 6px 10px;
     font-weight: 600;
     cursor: pointer;
     transition: 0.25s ease;
+    font-size: 1.3ch;
 }
 
 #UploadIdBtn:hover,
 #ScanButtonContainer button:hover {
-    background-color: #059669;
+    background-color: #C43E38;
 }
 
 #ScanButtonContainer button{
@@ -157,17 +230,30 @@ body {
 }
 
 #RemoveIdBtn {
-    background-color: #b23b3b;
+    background-color: #8B2F2F;
 }
 
 #RemoveIdBtn:hover {
-    background-color: #8b2f2f;
+    background-color: #6a2424;
 }
 
 #ApplyDiscountContainer {
     margin-top: 10px;
-    font-size: 1.7ch;
-    color: #065f46;
+    font-size: 1.5ch;
+    color: #C43E38;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#ApplyDiscountContainer input[type="checkbox"] {
+    margin-right: 6px;
+    flex-shrink: 0;
+}
+
+#ApplyDiscountContainer label {
+    cursor: pointer;
+    font-size: 1.4ch;
 }
 
 button:disabled {
@@ -175,138 +261,175 @@ button:disabled {
     color: #f3f4f6 !important;
 }
 
-
-/* ---------- Product Panel ---------- */
 #Products {
-    flex: 2;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #ProductSearch {
     padding: 18px;
     font-weight: 700;
     font-size: 2ch;
-    color: #065f46;
+    color: #C43E38;
     border-bottom: 1px solid #e5e7eb;
-    background-color: #f0fdf4;
-    border-top-left-radius: 14px;
-    border-top-right-radius: 14px;
+    background-color: #FCE8E7;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 #SearchBarContainer {
-    padding: 20px;
+    padding: 20px 25px;
+    margin-bottom: 10px;
 }
 
 #SearchBarContainer input {
     width: 100%;
     border-radius: 8px;
-    border: 1px solid #d1d5db;
-    padding: 10px;
-    font-size: 1.6ch;
+    border: 2px solid #d1d5db;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-family: "Work Sans", system-ui, sans-serif;
     outline: none;
-    transition: border-color 0.25s;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+    background-color: #ffffff;
 }
 
 #SearchBarContainer input:focus {
-    border-color: #10b981;
-    box-shadow: 0 0 0 2px rgba(16,185,129,0.2);
+    border-color: #C43E38;
+    box-shadow: 0 0 0 3px rgba(196, 62, 56, 0.1);
 }
 
-/* ---------- Process Panel ---------- */
 #Process {
-    width: 30%;
+    flex: 1;
 }
 
-/* ---------- General Panel Style ---------- */
 #CustomerDetailsContainer,
 #Products,
 #Process {
     background-color: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
 }
 
-/* ----------- Product Grid Layout ----------- */
 #ProductGrid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: 15px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 18px;
+    padding: 25px;
     overflow-y: auto;
-    max-height: 350px; /* fixed height so it scrolls */
     border-top: 1px solid #e5e7eb;
+    margin-top: 5px;
+    flex: 1;
+    min-height: 0;
+    max-height: 400px;
 }
 
-/* Scrollbar styling */
 #ProductGrid::-webkit-scrollbar {
     width: 8px;
 }
 #ProductGrid::-webkit-scrollbar-thumb {
-    background-color: #065f46;
+    background-color: #C43E38;
     border-radius: 8px;
 }
 #ProductGrid::-webkit-scrollbar-thumb:hover {
-    background-color: #054c38;
+    background-color: #8B2F2F;
 }
 
-/* Product Card styling */
 .product-card {
     background-color: #ffffff;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
-    transition: transform 0.1s ease, box-shadow 0.2s ease;
+    border-radius: 12px;
+    padding: 15px;
+    transition: transform 0.1s ease, border-color 0.2s ease;
+    border: 2px solid #d1d5db;
+    min-height: 120px;
+    max-height: 120px;
+    width: 180px;
+    max-width: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .product-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    background-color: #f0fdf4;
+    background-color: #FCE8E7;
+    border-color: #C43E38;
+}
+
+.product-header {
+    margin-bottom: 8px;
 }
 
 .product-name {
     font-weight: 600;
-    color: #065f46;
+    color: #C43E38;
     font-size: 1.9ch;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    word-break: break-word;
 }
 
 .product-info {
     font-size: 1.6ch;
     color: #374151;
+    line-height: 1.4;
+    margin-bottom: 4px;
 }
 
-/* ---------- Receipt (Right Side) ---------- */
+/* Added color styling for product tags */
+.product-type.rx {
+    font-weight:700; 
+    color:#C43E38;
+}
+
+.product-type.otc {
+    font-weight:700; 
+    color:#E7AB0F;
+}
+
 #Process {
-    width: 30%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 20px;
     background-color: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    min-height: 0;
 }
 
-/* Receipt Title */
 #ReceiptTitle {
     font-size: 2ch;
-    color: #065f46;
+    color: #C43E38;
     font-weight: 700;
     margin-bottom: 10px;
     border-bottom: 2px solid #e5e7eb;
     padding-bottom: 5px;
 }
 
-/* Scrollable Receipt List */
 #ReceiptList {
     flex: 1;
     overflow-y: auto;
     margin-top: 10px;
     border-bottom: 2px solid #e5e7eb;
     padding: 10px 0;
+    max-height: 250px;
+    min-height: 0;
 }
 
-/* Each item in receipt */
+#ReceiptList::-webkit-scrollbar {
+    width: 6px;
+}
+#ReceiptList::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 6px;
+}
+#ReceiptList::-webkit-scrollbar-thumb:hover {
+    background-color: #9ca3af;
+}
+
 .receipt-item {
     display: flex;
     justify-content: space-between;
@@ -321,7 +444,6 @@ button:disabled {
     color: #374151;
 }
 
-/* Quantity section */
 .item-qty {
     display: flex;
     align-items: center;
@@ -329,7 +451,7 @@ button:disabled {
 }
 
 .qty-btn {
-    background-color: #065f46;
+    background-color: #C43E38;
     color: white;
     border: none;
     border-radius: 5px;
@@ -341,7 +463,7 @@ button:disabled {
 }
 
 .qty-btn:hover {
-    background-color: #047857;
+    background-color: #8B2F2F;
 }
 
 .item-price {
@@ -350,77 +472,84 @@ button:disabled {
     color: #111827;
 }
 
-/* Total section */
 #ReceiptTotal {
     font-size: 2ch;
     text-align: right;
-    color: #065f46;
+    color: #C43E38;
     padding-top: 10px;
-    border-top: 2px solid #065f46;
+    border-top: 2px solid #C43E38;
 }
 
-/* ---------- Receipt Buttons ---------- */
 #ReceiptButtons {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 15px;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+    flex-shrink: 0;
+}
+
+#ReceiptButtons > div {
+    display: flex;
+    gap: 12px;
 }
 
 #ProcessPaymentBtn {
-    background-color: #10b981;
+    background-color: #E7AB0F;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 10px 30%;
-    font-size: 1.7ch;
+    padding: 12px 20px;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-size: 1.6ch;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
+    flex: 1;
 }
 
 #ProcessPaymentBtn:hover {
-    background-color: #059669;
+    background-color: #C43E38;
 }
 
 #ResetReceiptBtn{
-    background-color:#b23b3b;
+    background-color:#8B2F2F;
     color: white;
     border: none;
     border-radius: 8px;
-    padding: 10px 20px;
-    font-size: 1.7ch;
+    padding: 12px 20px;
+    font-family: "Work Sans", system-ui, sans-serif;
+    font-size: 1.6ch;
     font-weight: 600;
     cursor: pointer;
     transition: 0.3s;
-    margin-right: 20px;
+    flex: 1;
 }
 
 #ResetReceiptBtn:hover{
-    background-color:#8b2f2f;
+    background-color:#6a2424;
 }
 
 #SendToPharmacistBtn{
     display:none;
-    background-color:#d1fae5;
-    color:#065f46;
-    border:2px solid #065f46;
+    background-color:#FCE8E7;
+    color:#C43E38;
+    border:2px solid #C43E38;
     border-radius:8px;
+    font-family: "Work Sans", system-ui, sans-serif;
     font-weight:600;
-    padding:14px;
-    font-size:16px;
+    padding:12px 20px;
+    font-size:1.6ch;
     width:100%;
     cursor:pointer;
     transition:all 0.3s ease;
 }
 
 #SendToPharmacistBtn:hover {
-    background-color: #065f46;
+    background-color: #C43E38;
     color: white;
 }
 
-    /* Print-only styles */
 @media print {
-/* Hide everything except the receipt area */
     body * {
         visibility: hidden;
     }
@@ -433,7 +562,7 @@ button:disabled {
         position: absolute;
         left: 0;
         top: 0;
-        width: 70mm; /* like a receipt roll */
+        width: 70mm;
         font-family: monospace;
         background: white;
         padding: 10px;
@@ -441,7 +570,6 @@ button:disabled {
         border: none;
     }
 
-    /* Hide Receipt Buttons */
     #PrintReceiptBtn {
         display: none;
     }
@@ -450,7 +578,6 @@ button:disabled {
         display: none;
     }
 
-    /* Make sure numeric values print exactly (no rounding off) */
     .item-price,
     #TotalAmount {
         font-variant-numeric: tabular-nums;
@@ -462,8 +589,6 @@ button:disabled {
     }
 }
 
-
-    /* ---------- Modal ---------- */
 .modal {
     display: none;
     position: fixed;
@@ -473,11 +598,13 @@ button:disabled {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 10% auto;
+    margin: 0;
     padding: 25px 30px;
     border-radius: 12px;
     width: 400px;
@@ -486,7 +613,7 @@ button:disabled {
 
 .modal-content h2 {
     margin-top: 0;
-    color: #065f46;
+    color: #C43E38;
     text-align: center;
 }
 
@@ -503,7 +630,7 @@ button:disabled {
 }
 
 .modal-actions button {
-    background-color: #065f46;
+    background-color: #C43E38;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -513,15 +640,15 @@ button:disabled {
 }
 
 .modal-actions button:hover {
-    background-color: #047857;
+    background-color: #8B2F2F;
 }
 
 #CancelPaymentBtn {
-    background-color: #b23b3b;
+    background-color: #8B2F2F;
 }
 
 #CancelPaymentBtn:hover {
-    background-color: #8b2f2f;
+    background-color: #6a2424;
 }
 
 .modal {
@@ -580,7 +707,7 @@ button:disabled {
 }
 
 #ConfirmPaymentBtn {
-    background-color: #065f46;
+    background-color: #C43E38;
     color: white;
 }
 
@@ -602,71 +729,67 @@ button:disabled {
     font-size: 16px;
 }
 
-/* hide printable container by default */
 #PrintableReceipt { display: none; }
 
-/* Print rules: show only PrintableReceipt */
 @media print {
-  body * { visibility: hidden !important; }            /* hide everything */
-  #PrintableReceipt, #PrintableReceipt * { visibility: visible !important; } /* show receipt */
-  #PrintableReceipt { position: absolute; left: 0; top: 0; width: 80mm; /* or 58mm */ 
-                     padding: 8px; font-family: monospace; }
+    body * { visibility: hidden !important; }
+    #PrintableReceipt, #PrintableReceipt * { visibility: visible !important; }
+    #PrintableReceipt { position: absolute; left: 0; top: 0; width: 80mm; padding: 8px; font-family: monospace; }
 }
 
-/* --- Printable receipt styling --- */
 @media print {
-  body * {
-    visibility: hidden !important;
-  }
+    body * {
+        visibility: hidden !important;
+    }
 
-  #PrintableReceipt,
-  #PrintableReceipt * {
-    visibility: visible !important;
-  }
+    #PrintableReceipt,
+    #PrintableReceipt * {
+        visibility: visible !important;
+    }
 
-  #PrintableReceipt {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 58mm; /* or 80mm depending on your printer */
-    padding: 4mm;
-    font-family: "Courier New", monospace;
-    font-size: 12px;
-    color: #000;
-  }
+    #PrintableReceipt {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 58mm;
+        padding: 4mm;
+        font-family: "Courier New", monospace;
+        font-size: 12px;
+        color: #000;
+    }
 
-  #PrintableReceipt h2,
-  #PrintableReceipt h3 {
-    margin: 0;
-    text-align: center;
-    font-weight: bold;
-  }
+    #PrintableReceipt h2,
+    #PrintableReceipt h3 {
+        margin: 0;
+        text-align: center;
+        font-weight: bold;
+    }
 
-  #PrintableReceipt .divider {
-    border-top: 1px dashed #000;
-    margin: 4px 0;
-  }
+    #PrintableReceipt .divider {
+        border-top: 1px dashed #000;
+        margin: 4px 0;
+    }
 
-  #PrintableReceipt table {
-    width: 100%;
-    border-collapse: collapse;
-  }
+    #PrintableReceipt table {
+        width: 100%;
+        border-collapse: collapse;
+    }
 
-  #PrintableReceipt td {
-    padding: 0;
-  }
+    #PrintableReceipt td {
+        padding: 0;
+    }
 
-  #PrintableReceipt .totals {
-    margin-top: 4px;
-  }
+    #PrintableReceipt .totals {
+        margin-top: 4px;
+    }
 
-  #PrintableReceipt .totals div {
-    display: flex;
-    justify-content: space-between;
-  }
+    #PrintableReceipt .totals div {
+        display: flex;
+        justify-content: space-between;
+    }
 
-  #PrintableReceipt .footer {
-    text-align: center;
-    margin-top: 6px;
-  }
+    #PrintableReceipt .footer {
+        text-align: center;
+        margin-top: 6px;
+    }
 }
