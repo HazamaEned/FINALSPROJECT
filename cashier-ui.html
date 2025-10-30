@@ -1,3 +1,15 @@
+<?php
+/*
+session_start();
+
+if (!isset($_SESSION['logged_in']) || $_SESSION['role'] !== 'cashier') {
+    session_destroy(); 
+    header("Location: login.php?error=unauthorized");
+    exit();
+}
+*/
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,6 +30,9 @@
             </a>
             <a href="cashier-transaction-history.html" class="nav-item">
                 <img src="icons/history.png" alt="History" class="nav-icon">
+            </a>
+               <a href="sales_cashier.html" class="nav-item">
+                <img src="icons/sales.png" alt="Sales" class="nav-icon">
             </a>
             <a href="settings.html" class="nav-item">
                 <img src="icons/setting.png" alt="Settings" class="nav-icon">
@@ -153,30 +168,6 @@
 
     <script>
 
-                //CheckBox ID Function
-        $(document).ready(function() {
-            //Disable Button Default
-            $("#UploadIdBtn").prop("disabled", true);
-            $("#ScanIdBtn").prop("disabled", true);
-            $(".IdImageContainer").addClass("no-hover");
-
-            //Toggle Disable and Enable Buttons
-            $("#ApplyDiscount").on("change", function(){
-                const isChecked = this.checked;
-
-                $("#ScanIdBtn").prop("disabled", !this.checked);
-                $("#UploadIdBtn").prop("disabled", !this.checked);
-                
-                if(isChecked){
-                    $(".IdImageContainer").removeClass("no-hover");
-                } else{
-                    $(".IdImageContainer").addClass("no-hover");
-                }
-            });
-
-
-        });
-            
         let cart = [];
         let totalAmount = 0;
 
@@ -253,7 +244,7 @@
                 { name: "Chloramphenicol", brand: "Zinett", price: 5.00, form: "500mg Capsule", type: "rx" },
                 { name: "Tetracycline", brand: "Tricor", price: 10.50, form: "500mg Capsule", type: "rx" },
                 { name: "Prednisolone", brand: "Celsus", price: 210.00, form: "1% 5ml Bottle", type: "rx" },
-                { name: "Benzathine penicillin G", brand: "Zalpen", price: 259.00, form: "1.2m units Solution Vial", type: "rx" },
+                { name: "Benzathine Penicillin G", brand: "Zalpen", price: 259.00, form: "1.2m units Solution Vial", type: "rx" },
                 { name: "Clotrimazole", brand: "Trimacort", price: 130.20, form: "1% 20g Cream", type: "rx" },
                 { name: "Dibencozide", brand: "Heraclene Forte", price: 51.25, form: "3mg Capsule", type: "rx" },
                 { name: "Salicylic acid", brand: "Rhea", price: 22.00, form: "10% 15ml Bottle", type: "otc" },
@@ -312,8 +303,10 @@
                             
                             <div class="product-info">₱${drug.price.toFixed(2)}</div>
                             <div class="product-info">${drug.form}</div>
+
+                            <div class="product-desc">i</div>
                             
-                            <div class="product-stock">Stock: 0</div> 
+                            <div class="product-stock">Stock: 0</div>
                             
                         </div>
                     `);
@@ -321,9 +314,45 @@
                     productCard.on('click', function() {
                         addToCart(drug); // Pass the entire drug object
                     });
+
+                    //click i for details
+                    productCard.find('.product-desc').on('click', function(e) {
+                        e.stopPropagation();//prevent triggering card click
+                        showDrugInfo(drug);
+                    });
                     
                     productGrid.append(productCard);
                 });
+
+                function showDrugInfo(drug){
+                    $('.drug-info-popup').remove();
+                    
+                    const popup = $(`
+                        <div class="drug-info-popup">
+                            <div class="popup-content">
+                                <h3>${drug.name}</h3>
+                                <div class = "popup-image-placeholder"></div
+                                <p><strong>Brand:</strong> ${drug.brand}</p>
+                                <p><strong>Form:</strong> ${drug.form}</p>
+                                <p><strong>Price:</strong> ₱${drug.price.toFixed(2)}</p>
+                                <p><strong>Stock:</strong> ${drug.stock ?? 0}</p>
+                                <p><strong>Description:</strong> ${drug.description ?? 'No description available.'}</p>
+                                <button class="close-popup">Close</button>
+                            </div>
+                        </div>
+                    `);
+
+                    // Close popup when clicking the close button or outside
+                    popup.find('.close-popup').on('click', function() {
+                        popup.remove();
+                    });
+
+                    popup.on('click', function(e) {
+                        if ($(e.target).is('.drug-info-popup')) popup.remove();
+                    });
+
+                    $('body').append(popup);
+                }
             }
 
             // --- NEW: Function to apply filter and sort logic ---
@@ -475,10 +504,13 @@
                 toggleIdControls($('#ApplyDiscount').is(':checked'));
 
                 // 🔹 LOGIC FOR PWD/SENIOR DISCOUNT CHECKBOX AND ID CONTROLS 
-                $('#ApplyDiscount').on('change', function() {
+            $(document).ready(function(){
+                    $(".IdImageContainer").addClass("no-hover");
+
+                    $('#ApplyDiscount').on('change', function() {
                     const isChecked = $(this).is(':checked');
                     toggleIdControls(isChecked);
-                    
+
                     if (!isChecked) {
                         // Reset customer details if discount is unchecked
                         $('#CustomerType').text('Regular');
@@ -488,9 +520,12 @@
                         $('#IdImageInput').val('');
                         $('#UploadIdBtn').show();
                         $('#RemoveIdBtn').hide();
-                        alert('Discount removed. Customer details reset to Regular.');
+                        $(".IdImageContainer").addClass("no-hover");
+                    } else {
+                        $(".IdImageContainer").removeClass("no-hover");
                     }
                 });
+            });
 
                 $('#ScanIdBtn').on('click', function() {
                     if ($('#ApplyDiscount').is(':checked')) {
@@ -630,6 +665,27 @@
                             alert('Insufficient cash amount!');
                             return;
                         }
+                    } else if (method === 'gcash'){
+                        let paymentMethod = gcash
+                        $.ajax({
+                            url: "checkout.php",
+                            method: "POST",
+                            data: {
+                                amount: total,
+                                method: paymentMethod
+                            },
+                            success: function(response) {
+                                console.log(response)
+                                try {
+                                    let data = JSON.parse(response);
+                                    if (data.checkout_url) {
+                                        window.location.href = data.checkout_url;
+                                    }
+                                } catch (e){
+                                    console.log("Non-JSON response:", response)
+                                }
+                            }
+                        });
                     }
 
                     const change = method === 'cash' ? (cashGiven - total).toFixed(2) : 0;
@@ -643,7 +699,7 @@
                             </div>
                             <div class="divider"></div>
                             <div>Date: ${new Date().toLocaleString()}</div>
-                            ${hasDiscount ? `<div>Customer: ${$('#CustomerName').text()} (${$('#CustomerIdNumber').text()})</div>` : ''}
+                            ${hasDiscount ? `<div>Customer: ${$('CustomerName').text()} (${$('#CustomerIdNumber').text()})</div>` : ''}
                             <div class="divider"></div>
 
                             <table>
@@ -712,5 +768,5 @@
 
         })(jQuery);
     </script>
-</body
+</body>
 </html>
