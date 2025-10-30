@@ -1,4 +1,3 @@
-/* ---------- Base Layout ---------- */
 body {
     margin: 0;
     padding: 0;
@@ -10,7 +9,6 @@ body {
     overflow: hidden;
 }
 
-/* ---------- Sidebar ---------- */
 #sidebar {
     width: 80px;
     background-color: #f8fafc;
@@ -104,7 +102,6 @@ body {
     padding-bottom: 40px;
 }
 
-/* ---------- Main Content ---------- */
 #main-content {
     flex: 1;
     margin-left: 80px;
@@ -115,21 +112,150 @@ body {
     background-color: #e5e7eb;
     padding: 20px;
     padding-bottom: 40px;
+    gap: 20px;
 }
 
+#DashboardGrid {
+    display: grid;
+    grid-template-columns: 1fr 3fr; 
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+}
 
-/*----------- Area Container -----------*/
-#Container {
+#DailySummaryPanel {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    height: 100%;
     display: flex;
-    justify-content: space-between;
-    align-items: stretch;
-    height: calc(100vh - 40px);
-    gap: 25px;
+    flex-direction: column;
+    gap: 20px; /* Added gap to separate sections */
 }
 
-/*----------- Transaction History -----------*/
-#TransactionHistoryContainer{
-    width: 100%;
+#SummaryTitle {
+    color: #C43E38;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+    font-size: 2ch;
+}
+
+#SummaryCards {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+    flex: none; 
+}
+
+.summary-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px; 
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2ch; 
+    color: #4b5563;
+    margin-bottom: 3px; 
+    font-weight: 500;
+}
+
+.card-value {
+    font-size: 2.2ch; 
+    font-weight: 700;
+    color: #1f2937;
+}
+
+/* New Reporting Section Styles */
+#ReportGenerationSection {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+#ReportGenerationSection h3 {
+    color: #374151;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5ch;
+    font-weight: 600;
+}
+
+#ReportGenerationSection .report-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#ReportDate {
+    padding: 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+.report-btn {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: "Work Sans", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.report-btn.primary-btn {
+    background-color: #C43E38;
+    color: white;
+    border: none;
+}
+
+.report-btn.primary-btn:hover {
+    background-color: #8B2F2F;
+}
+
+.report-btn.secondary-btn {
+    background-color: #FEE2E2;
+    color: #C43E38;
+    border: 1px solid #C43E38;
+}
+
+.report-btn.secondary-btn:hover {
+    background-color: #FBD3DA;
+}
+
+.report-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(100%); /* For light icons on dark primary button */
+}
+
+.report-btn.secondary-btn .report-icon {
+    filter: none; /* Keep original icon color on light secondary button */
+}
+
+#ReportStatus {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f0f4f8;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+/* End New Reporting Section Styles */
+
+#TransactionHistoryContainer {
     background-color: #ffffff;
     border-radius: 12px;
     transition: 0.2s ease;
@@ -137,6 +263,7 @@ body {
     flex-direction: column;
     overflow: hidden;
     height: 100%;
+    min-height: 0;
 }
 
 #TransactionHeader {
@@ -214,10 +341,9 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 20px;
-    max-height: calc(100vh - 200px);
+    max-height: none;
 }
 
-/* Scrollbar styling */
 #TransactionList::-webkit-scrollbar {
     width: 8px;
 }
@@ -321,13 +447,13 @@ body {
 }
 
 .item-type.otc {
-    background-color: #fef9c3; /* Light Yellow Background */
-    color: #E7AB0F; /* Original Yellow Text */
+    background-color: #fef9c3;
+    color: #E7AB0F;
 }
 
 .item-type.rx {
-    background-color: #FCE8E7; /* Light Red Background */
-    color: #C43E38; /* Primary Red Text */
+    background-color: #FCE8E7;
+    color: #C43E38;
 }
 
 .item-quantity {
@@ -396,7 +522,6 @@ body {
     font-family: "Work Sans", system-ui, sans-serif;
 }
 
-/*----------- Exchange Modal -----------*/
 .modal {
     display: none;
     position: fixed;
@@ -517,4 +642,85 @@ body {
 
 #CancelExchangeBtn:hover {
     background-color: #4b5563;
+}
+
+#ReportGenerationSection {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+#ReportGenerationSection h3 {
+    color: #374151;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.5ch;
+    font-weight: 600;
+}
+
+#DateOptionSelection {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 15px;
+    background-color: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+#DateOptionSelection label {
+    font-size: 0.9rem;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#DateOptionSelection input[type="radio"] {
+    margin-right: 5px;
+    accent-color: #C43E38;
+}
+
+#DateInputs {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#DateInputs input[type="date"] {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+#RangeDates {
+    display: flex;
+    gap: 10px;
+}
+
+#RangeDates input {
+    flex: 1;
+}
+
+.report-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-btn {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: "Work Sans", system-ui, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color 0.2s ease;
 }
