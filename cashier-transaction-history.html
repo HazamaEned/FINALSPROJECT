@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Cashier Transaction History</title>
+        <title>Cashier Daily Summary & History</title>
         <script src="jquery.js"></script>
         <script src="jquery-ui-1.14.1/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="cashier-transaction-history.css">
@@ -11,7 +11,6 @@
         <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <!-- Sidebar -->
         <div id="sidebar">
             <div id="sidebar-header">
                 <img id="apollogo" src="logomed.png" alt="apollogo">
@@ -29,30 +28,84 @@
         </div>
 
         <div id="main-content">
-            <div id="TransactionHistoryContainer">
-                <div id="TransactionHeader">
-                    <h2>Transaction History</h2>
-                    <div id="SearchAndFilter">
-                        <div id="SearchContainer">
-                            <input type="text" id="TransactionSearch" placeholder="Search by Transaction ID...">
-                            <button id="SearchBtn">Search</button>
+            <div id="DashboardGrid">
+            
+                <div id="DailySummaryPanel" class="panel">
+                    <h2 id="SummaryTitle">My Daily Sales Summary</h2>
+                    <div id="SummaryCards">
+                        <div class="summary-card">
+                            <div class="card-title">Total Sales</div>
+                            <div class="card-value" id="TotalSalesValue">₱0.00</div>
                         </div>
-                        <div id="FilterContainer">
-                            <select id="ItemTypeFilter">
-                                <option value="all">All Items</option>
-                                <option value="otc">OTC Only</option>
-                                <option value="rx">RX Only</option>
-                            </select>
+                        <div class="summary-card">
+                            <div class="card-title">Total Transactions</div>
+                            <div class="card-value" id="TotalTransactionsValue">0</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-title">Cash Payments Total</div>
+                            <div class="card-value" id="CashPaymentsValue">₱0.00</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="card-title">Card & Digital Total</div>
+                            <div class="card-value" id="DigitalPaymentsValue">₱0.00</div>
                         </div>
                     </div>
+
+                    <div id="ReportGenerationSection">
+                        <h3>Generate Sales Report</h3>
+                        
+                        <div id="DateOptionSelection">
+                            <label><input type="radio" name="report_period" value="today" checked> Today</label>
+                            <label><input type="radio" name="report_period" value="specific"> Specific Date</label>
+                            <label><input type="radio" name="report_period" value="range"> Date Range</label>
+                        </div>
+                        
+                        <div id="DateInputs">
+                            <input type="date" id="SingleDate" style="display:none;" value="2024-01-15">
+                            <div id="RangeDates" style="display:none;">
+                                <input type="date" id="StartDate" value="2024-01-15">
+                                <input type="date" id="EndDate" value="2024-01-15">
+                            </div>
+                        </div>
+
+                        <div class="report-controls">
+                            <button id="PrintSummaryBtn" class="report-btn primary-btn">
+                                <img src="icons/print.png" alt="Print" class="report-icon"> Print Summary
+                            </button>
+                            <button id="ExportDataBtn" class="report-btn secondary-btn">
+                                <img src="icons/export.png" alt="Export" class="report-icon"> Export Data
+                            </button>
+                        </div>
+                        <div id="ReportStatus">
+                            Ready to generate today's report.
+                        </div>
+                    </div>
+                    </div>
+
+                <div id="TransactionHistoryContainer">
+                    <div id="TransactionHeader">
+                        <h2>Transaction History</h2>
+                        <div id="SearchAndFilter">
+                            <div id="SearchContainer">
+                                <input type="text" id="TransactionSearch" placeholder="Search by Transaction ID...">
+                                <button id="SearchBtn">Search</button>
+                            </div>
+                            <div id="FilterContainer">
+                                <select id="ItemTypeFilter">
+                                    <option value="all">All Items</option>
+                                    <option value="otc">OTC Only</option>
+                                    <option value="rx">RX Only</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="TransactionList">
+                    </div>
                 </div>
-                <div id="TransactionList">
-                    <!-- Transactions will be populated here -->
-                </div>
+
             </div>
         </div>
 
-        <!-- Exchange Modal -->
         <div id="ExchangeModal" class="modal">
             <div class="modal-content">
                 <h2>Exchange Item</h2>
@@ -81,99 +134,54 @@
         </div>
 
         <script>
-            // Navigation function
             function goBack() {
-                // Check if user came from cashier or admin interface
                 if (document.referrer.includes('cashier-ui.html')) {
                     window.location.href = 'cashier-ui.html';
                 } else if (document.referrer.includes('admin.html')) {
                     window.location.href = 'admin.html';
                 } else {
-                    // Default fallback
                     window.history.back();
                 }
             }
 
             $(document).ready(function() {
-                // Fake transaction data
+                // Set today's date for date inputs (simulated example date)
+                const today = "2024-01-15"; 
+                $('#SingleDate').val(today);
+                $('#StartDate').val(today);
+                $('#EndDate').val(today);
+                
+                // --- Transaction Data (unchanged) ---
                 const transactions = [
-                    {
-                        id: "TXN001",
-                        date: "2024-01-15 14:30:25",
-                        customer: "edlon",
-                        items: [
-                            { name: "Aspirin", type: "otc", price: 0.44, quantity: 2 },
-                            { name: "Paracetamol", type: "otc", price: 0.34, quantity: 1 }
-                        ],
-                        total: 1.22,
-                        paymentMethod: "Cash",
-                        cashier: "ened"
-                    },
-                    {
-                        id: "TXN002", 
-                        date: "2024-01-15 15:45:12",
-                        customer: "yolo",
-                        items: [
-                            { name: "Amlodipine", type: "rx", price: 0.19, quantity: 1 },
-                            { name: "Metformin", type: "rx", price: 0.30, quantity: 1 }
-                        ],
-                        total: 0.49,
-                        paymentMethod: "Card",
-                        cashier: "keli"
-                    },
-                    {
-                        id: "TXN003",
-                        date: "2024-01-15 16:20:45", 
-                        customer: "maramba",
-                        items: [
-                            { name: "Ibuprofen", type: "otc", price: 0.70, quantity: 1 },
-                            { name: "Cetirizine", type: "otc", price: 0.22, quantity: 2 }
-                        ],
-                        total: 1.14,
-                        paymentMethod: "GCash",
-                        cashier: "dean"
-                    },
-                    {
-                        id: "TXN004",
-                        date: "2024-01-15 17:10:30",
-                        customer: "eded",
-                        items: [
-                            { name: "Atorvastatin", type: "rx", price: 0.90, quantity: 1 },
-                            { name: "Losartan", type: "rx", price: 0.51, quantity: 1 }
-                        ],
-                        total: 1.41,
-                        paymentMethod: "Cash",
-                        cashier: "asasasa"
-                    },
-                    {
-                        id: "TXN005",
-                        date: "2024-01-15 18:05:15",
-                        customer: "sasasas",
-                        items: [
-                            { name: "Loratadine", type: "otc", price: 0.85, quantity: 1 },
-                            { name: "Naproxen", type: "otc", price: 4.03, quantity: 1 }
-                        ],
-                        total: 4.88,
-                        paymentMethod: "Card",
-                        cashier: "hohoho"
-                    }
+                    { id: "TXN001", date: "2024-01-15 14:30:25", customer: "edlon", items: [{ name: "Aspirin", type: "otc", price: 0.44, quantity: 2 }, { name: "Paracetamol", type: "otc", price: 0.34, quantity: 1 }], total: 1.22, paymentMethod: "Cash", cashier: "ened" },
+                    { id: "TXN002", date: "2024-01-15 15:45:12", customer: "yolo", items: [{ name: "Amlodipine", type: "rx", price: 0.19, quantity: 1 }, { name: "Metformin", type: "rx", price: 0.30, quantity: 1 }], total: 0.49, paymentMethod: "Card", cashier: "keli" },
+                    { id: "TXN003", date: "2024-01-15 16:20:45", customer: "maramba", items: [{ name: "Ibuprofen", type: "otc", price: 0.70, quantity: 1 }, { name: "Cetirizine", type: "otc", price: 0.22, quantity: 2 }], total: 1.14, paymentMethod: "GCash", cashier: "dean" },
+                    { id: "TXN004", date: "2024-01-15 17:10:30", customer: "eded", items: [{ name: "Atorvastatin", type: "rx", price: 0.90, quantity: 1 }, { name: "Losartan", type: "rx", price: 0.51, quantity: 1 }], total: 1.41, paymentMethod: "Cash", cashier: "asasasa" },
+                    { id: "TXN005", date: "2024-01-15 18:05:15", customer: "sasasas", items: [{ name: "Loratadine", type: "otc", price: 0.85, quantity: 1 }, { name: "Naproxen", type: "otc", price: 4.03, quantity: 1 }], total: 4.88, paymentMethod: "Card", cashier: "hohoho" }
                 ];
-
-                // Available items for exchange
                 const availableItems = [
-                    { name: "Aspirin", price: 0.44, type: "otc" },
-                    { name: "Paracetamol", price: 0.34, type: "otc" },
-                    { name: "Ibuprofen", price: 0.70, type: "otc" },
-                    { name: "Cetirizine", price: 0.22, type: "otc" },
-                    { name: "Loratadine", price: 0.85, type: "otc" },
-                    { name: "Naproxen", price: 4.03, type: "otc" }
+                    { name: "Aspirin", price: 0.44, type: "otc" }, { name: "Paracetamol", price: 0.34, type: "otc" }, { name: "Ibuprofen", price: 0.70, type: "otc" }, 
+                    { name: "Cetirizine", price: 0.22, type: "otc" }, { name: "Loratadine", price: 0.85, type: "otc" }, { name: "Naproxen", price: 4.03, type: "otc" }
                 ];
 
                 let filteredTransactions = transactions;
                 let selectedTransaction = null;
 
-                // Display transactions
+                function displayDailySummary(transactions) {
+                    // ... (Summary display function remains the same)
+                    const totalSales = transactions.reduce((sum, t) => sum + t.total, 0);
+                    const totalTransactions = transactions.length;
+                    const cashTotal = transactions.filter(t => t.paymentMethod === 'Cash').reduce((sum, t) => sum + t.total, 0);
+                    const digitalTotal = totalSales - cashTotal;
+
+                    $('#TotalSalesValue').text(`₱${totalSales.toFixed(2)}`);
+                    $('#TotalTransactionsValue').text(totalTransactions);
+                    $('#CashPaymentsValue').text(`₱${cashTotal.toFixed(2)}`);
+                    $('#DigitalPaymentsValue').text(`₱${digitalTotal.toFixed(2)}`);
+                }
+
                 function displayTransactions(transactionsToShow) {
+                    // ... (Transaction list display function remains the same)
                     const transactionList = $('#TransactionList');
                     transactionList.empty();
 
@@ -181,7 +189,7 @@
                         transactionList.html('<div class="no-transactions">No transactions found</div>');
                         return;
                     }
-
+                    // (Rest of the displayTransactions loop logic remains)
                     transactionsToShow.forEach(transaction => {
                         const hasOTC = transaction.items.some(item => item.type === 'otc');
                         const exchangeButton = hasOTC ? 
@@ -224,8 +232,8 @@
                         transactionList.append(transactionCard);
                     });
                 }
-
-                // Search functionality
+                
+                // --- Search and Filter Logic (unchanged) ---
                 $('#SearchBtn').on('click', function() {
                     const searchTerm = $('#TransactionSearch').val().toLowerCase();
                     if (searchTerm) {
@@ -242,7 +250,6 @@
                     }
                 });
 
-                // Filter functionality
                 $('#ItemTypeFilter').on('change', function() {
                     applyFilter();
                 });
@@ -260,7 +267,7 @@
                     displayTransactions(filtered);
                 }
 
-                // Exchange functionality
+                // --- Exchange Modal Logic (unchanged) ---
                 $(document).on('click', '.exchange-btn', function() {
                     const transactionId = $(this).data('transaction-id');
                     selectedTransaction = transactions.find(t => t.id === transactionId);
@@ -271,16 +278,12 @@
                 });
 
                 function openExchangeModal() {
-                    // Populate original item info
                     const otcItems = selectedTransaction.items.filter(item => item.type === 'otc');
                     const originalItemHtml = otcItems.map(item => 
-                        `<div class="item-detail">
-                            <strong>${item.name}</strong> - Qty: ${item.quantity} - ₱${(item.price * item.quantity).toFixed(2)}
-                        </div>`
+                        `<div class="item-detail"><strong>${item.name}</strong> - Qty: ${item.quantity} - ₱${(item.price * item.quantity).toFixed(2)}</div>`
                     ).join('');
                     $('#OriginalItemInfo').html(originalItemHtml);
 
-                    // Populate new item select
                     const newItemSelect = $('#NewItemSelect');
                     newItemSelect.empty();
                     newItemSelect.append('<option value="">Choose replacement item...</option>');
@@ -291,7 +294,6 @@
                     $('#ExchangeModal').css('display', 'flex').show();
                 }
 
-                // New item selection
                 $('#NewItemSelect').on('change', function() {
                     const selectedItem = $(this).find('option:selected');
                     const itemName = selectedItem.val();
@@ -307,24 +309,14 @@
                             `Customer owes: ₱${priceDiff.toFixed(2)}` : 
                             `Refund to customer: ₱${Math.abs(priceDiff).toFixed(2)}`;
 
-                        $('#NewItemInfo').html(`
-                            <div class="new-item-detail">
-                                <strong>${itemName}</strong> - ₱${itemPrice.toFixed(2)}
-                            </div>
-                        `);
-
-                        $('#PriceDifference').html(`
-                            <div class="price-diff ${priceDiff > 0 ? 'owe' : 'refund'}">
-                                ${differenceText}
-                            </div>
-                        `);
+                        $('#NewItemInfo').html(`<div class="new-item-detail"><strong>${itemName}</strong> - ₱${itemPrice.toFixed(2)}</div>`);
+                        $('#PriceDifference').html(`<div class="price-diff ${priceDiff > 0 ? 'owe' : 'refund'}">${differenceText}</div>`);
                     } else {
                         $('#NewItemInfo').empty();
                         $('#PriceDifference').empty();
                     }
                 });
 
-                // Confirm exchange
                 $('#ConfirmExchangeBtn').on('click', function() {
                     const newItemName = $('#NewItemSelect').val();
                     if (!newItemName) {
@@ -342,16 +334,65 @@
                     if (confirm(`Confirm exchange? ${priceDiff > 0 ? 'Customer owes' : 'Refund'} ₱${Math.abs(priceDiff).toFixed(2)}`)) {
                         alert('Exchange processed successfully!');
                         $('#ExchangeModal').hide();
-                        // Here you would update the transaction in your backend
                     }
                 });
 
-                // Cancel exchange
                 $('#CancelExchangeBtn').on('click', function() {
                     $('#ExchangeModal').hide();
                 });
+                
+                // --- NEW REPORTING BUTTON HANDLERS ---
+                
+                // Function to update visibility of date pickers
+                function updateDateInputVisibility() {
+                    const selection = $('input[name="report_period"]:checked').val();
+                    $('#SingleDate').hide();
+                    $('#RangeDates').hide();
+                    
+                    if (selection === 'specific') {
+                        $('#SingleDate').show();
+                        $('#ReportStatus').text('Ready to generate report for the selected date.');
+                    } else if (selection === 'range') {
+                        $('#RangeDates').show();
+                        $('#ReportStatus').text('Ready to generate report for the selected date range.');
+                    } else { // 'today'
+                        $('#ReportStatus').text('Ready to generate today\'s report.');
+                    }
+                }
 
-                // Initialize display
+                // Initial setup and listener for radio buttons
+                updateDateInputVisibility();
+                $('input[name="report_period"]').on('change', updateDateInputVisibility);
+                
+                // Function to determine report period text
+                function getReportPeriod() {
+                    const selection = $('input[name="report_period"]:checked').val();
+                    if (selection === 'today') {
+                        return today;
+                    } else if (selection === 'specific') {
+                        return $('#SingleDate').val();
+                    } else if (selection === 'range') {
+                        return `${$('#StartDate').val()} to ${$('#EndDate').val()}`;
+                    }
+                    return 'Unknown Date';
+                }
+
+                $('#PrintSummaryBtn').on('click', function() {
+                    const period = getReportPeriod();
+                    $('#ReportStatus').text(`Preparing print summary for: ${period}... (Simulated)`);
+                    alert(`Simulating Print Sales Summary for: ${period}`);
+                    $('#ReportStatus').text('Print request sent.');
+                });
+
+                $('#ExportDataBtn').on('click', function() {
+                    const period = getReportPeriod();
+                    $('#ReportStatus').text(`Preparing data export for: ${period}... (Simulated)`);
+                    alert(`Simulating Transaction Data Export (CSV/Excel) for: ${period}`);
+                    $('#ReportStatus').text('Export complete.');
+                });
+                // --- END NEW REPORTING BUTTON HANDLERS ---
+
+                displayDailySummary(transactions);
                 displayTransactions(transactions);
             });
         </script>
