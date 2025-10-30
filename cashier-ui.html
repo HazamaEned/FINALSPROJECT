@@ -150,104 +150,10 @@
 
     <script src="jquery.js"></script>
     <script src="jquery-ui-1.14.1/jquery-ui.js"></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-<script>
-        // Drug data
-      const drugs = [
-  { name: "Paracetamol", price: 4.24, form: "500mg Tablet", type: "otc" },
-  { name: "Ibuprofen", price: 6.50, form: "200mg Tablet", type: "otc" },
-  { name: "Naproxen", price: 23.00, form: "550mg Tablet", type: "otc" },
-  { name: "Aspirin", price: 1.58, form: "30mg Tablet", type: "otc" },
-  { name: "Aspirin", price: 2.63, form: "100mg Tablet", type: "otc" },
-  { name: "Diclofenac", price: 1.84, form: "50mg Tablet", type: "rx" },
-  { name: "Amlodipine", price: 6.04, form: "5mg Tablet", type: "rx" },
-  { name: "Losartan", price: 4.99, form: "50mg Tablet", type: "rx" },
-  { name: "Atenolol", price: 3.68, form: "50mg Tablet", type: "rx" },
-  { name: "Metoprolol", price: 3.41, form: "100mg Tablet", type: "rx" },
-  { name: "Enalapril", price: 5.78, form: "5mg Tablet", type: "rx" },
-  { name: "Enalapril", price: 7.09, form: "10mg Tablet", type: "rx" },
-  { name: "Simvastatin", price: 5.25, form: "20mg Tablet", type: "rx" },
-  { name: "Atorvastatin", price: 12.08, form: "20mg Tablet", type: "rx" },
-  { name: "Rosuvastatin", price: 16.80, form: "20mg Tablet", type: "rx" },
-  { name: "Metformin", price: 2.10, form: "500mg Tablet", type: "rx" },
-  { name: "Ganoderma Ginseng", price: 11.50, form: "400mg Capsule", type: "otc" },
-  { name: "Glimepiride", price: 16.50, form: "3mg Tablet", type: "rx" },
-  { name: "Clopidrogel", price: 11.55, form: "75mg Tablet", type: "rx" },
-  { name: "Dexamethasone", price: 2.36, form: "500mcg Tablet", type: "rx" },
-  { name: "Amoxicillin", price: 4.46, form: "500mg Capsule", type: "rx" },
-  { name: "Co-amoxiclav", price: 42.00, form: "500mg/125mg Tablet", type: "rx" },
-  { name: "Azithromycin", price: 122.00, form: "500mg Tablet", type: "rx" },
-  { name: "Clarithromycin", price: 31.50, form: "500mg Tablet", type: "rx" },
-  { name: "Levofloxacin", price: 29.66, form: "500mg Tablet", type: "rx" },
-  { name: "Doxofylline", price: 19.50, form: "200mg Tablet", type: "rx" },
-  { name: "Cefalexin", price: 8.93, form: "250mg Capsule", type: "rx" },
-  { name: "Clindamycin", price: 9.71, form: "150mg Capsule", type: "rx" },
-  { name: "Trimetazidine", price: 12.34, form: "35mg Tablet", type: "rx" },
-  { name: "Metronidazole", price: 2.75, form: "500mg Tablet", type: "rx" },
-  { name: "Omeprazole", price: 6.30, form: "20mg Capsule", type: "rx" },
-  { name: "Esomeprazole", price: 26.25, form: "40mg Tablet", type: "rx" },
-  { name: "Ranitidine", price: 3.15, form: "150mg Tablet", type: "rx" },
-  { name: "Antacid", price: 4.20, form: "300mg/200mg ChewTablet", type: "otc" },
-  { name: "Salbutamol", price: 49.35, form: "60ml Syrup", type: "rx" },
-  { name: "Salbutamol", price: 1.84, form: "2mg Tablet", type: "rx" },
-  { name: "Furesomide", price: 2.89, form: "20mg Tablet", type: "rx" },
-  { name: "Fluticasone Propionate", price: 342.50, form: "0.05% 5g Cream", type: "rx" },
-  { name: "Montelukast", price: 17.85, form: "5mg Tablet", type: "rx" },
-  { name: "Cetirizine", price: 2.63, form: "10mg Tablet", type: "otc" },
-  { name: "Loratadine", price: 5.00, form: "10mg Tablet", type: "otc" },
-  { name: "Chlorpheniramine", price: 2.63, form: "5mg Tablet", type: "otc" },
-  { name: "Domperidone", price: 5.51, form: "10mg Tablet", type: "rx" },
-  { name: "Dextromethorphan", price: 1.75, form: "10mg Tablet", type: "otc" },
-  { name: "Diazepam", price: 11.00, form: "5mg Tablet", type: "rx" },
-  { name: "Fluoxetine", price: 41.25, form: "20mg Capsule", type: "rx" },
-  { name: "Sertraline", price: 44.00, form: "50mg Tablet", type: "rx" },
-  { name: "Hydrochlorothiazide", price: 4.90, form: "12.5mg Tablet", type: "rx" },
-  { name: "Spironolactone", price: 6.50, form: "25mg Tablet", type: "rx" },
-  { name: "Warfarin", price: 26.50, form: "1mg Tablet", type: "rx" },
-  { name: "Ferrous sulfate", price: 2.25, form: "60mg Tablet", type: "otc" },
-  { name: "Folic acid", price: 3.50, form: "5mg Capsule", type: "otc" },
-  { name: "Vitamin C", price: 2.50, form: "100mg Tablet", type: "otc" },
-  { name: "Multivitamin", price: 10.75, form: "Tablet", type: "otc" },
-  { name: "Calcium carbonate", price: 2.75, form: "500mg Tablet", type: "otc" },
-  { name: "Methylprednisolone", price: 9.00, form: "4mg Tablet", type: "rx" },
-  { name: "Hydrocortisone", price: 140.00, form: "1% 5g Tube", type: "rx" },
-  { name: "Mupirocin", price: 162.00, form: "2% 5g Tube", type: "rx" },
-  { name: "Clotrimazole", price: 136.00, form: "1% 3.5g Tube", type: "rx" },
-  { name: "Fluconazole", price: 171.75, form: "50mg Capsule", type: "rx" },
-  { name: "Ketoconazole", price: 136.50, form: "2% 15g Cream", type: "rx" },
-  { name: "Loperamide", price: 8.75, form: "2mg Capsule", type: "otc" },
-  { name: "Oral rehydration salts", price: 16.50, form: "2.17g Sachet", type: "otc" },
-  { name: "Sitagliptin", price: 19.00, form: "50mg Tablet", type: "rx" },
-  { name: "Empagliflozin", price: 53.75, form: "10mg Tablet", type: "rx" },
-  { name: "Allopurinol", price: 1.75, form: "100mg Tablet", type: "rx" },
-  { name: "Colchicine", price: 3.50, form: "500mcg Tablet", type: "rx" },
-  { name: "Chloramphenicol", price: 5.00, form: "500mg Capsule", type: "rx" },
-  { name: "Tetracycline", price: 10.50, form: "500mg Capsule", type: "rx" },
-  { name: "Prednisolone", price: 210.00, form: "1% 5ml Bottle", type: "rx" },
-  { name: "Benzathine penicillin G", price: 259.00, form: "1.2m units Solution Vial", type: "rx" },
-  { name: "Clotrimazole", price: 130.20, form: "1% 20g Cream", type: "rx" },
-  { name: "Dibencozide", price: 51.25, form: "3mg Capsule", type: "rx" },
-  { name: "Salicylic acid", price: 22.00, form: "10% 15ml Bottle", type: "otc" },
-  { name: "Benzoyl peroxide", price: 523.50, form: "15g Bottle", type: "rx" },
-  { name: "Sildenafil", price: 49.00, form: "50mg Tablet", type: "rx" },
-  { name: "Tamsulosin", price: 37.01, form: "400mcg Tablet", type: "rx" },
-  { name: "Finasteride", price: 27.04, form: "5mg Tablet", type: "rx" },
-  { name: "Meclizine", price: 14.75, form: "25mg ChewTablet", type: "otc" },
-  { name: "Potassium citrate", price: 11.00, form: "1080mg ERTablet", type: "rx" },
-  { name: "Ondansetron", price: 107.00, form: "8mg Tablet", type: "rx" },
-  { name: "Sodium bicarbonate", price: 200.00, form: "650mg Tablet", type: "otc" },
-  { name: "Pantoprazole", price: 9.71, form: "40mg Tablet", type: "rx" },
-  { name: "Mefenamic", price: 3.15, form: "500mg Tablet", type: "otc" },
-  { name: "Piracetam", price: 10.50, form: "800mg Tablet", type: "rx" },
-  { name: "Ibuprofen + Paracetamol", price: 10.00, form: "200mg Tablet", type: "otc" },
-  { name: "Lagundi", price: 121.20, form: "600mg/5ml Bottle", type: "otc" },
-  { name: "Oxymetazoline", price: 185.75, form: "10ml Bottle", type: "otc" }
-];
+    <script>
 
-
-        //CheckBox ID Function
+                //CheckBox ID Function
         $(document).ready(function() {
             //Disable Button Default
             $("#UploadIdBtn").prop("disabled", true);
@@ -273,8 +179,7 @@
             
         let cart = [];
         let totalAmount = 0;
-=======
-    <script>
+
         (function($) {
 
             const DRUGS = [
@@ -373,110 +278,6 @@
                 { name: "Dextrose", brand: "D5W", price: 150.00, form: "5% 500ml Solution", type: "rx" }
                 ];
 
->>>>>>> 1dd95032803ce940b6eae36f53838b43a099a50f
-
-=======
-    <script>
-        (function($) {
-
-            const DRUGS = [
-                { name: "Paracetamol", brand: "Biogesic", price: 4.24, form: "500mg Tablet", type: "otc" },
-                { name: "Ibuprofen", brand: "Medicol", price: 6.50, form: "200mg Tablet", type: "otc" },
-                { name: "Naproxen", brand: "Flanax Forte", price: 23.00, form: "550mg Tablet", type: "otc" },
-                { name: "Aspirin", brand: "Aspen", price: 1.58, form: "30mg Tablet", type: "otc" },
-                { name: "Aspirin", brand: "Aspen", price: 2.63, form: "100mg Tablet", type: "otc" },
-                { name: "Diclofenac", brand: "Diclofen", price: 1.84, form: "50mg Tablet", type: "rx" },
-                { name: "Amlodipine", brand: "Cardiovasc", price: 6.04, form: "5mg Tablet", type: "rx" },
-                { name: "Losartan", brand: "Hypertan", price: 4.99, form: "50mg Tablet", type: "rx" },
-                { name: "Atenolol", brand: "Atenol-50", price: 3.68, form: "50mg Tablet", type: "rx" },
-                { name: "Metoprolol", brand: "Angimet", price: 3.41, form: "100mg Tablet", type: "rx" },
-                { name: "Enalapril", brand: "Azepril", price: 5.78, form: "5mg Tablet", type: "rx" },
-                { name: "Enalapril", brand: "Vazotec", price: 7.09, form: "10mg Tablet", type: "rx" },
-                { name: "Simvastatin", brand: "Buztin", price: 5.25, form: "20mg Tablet", type: "rx" },
-                { name: "Atorvastatin", brand: "Atorvast", price: 12.08, form: "20mg Tablet", type: "rx" },
-                { name: "Rosuvastatin", brand: "Ambica", price: 16.80, form: "20mg Tablet", type: "rx" },
-                { name: "Metformin", brand: "Diamet", price: 2.10, form: "500mg Tablet", type: "rx" },
-                { name: "Ganoderma Ginseng", brand: "Lingzhi", price: 11.50, form: "400mg Capsule", type: "otc" },
-                { name: "Glimepiride", brand: "Arya", price: 16.50, form: "3mg Tablet", type: "rx" },
-                { name: "Clopidrogel", brand: "Angiogrel", price: 11.55, form: "75mg Tablet", type: "rx" },
-                { name: "Dexamethasone", brand: "Medrone", price: 2.36, form: "500mcg Tablet", type: "rx" },
-                { name: "Amoxicillin", brand: "Amoxil", price: 4.46, form: "500mg Capsule", type: "rx" },
-                { name: "Co-amoxiclav", brand: "Augmentin", price: 42.00, form: "500mg/125mg Tablet", type: "rx" },
-                { name: "Azithromycin", brand: "Zithrox", price: 122.00, form: "500mg Tablet", type: "rx" },
-                { name: "Clarithromycin", brand: "Klacid", price: 31.50, form: "500mg Tablet", type: "rx" },
-                { name: "Levofloxacin", brand: "Levoquin", price: 29.66, form: "500mg Tablet", type: "rx" },
-                { name: "Doxofylline", brand: "Doxofyl", price: 19.50, form: "200mg Tablet", type: "rx" },
-                { name: "Cefalexin", brand: "Cefalin", price: 8.93, form: "250mg Capsule", type: "rx" },
-                { name: "Clindamycin", brand: "Clinda", price: 9.71, form: "150mg Capsule", type: "rx" },
-                { name: "Trimetazidine", brand: "Vastarel", price: 12.34, form: "35mg Tablet", type: "rx" },
-                { name: "Metronidazole", brand: "Flagyl", price: 2.75, form: "500mg Tablet", type: "rx" },
-                { name: "Omeprazole", brand: "Losec", price: 6.30, form: "20mg Capsule", type: "rx" },
-                { name: "Esomeprazole", brand: "Nexium", price: 26.25, form: "40mg Tablet", type: "rx" },
-                { name: "Ranitidine", brand: "Zantac", price: 3.15, form: "150mg Tablet", type: "rx" },
-                { name: "Antacid", brand: "Kremil-S", price: 4.20, form: "300mg/200mg ChewTablet", type: "otc" },
-                { name: "Salbutamol", brand: "Ventolin", price: 49.35, form: "60ml Syrup", type: "rx" },
-                { name: "Salbutamol", brand: "Ventolin", price: 1.84, form: "2mg Tablet", type: "rx" },
-                { name: "Furesomide", brand: "Lasix", price: 2.89, form: "20mg Tablet", type: "rx" },
-                { name: "Fluticasone P.", brand: "Flixotide", price: 342.50, form: "0.05% 5g Cream", type: "rx" },
-                { name: "Montelukast", brand: "Singulair", price: 17.85, form: "5mg Tablet", type: "rx" },
-                { name: "Cetirizine", brand: "Allerzine", price: 2.63, form: "10mg Tablet", type: "otc" },
-                { name: "Loratadine", brand: "Claritine", price: 5.00, form: "10mg Tablet", type: "otc" },
-                { name: "Chlorpheniramine", brand: "Piriton", price: 2.63, form: "5mg Tablet", type: "otc" },
-                { name: "Domperidone", brand: "Motilium", price: 5.51, form: "10mg Tablet", type: "rx" },
-                { name: "Dextromethorphan", brand: "Robitussin", price: 1.75, form: "10mg Tablet", type: "otc" },
-                { name: "Diazepam", brand: "Valium", price: 11.00, form: "5mg Tablet", type: "rx" },
-                { name: "Fluoxetine", brand: "Prozac", price: 41.25, form: "20mg Capsule", type: "rx" },
-                { name: "Sertraline", brand: "Zoloft", price: 44.00, form: "50mg Tablet", type: "rx" },
-                { name: "Hydrochlorothiazide", brand: "HCTZ", price: 4.90, form: "12.5mg Tablet", type: "rx" },
-                { name: "Spironolactone", brand: "Aldactone", price: 6.50, form: "25mg Tablet", type: "rx" },
-                { name: "Warfarin", brand: "Coumadin", price: 26.50, form: "1mg Tablet", type: "rx" },
-                { name: "Ferrous sulfate", brand: "Ferlin", price: 2.25, form: "60mg Tablet", type: "otc" },
-                { name: "Folic acid", brand: "Folart", price: 3.50, form: "5mg Capsule", type: "otc" },
-                { name: "Vitamin C", brand: "Ascorbic", price: 2.50, form: "100mg Tablet", type: "otc" },
-                { name: "Multivitamin", brand: "Centrum", price: 10.75, form: "Tablet", type: "otc" },
-                { name: "Calcium carbonate", brand: "Caltrate", price: 2.75, form: "500mg Tablet", type: "otc" },
-                { name: "Methylprednisolone", brand: "Medrol", price: 9.00, form: "4mg Tablet", type: "rx" },
-                { name: "Hydrocortisone", brand: "Hydrotopic", price: 140.00, form: "1% 5g Tube", type: "rx" },
-                { name: "Mupirocin", brand: "Mupicore", price: 162.00, form: "2% 5g Tube", type: "rx" },
-                { name: "Clotrimazole", brand: "Canesten", price: 136.00, form: "1% 3.5g Tube", type: "rx" },
-                { name: "Fluconazole", brand: "Mycozole", price: 171.75, form: "50mg Capsule", type: "rx" },
-                { name: "Ketoconazole", brand: "Ambica", price: 136.50, form: "2% 15g Cream", type: "rx" },
-                { name: "Loperamide", brand: "Diatabs", price: 8.75, form: "2mg Capsule", type: "otc" },
-                { name: "Oral rehydration salts", brand: "Hydrite", price: 16.50, form: "2.17g Sachet", type: "otc" },
-                { name: "Sitagliptin", brand: "Philsitz", price: 19.00, form: "50mg Tablet", type: "rx" },
-                { name: "Empagliflozin", brand: "Jardiance", price: 53.75, form: "10mg Tablet", type: "rx" },
-                { name: "Allopurinol", brand: "Urisol", price: 1.75, form: "100mg Tablet", type: "rx" },
-                { name: "Colchicine", brand: "Goutsaph", price: 3.50, form: "500mcg Tablet", type: "rx" },
-                { name: "Chloramphenicol", brand: "Zinett", price: 5.00, form: "500mg Capsule", type: "rx" },
-                { name: "Tetracycline", brand: "Tricor", price: 10.50, form: "500mg Capsule", type: "rx" },
-                { name: "Prednisolone", brand: "Celsus", price: 210.00, form: "1% 5ml Bottle", type: "rx" },
-                { name: "Benzathine penicillin G", brand: "Zalpen", price: 259.00, form: "1.2m units Solution Vial", type: "rx" },
-                { name: "Clotrimazole", brand: "Trimacort", price: 130.20, form: "1% 20g Cream", type: "rx" },
-                { name: "Dibencozide", brand: "Heraclene Forte", price: 51.25, form: "3mg Capsule", type: "rx" },
-                { name: "Salicylic acid", brand: "Rhea", price: 22.00, form: "10% 15ml Bottle", type: "otc" },
-                { name: "Benzoyl peroxide", brand: "Benzac", price: 523.50, form: "15g Bottle", type: "rx" },
-                { name: "Sildenafil", brand: "Viagra", price: 49.00, form: "50mg Tablet", type: "rx" },
-                { name: "Tamsulosin", brand: "Flomax", price: 37.01, form: "400mcg Tablet", type: "rx" },
-                { name: "Finasteride", brand: "Proscar", price: 27.04, form: "5mg Tablet", type: "rx" },
-                { name: "Meclizine", brand: "Bonamine", price: 14.75, form: "25mg ChewTablet", type: "otc" },
-                { name: "Potassium citrate", brand: "Urocit-K", price: 11.00, form: "1080mg ERTablet", type: "rx" },
-                { name: "Ondansetron", brand: "Zofran", price: 107.00, form: "8mg Tablet", type: "rx" },
-                { name: "Sodium bicarbonate", brand: "Neutracid", price: 200.00, form: "650mg Tablet", type: "otc" },
-                { name: "Pantoprazole", brand: "Pantoloc", price: 9.71, form: "40mg Tablet", type: "rx" },
-                { name: "Mefenamic", brand: "Ponstan", price: 3.15, form: "500mg Tablet", type: "otc" },
-                { name: "Piracetam", brand: "Nootropil", price: 10.50, form: "800mg Tablet", type: "rx" },
-                { name: "Ibuprofen + Paracetamol", brand: "Alaxan", price: 10.00, form: "200mg Tablet", type: "otc" },
-                { name: "Lagundi", brand: "Ascof Forte", price: 121.20, form: "600mg/5ml Bottle", type: "otc" },
-                { name: "Oxymetazoline", brand: "Drixine", price: 185.75, form: "10ml Bottle", type: "otc" },
-                { name: "Cefuroxime", brand: "Zinacef", price: 16.50, form: "250mg Tablet", type: "rx" },
-                { name: "Cefuroxime", brand: "Zinacef", price: 22.00, form: "500mg Tablet", type: "rx" },
-                { name: "Telmisartan", brand: "Micardis", price: 28.00, form: "40mg Tablet", type: "rx" },
-                { name: "Levocetirizine", brand: "Xyzal", price: 12.00, form: "5mg Tablet", type: "otc" },
-                { name: "Dextrose", brand: "D5W", price: 150.00, form: "5% 500ml Solution", type: "rx" }
-                ];
-
-
->>>>>>> 1dd95032803ce940b6eae36f53838b43a099a50f
             // --- NEW: Pre-process DRUGS to add a stable ID and convert brand to uppercase ---
             const MASTER_DRUGS = DRUGS.map((drug, index) => ({ 
                 ...drug, 
