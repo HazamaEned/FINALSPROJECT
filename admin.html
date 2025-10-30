@@ -1,293 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Interface</title>
-    <link rel="stylesheet" href="admin.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 </head>
+
 <body>
-
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <div id="sidebar-header">
-            <img id="apollogo" src="logomed.png" alt="apollogo">
-        </div>
-
-        <nav id="sidebar-nav">
-            <a href="#" class="nav-item active" data-tab="dashboard">
-                <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon">
-            </a>
-            <a href="account.html" class="nav-item">
-                <img src="icons/account.png" alt="Account Management" class="nav-icon">
-            </a>
-            <a href="cashier-transaction-history.html" class="nav-item">
-                <img src="icons/history.png" alt="Transaction History" class="nav-icon">
-            </a>
-            <a href="settings.html" class="nav-item">
-                <img src="icons/setting.png" alt="Settings" class="nav-icon">
-            </a>
-        </nav>
-
-        <div id="sidebar-footer">
-            <a href="login.html" class="nav-item">
-                <img src="icons/power-off.png" alt="Logout" class="nav-icon">
-            </a>
-        </div>
+  <div id="sidebar">
+    <div id="sidebar-header">
+      <img id="apollogo" src="logomed.png" alt="apollogo" />
     </div>
 
-    <!-- Main Content -->
-    <div id="main-content">
-        <!-- Top Navigation -->
-        <div id="topnav"></div>
+    <div id="sidebar-nav">
+      <a href="#" class="nav-item active">
+        <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon" />
+      </a>
+      <a href="account.html" class="nav-item">
+        <img src="icons/account.png" alt="Account" class="nav-icon" />
+      </a>
+      <a href="cashier-transaction-history.html" class="nav-item">
+        <img src="icons/history.png" alt="History" class="nav-icon" />
+      </a>
+      <a href="settings.html" class="nav-item">
+        <img src="icons/setting.png" alt="Settings" class="nav-icon" />
+      </a>
+    </div>
 
-        <!-- Dashboard Content -->
-        <div id="DashboardContainer">
+    <div id="sidebar-footer">
+      <a href="login.html" class="nav-item">
+        <img src="icons/power-off.png" alt="Logout" class="nav-icon" />
+      </a>
+    </div>
+  </div>
 
-            <!-- KPI Grid -->
-            <div class="kpi-grid">
-                <div class="kpi-card revenue-card">
-                    <div class="kpi-value">P000,000</div>
-                    <div class="kpi-trend positive">
-                        <span class="trend-icon">↗</span>
-                        <span>+0% Since last week</span>
-                    </div>
-                </div>
+  <div id="main-content">
+    <div id="DashboardContainer">
+      <div class="kpi-grid">
+        <div class="kpi-card revenue-card">
+          <div id="kpi-total-sales" class="kpi-value">₱0.00</div>
+          <div class="kpi-trend positive"><span class="trend-icon">↗</span><span>Total Sales</span></div>
+        </div>
+        <div class="kpi-card">
+          <div id="kpi-total-transactions" class="kpi-value">0</div>
+          <div class="kpi-label">Transactions</div>
+          <div class="kpi-trend positive"><span class="trend-icon">↗</span><span>All-Time</span></div>
+        </div>
+        <div class="kpi-card">
+          <div id="kpi-avg-transaction" class="kpi-value">₱0.00</div>
+          <div class="kpi-label">Avg. Transaction</div>
+          <div class="kpi-trend positive"><span class="trend-icon">↗</span><span>Average</span></div>
+        </div>
+        <div class="kpi-card">
+          <div id="kpi-low-stock" class="kpi-value">0</div>
+          <div class="kpi-label">Low Stock</div>
+          <div class="kpi-trend negative"><span class="trend-icon">↘</span><span>Stock &lt; 10</span></div>
+        </div>
+      </div>
 
-                <div class="kpi-card">
-                    <div class="kpi-value">P000,000</div>
-                    <div class="kpi-label">Total Profit</div>
-                    <div class="kpi-trend positive">
-                        <span class="trend-icon">↗</span>
-                        <span>+0% Since last week</span>
-                    </div>
-                </div>
+      <div class="charts-grid">
+        <div class="chart-panel">
+          <div class="chart-header">
+            <h3 class="chart-title">Sales Summary</h3>
+          </div>
+          <canvas id="salesChart" height="150"></canvas>
+        </div>
 
-                <div class="kpi-card">
-                    <div class="kpi-value">P000,000</div>
-                    <div class="kpi-label">Total Cost</div>
-                    <div class="kpi-trend negative">
-                        <span class="trend-icon">↘</span>
-                        <span>-0% Since last week</span>
-                    </div>
-                </div>
+        <div class="products-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Top Products</h3>
+          </div>
+          <div id="top-products" class="products-list"></div>
+        </div>
+      </div>
 
-                <div class="kpi-card">
-                    <div class="kpi-value">P000,000</div>
-                    <div class="kpi-label">XX</div>
-                    <div class="kpi-trend positive">
-                        <span class="trend-icon">↗</span>
-                        <span>+0% Since last week</span>
-                    </div>
-                </div>
-            </div>
+      <div class="bottom-grid">
+        <div class="table-panel">
+          <div class="panel-header">
+            <h3 class="panel-title">Recent Transactions</h3>
+            <button id="export-btn" class="view-all-btn">Export CSV</button>
+          </div>
+          <div class="table-container">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>Transaction ID</th>
+                  <th>Cashier</th>
+                  <th>Total</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody id="transactions-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <!-- Charts Section -->
-            <div class="charts-grid">
-                <!-- Total Revenue Chart -->
-                <div class="chart-panel">
-                    <div class="chart-header">
-                        <h3 class="chart-title">Total Revenue</h3>
-                        <div class="chart-controls">
-                            <button class="nav-btn">‹</button>
-                            <select class="time-selector">
-                                <option>This Month</option>
-                            </select>
-                            <button class="nav-btn">›</button>
-                        </div>
-                    </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const STORAGE_TRANSACTIONS_KEY = 'pos_transactions';
+    const STORAGE_PRODUCTS_KEY = 'pos_products';
 
-                    <div class="chart-container">
-                        <div class="y-axis-labels">
-                            <div class="y-label">0k</div>
-                            <div class="y-label">0k</div>
-                            <div class="y-label">0k</div>
-                            <div class="y-label">0k</div>
-                            <div class="y-label">0k</div>
-                        </div>
+    function getData(key) {
+      try {
+        return JSON.parse(localStorage.getItem(key)) || [];
+      } catch {
+        return [];
+      }
+    }
 
-                        <div class="chart-area">
-                            <div class="bars-container">
-                                <div class="bar" style="height: 60%"></div>
-                                <div class="bar" style="height: 45%"></div>
-                                <div class="bar" style="height: 70%"></div>
-                                <div class="bar" style="height: 55%"></div>
-                                <div class="bar" style="height: 80%"></div>
-                                <div class="bar" style="height: 65%"></div>
-                                <div class="bar highlighted" style="height: 95%">
-                                    <div class="tooltip">
-                                        <div class="tooltip-value">P9999</div>
-                                        <div class="tooltip-trend">+X% ↗</div>
-                                    </div>
-                                </div>
-                                <div class="bar" style="height: 50%"></div>
-                                <div class="bar" style="height: 75%"></div>
-                                <div class="bar" style="height: 40%"></div>
-                                <div class="bar" style="height: 85%"></div>
-                                <div class="bar" style="height: 60%"></div>
-                                <div class="bar" style="height: 70%"></div>
-                                <div class="bar" style="height: 55%"></div>
-                            </div>
+    function formatCurrency(value) {
+      return '₱' + Number(value).toFixed(2);
+    }
 
-                            <div class="x-axis-labels">
-                                <div class="x-label">01</div>
-                                <div class="x-label">02</div>
-                                <div class="x-label">03</div>
-                                <div class="x-label">04</div>
-                                <div class="x-label">05</div>
-                                <div class="x-label">06</div>
-                                <div class="x-label">07</div>
-                                <div class="x-label">08</div>
-                                <div class="x-label">09</div>
-                                <div class="x-label">10</div>
-                                <div class="x-label">11</div>
-                                <div class="x-label">12</div>
-                                <div class="x-label">13</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    function updateDashboard() {
+      const txs = getData(STORAGE_TRANSACTIONS_KEY);
+      const products = getData(STORAGE_PRODUCTS_KEY);
 
-                <!-- Top Products Panel -->
-                <div class="products-panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Top Products</h3>
-                        <select class="time-selector">
-                            <option>This Month</option>
-                        </select>
-                    </div>
+      const totalSales = txs.reduce((a, b) => a + (b.total || 0), 0);
+      const totalTransactions = txs.length;
+      const avgTransaction = totalTransactions ? totalSales / totalTransactions : 0;
+      const lowStockCount = products.filter(p => p.stock < 10).length;
 
-                    <div class="products-list">
-                        <div class="product-item">
-                            <div class="product-image">
-                                <div class="product-placeholder">💊</div>
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Keytruda (Pembrolizumab)</div>
-                                <div class="product-sold">359 sold</div>
-                            </div>
-                            <div class="product-price">PX.XX</div>
-                        </div>
+      document.getElementById('kpi-total-sales').textContent = formatCurrency(totalSales);
+      document.getElementById('kpi-total-transactions').textContent = totalTransactions;
+      document.getElementById('kpi-avg-transaction').textContent = formatCurrency(avgTransaction);
+      document.getElementById('kpi-low-stock').textContent = lowStockCount;
 
-                        <div class="product-item">
-                            <div class="product-image">
-                                <div class="product-placeholder">💊</div>
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Ozempic (semaglutide)</div>
-                                <div class="product-sold">300 sold</div>
-                            </div>
-                            <div class="product-price">PX.XX</div>
-                        </div>
+      const table = document.getElementById('transactions-table');
+      const recent = txs.slice(-10).reverse();
+      table.innerHTML = recent.length
+        ? recent.map(t => `
+          <tr>
+            <td>${t.id || 'N/A'}</td>
+            <td>${t.cashier || '—'}</td>
+            <td>${formatCurrency(t.total)}</td>
+            <td>${new Date(t.timestamp).toLocaleString()}</td>
+          </tr>`).join('')
+        : '<tr><td colspan="4" style="text-align:center;">No transactions yet</td></tr>';
 
-                        <div class="product-item">
-                            <div class="product-image">
-                                <div class="product-placeholder">💊</div>
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Dupixent (dupilumab)</div>
-                                <div class="product-sold">289 sold</div>
-                            </div>
-                            <div class="product-price">PX.XX</div>
-                        </div>
+      const topProducts = [...products].sort((a, b) => b.stock - a.stock).slice(0, 5);
+      const topProductsDiv = document.getElementById('top-products');
+      topProductsDiv.innerHTML = topProducts.length
+        ? topProducts.map(p => `
+            <div class="product-item">
+              <div class="product-image"><div class="product-placeholder">💊</div></div>
+              <div class="product-info">
+                <div class="product-name">${p.name}</div>
+                <div class="product-sold">${p.stock} units</div>
+              </div>
+              <div class="product-price">${formatCurrency(p.price || 0)}</div>
+            </div>`).join('')
+        : '<div class="placeholder-text">No product data</div>';
 
-                        <div class="product-item">
-                            <div class="product-image">
-                                <div class="product-placeholder">💊</div>
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Eliquis (apixaban)</div>
-                                <div class="product-sold">248 sold</div>
-                            </div>
-                            <div class="product-price">PX,XX</div>
-                        </div>
+      updateSalesChart(txs);
+    }
 
-                        <div class="product-item">
-                            <div class="product-image">
-                                <div class="product-placeholder">💊</div>
-                            </div>
-                            <div class="product-info">
-                                <div class="product-name">Darzalex (daratumumab)</div>
-                                <div class="product-sold">220 sold</div>
-                            </div>
-                            <div class="product-price">PX.XX</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    function updateSalesChart(txs) {
+      const ctx = document.getElementById('salesChart');
+      const salesByDay = {};
 
-            <!-- Bottom Grid -->
-            <div class="bottom-grid">
-                <div class="table-panel">
-                    <div class="panel-header">
-                        <h3 class="panel-title">Recent Order</h3>
-                        <button class="view-all-btn">View All</button>
-                    </div>
+      txs.forEach(t => {
+        const date = new Date(t.timestamp).toLocaleDateString();
+        salesByDay[date] = (salesByDay[date] || 0) + (t.total || 0);
+      });
 
-                    <div class="table-container">
-                        <table class="orders-table">
-                            <thead>
-                                <tr>
-                                    <th>Order ID</th>
-                                    <th>Medicine Name</th>
-                                    <th>Price</th>
-                                    <th>Order Status</th>
-                                    <th>Payment Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>#ORD576</td>
-                                    <td>Paracetamol (2), Ibuprofen (1)</td>
-                                    <td>$25.50</td>
-                                    <td><span class="status-badge paid">Paid</span></td>
-                                    <td><span class="status-badge completed">Completed</span></td>
-                                    <td><span class="action-dots">⋯</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#ORD575</td>
-                                    <td>Amoxicillin (3), Cetirizine (2)</td>
-                                    <td>P42.00</td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td><span class="status-badge in-progress">In progress</span></td>
-                                    <td><span class="action-dots">⋯</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#ORD574</td>
-                                    <td>Loratadine (1), Omeprazole (1)</td>
-                                    <td>P15.00</td>
-                                    <td><span class="status-badge paid">Paid</span></td>
-                                    <td><span class="status-badge pending">Pending</span></td>
-                                    <td><span class="action-dots">⋯</span></td>
-                                </tr>
-                                <tr>
-                                    <td>#ORD573</td>
-                                    <td>Aspirin (4), Hydrocodone (1)</td>
-                                    <td>P48.00</td>
-                                    <td><span class="status-badge paid">Paid</span></td>
-                                    <td><span class="status-badge completed">Completed</span></td>
-                                    <td><span class="action-dots">⋯</span></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+      const labels = Object.keys(salesByDay).slice(-10);
+      const data = Object.values(salesByDay).slice(-10);
 
-        </div> <!-- End DashboardContainer -->
-    </div> <!-- End Main Content -->
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Sales',
+            data,
+            backgroundColor: ['#C43E38'],
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, ticks: { color: '#374151' } },
+            x: { ticks: { color: '#374151' } }
+          }
+        }
+      });
+    }
 
-    <script src="jquery.js"></script>
-    <script src="jquery-ui-1.14.1/jquery-ui.js"></script>
-    <script>
-        $(document).ready(function() {
-            console.log('Admin dashboard loaded');
-        });
-    </script>
+    document.getElementById('export-btn').addEventListener('click', () => {
+      const txs = getData(STORAGE_TRANSACTIONS_KEY);
+      if (!txs.length) return alert('No data to export');
+      const csv = 'Transaction ID,Cashier,Total,Date\n' +
+        txs.map(t => `${t.id},${t.cashier || ''},${t.total},${new Date(t.timestamp).toLocaleString()}`).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'transactions.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
 
+    updateDashboard();
+  </script>
 </body>
 </html>
