@@ -1,0 +1,680 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Work Sans", system-ui, sans-serif;
+    background-color: #e5e7eb;
+    color: #1f2937;
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+* {
+    font-family: "Work Sans", system-ui, sans-serif;
+}
+
+#sidebar {
+    width: 80px;
+    background-color: #f8fafc;
+    border-right: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+}
+
+#sidebar-header {
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 25px;
+}
+
+#apollogo {
+    width: 66px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+}
+
+#logo {
+    font-size: 18px;
+    font-weight: 700;
+    color: #C43E38;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+#sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex: 1;
+}
+
+.nav-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.2s ease;
+    position: relative;
+    color: #C43E38;
+}
+
+.nav-item:hover {
+    background-color: #FCE8E7;
+    transform: scale(1.05);
+    color: #C43E38;
+}
+
+.nav-item.active {
+    background-color: #C43E38;
+    color: white;
+    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
+    transition: filter 0.2s ease;
+}
+
+.nav-item:hover .nav-icon {
+    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
+}
+
+.nav-item.active .nav-icon {
+    filter: invert(100%);
+}
+
+#sidebar-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+}
+
+#main-content {
+    flex: 1;
+    margin-left: 80px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #e5e7eb;
+    padding: 20px;
+    padding-bottom: 40px;
+    gap: 20px;
+}
+
+#DashboardGrid {
+    display: grid;
+    grid-template-columns: 1.4fr 2.6fr;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+}
+
+#DateInputs input[type="date"],
+#RangeDates input[type="date"] {
+    animation: fadeIn 0.3s ease forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#DailySummaryPanel {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#SummaryTitle {
+    color: #C43E38;
+    margin: 0;
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 10px;
+    font-size: 2ch;
+}
+
+#SummaryCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.summary-card {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+}
+
+.card-title {
+    font-size: 1.2ch;
+    color: #4b5563;
+    margin-bottom: 3px;
+    font-weight: 500;
+}
+
+.card-value {
+    font-size: 2.2ch;
+    font-weight: 700;
+    color: #1f2937;
+}
+
+#ReportGenerationSection {
+    margin-top: 10px;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+#ReportGenerationSection h3 {
+    color: #374151;
+    margin-bottom: 15px;
+    font-size: 1.5ch;
+    font-weight: 600;
+}
+
+#DateOptionSelection {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    margin-bottom: 15px;
+    background-color: #f8fafc;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+#DateOptionSelection label {
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+#DateOptionSelection input[type="radio"] {
+    margin-right: 5px;
+    accent-color: #C43E38;
+}
+
+#DateInputs {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#RangeDates {
+    display: flex;
+    gap: 10px;
+}
+
+#RangeDates input {
+    flex: 1;
+}
+
+input[type="date"],
+input[type="week"],
+input[type="month"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #ffffff;
+    transition: 0.2s ease;
+    height: 45px;
+    box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #C43E38;
+    box-shadow: 0 0 0 3px rgba(196,62,56,0.12);
+}
+
+.report-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.report-btn {
+    padding: 10px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #C43E38;
+    color: white;
+    border: none;
+    transition: 0.2s ease;
+}
+
+.report-btn:hover {
+    background-color: #8B2F2F;
+}
+
+.report-icon {
+    width: 18px;
+    height: 18px;
+    filter: invert(100%);
+}
+
+#ReportStatus {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f0f4f8;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
+#TransactionHistoryContainer {
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+    min-height: 0;
+}
+
+#TransactionHeader {
+    padding: 20px 25px;
+    border-bottom: 2px solid #e5e7eb;
+    background-color: #f9fafb;
+}
+
+#TransactionHeader h2 {
+    margin: 0 0 15px 0;
+    color: #C43E38;
+    font-size: 1.8rem;
+}
+
+#SearchAndFilter {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-top: 5px;
+    flex-wrap: wrap;
+}
+
+#SearchContainer {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+    min-width: 300px;
+}
+
+#TransactionSearch {
+    flex: 1;
+}
+
+#SearchBtn {
+    background-color: #C43E38;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.2s ease;
+}
+
+#SearchBtn:hover {
+    background-color: #8B2F2F;
+}
+
+#FilterContainer select {
+    padding: 12px 16px;
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#TransactionList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+#TransactionList::-webkit-scrollbar {
+    width: 8px;
+}
+
+#TransactionList::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+#TransactionList::-webkit-scrollbar-thumb {
+    background-color: #C43E38;
+    border-radius: 4px;
+}
+
+#TransactionList::-webkit-scrollbar-thumb:hover {
+    background-color: #8B2F2F;
+}
+
+.transaction-card {
+    background-color: #ffffff;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: 0.2s ease;
+}
+
+.transaction-card:hover {
+    border-color: #C43E38;
+    box-shadow: 0 4px 12px rgba(196,62,56,0.1);
+}
+
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.transaction-id {
+    font-weight: 700;
+    color: #C43E38;
+    font-size: 1.1rem;
+}
+
+.transaction-date {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.transaction-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.customer-info {
+    color: #374151;
+    font-size: 0.95rem;
+}
+
+.items-section {
+    margin: 10px 0;
+}
+
+.items-list {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.transaction-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.item-name {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.item-type {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.item-type.otc {
+    background-color: #fef9c3;
+    color: #E7AB0F;
+}
+
+.item-type.rx {
+    background-color: #FCE8E7;
+    color: #C43E38;
+}
+
+.item-quantity {
+    color: #6b7280;
+}
+
+.item-price {
+    font-weight: 700;
+    color: #C43E38;
+}
+
+.transaction-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 1.1rem;
+}
+
+.payment-method {
+    background-color: #C43E38;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.transaction-actions {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.exchange-btn {
+    background-color: #E7AB0F;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.exchange-btn:hover {
+    background-color: #C43E38;
+}
+
+.no-exchange {
+    color: #9ca3af;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.no-transactions {
+    text-align: center;
+    color: #6b7280;
+    font-style: italic;
+    padding: 40px 20px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    color: #C43E38;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.exchange-section {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f9fafb;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+.exchange-section h3 {
+    margin: 0 0 10px 0;
+    color: #374151;
+    font-size: 1.1rem;
+}
+
+.item-detail, .new-item-detail {
+    padding: 8px 0;
+    color: #1f2937;
+}
+
+#NewItemSelect {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+#NewItemSelect:focus {
+    outline: none;
+    border-color: #C43E38;
+}
+
+.price-diff {
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.price-diff.owe {
+    background-color: #fef2f2;
+    color: #972E28;
+    border: 1px solid #fecaca;
+}
+
+.price-diff.refund {
+    background-color: #fef9c3;
+    color: #E7AB0F;
+    border: 1px solid #fce8a9;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    transition: 0.2s ease;
+}
+
+#ConfirmExchangeBtn {
+    background-color: #C43E38;
+    color: white;
+}
+
+#ConfirmExchangeBtn:hover {
+    background-color: #8B2F2F;
+}
+
+#CancelExchangeBtn {
+    background-color: #6b7280;
+    color: white;
+}
+
+#CancelExchangeBtn:hover {
+    background-color: #4b5563;
+}
+
+#HistoryExport {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#HistoryExport select,
+#PrintHistoryBtn,
+#ExportHistoryBtn {
+    padding: 10px 14px;
+    border: 2px solid #d1d5db;
+    border-radius: 12px;
+    background: #ffffff;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#PrintHistoryBtn,
+#ExportHistoryBtn {
+    background-color: #C43E38;
+    color: white;
+}
+
+#PrintHistoryBtn:hover,
+#ExportHistoryBtn:hover {
+    background-color: #8B2F2F;
+}
