@@ -535,6 +535,10 @@ select:focus {
     font-style: italic;
     padding: 40px 20px;
 }
+#CashierSelect {
+    margin-top: 6px;
+}
+
 
 .modal {
     display: none;
@@ -650,6 +654,10 @@ select:focus {
 #CancelExchangeBtn:hover {
     background-color: #4b5563;
 }
+#HistoryExport select {
+    min-width: 150px;
+}
+
 
 #HistoryExport {
     display: flex;
@@ -667,6 +675,8 @@ select:focus {
     cursor: pointer;
     font-weight: 600;
 }
+
+
 
 #PrintHistoryBtn,
 #ExportHistoryBtn {
