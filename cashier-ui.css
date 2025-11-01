@@ -830,6 +830,7 @@ body {
         text-align: center;
         margin-top: 6px;
     }
+   
 }
       @media print {
             body * { visibility: hidden !important; }
