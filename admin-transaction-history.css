@@ -13,126 +13,22 @@ body {
     font-family: "Work Sans", system-ui, sans-serif;
 }
 
-#sidebar {
-    width: 80px;
-    background-color: #f8fafc;
-    border-right: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-}
-
-#sidebar-header {
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 25px;
-}
-
-#apollogo {
-    width: 66px;
-    height: auto;
-    margin: 0 auto;
-    display: block;
-}
-
-#logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #C43E38;
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-#sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
-}
-
-.nav-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: 0.2s ease;
-    position: relative;
-    color: #C43E38;
-}
-
-.nav-item:hover {
-    background-color: #FCE8E7;
-    transform: scale(1.05);
-    color: #C43E38;
-}
-
-.nav-item.active {
-    background-color: #C43E38;
-    color: white;
-    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3);
-}
-
-.nav-icon {
-    width: 20px;
-    height: 20px;
-    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
-    transition: filter 0.2s ease;
-}
-
-.nav-item:hover .nav-icon {
-    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
-}
-
-.nav-item.active .nav-icon {
-    filter: invert(100%);
-}
-
-#sidebar-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 40px;
-}
-
 #main-content {
     flex: 1;
-    margin-left: 80px;
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    overflow: hidden;
     background-color: #e5e7eb;
     padding: 20px;
     padding-bottom: 40px;
     gap: 20px;
+    justify-content: center;
 }
 
 #DashboardGrid {
     display: grid;
     grid-template-columns: 1.4fr 2.6fr;
     gap: 20px;
-    flex: 1;
-    min-height: 0;
-}
-
-#DateInputs input[type="date"],
-#RangeDates input[type="date"] {
-    animation: fadeIn 0.3s ease forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 #DailySummaryPanel {
@@ -140,10 +36,13 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: 100%;
     display: flex;
+    height: auto;
+    margin-bottom: 20px;
     flex-direction: column;
     gap: 20px;
+    align-self: stretch;
+    min-height: calc(100vh - 120px);
 }
 
 #SummaryTitle {
@@ -185,6 +84,7 @@ body {
     margin-top: 10px;
     padding-top: 15px;
     border-top: 1px solid #e5e7eb;
+    flex-grow: 1;
 }
 
 #ReportGenerationSection h3 {
@@ -302,8 +202,8 @@ select:focus {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 100%;
     min-height: 0;
+    min-height: calc(100vh - 120px);
 }
 
 #TransactionHeader {
@@ -535,10 +435,10 @@ select:focus {
     font-style: italic;
     padding: 40px 20px;
 }
+
 #CashierSelect {
     margin-top: 6px;
 }
-
 
 .modal {
     display: none;
@@ -654,10 +554,6 @@ select:focus {
 #CancelExchangeBtn:hover {
     background-color: #4b5563;
 }
-#HistoryExport select {
-    min-width: 150px;
-}
-
 
 #HistoryExport {
     display: flex;
@@ -676,8 +572,6 @@ select:focus {
     font-weight: 600;
 }
 
-
-
 #PrintHistoryBtn,
 #ExportHistoryBtn {
     background-color: #C43E38;
@@ -687,4 +581,8 @@ select:focus {
 #PrintHistoryBtn:hover,
 #ExportHistoryBtn:hover {
     background-color: #8B2F2F;
+}
+
+#HistoryExport select {
+    min-width: 150px;
 }
