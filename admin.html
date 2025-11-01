@@ -11,42 +11,12 @@
 </head>
 
 <body>
-  <div id="sidebar">
-    <div id="sidebar-header">
-      <img id="apollogo" src="logomed.png" alt="apollogo" />
-    </div>
-
-    <div id="sidebar-nav">
-      <a href="#" class="nav-item active">
-        <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon" />
-      </a>
-       <a href="inventory.html" class="nav-item">
-        <img src="icons/inventory.png" alt="Inventory" class="nav-icon" />
-      </a>
-      <a href="account.html" class="nav-item">
-        <img src="icons/account.png" alt="Account" class="nav-icon" />
-      </a>
-      <a href="admin-transaction-history.html" class="nav-item">
-        <img src="icons/history.png" alt="History" class="nav-icon" />
-      </a>
-      <a href="settings.html" class="nav-item">
-        <img src="icons/setting.png" alt="Settings" class="nav-icon" />
-      </a>
-    </div>
-
-    <div id="sidebar-footer">
-      <a href="login.html" class="nav-item">
-        <img src="icons/power-off.png" alt="Logout" class="nav-icon" />
-      </a>
-    </div>
-  </div>
-
   <div id="main-content">
     <div id="DashboardContainer">
       <div class="kpi-grid">
         <div class="kpi-card revenue-card">
           <div id="kpi-total-sales" class="kpi-value">₱0.00</div>
-           <div class="kpi-label">Transactions</div>
+          <div class="kpi-label">Transactions</div>
           <div class="kpi-trend positive"><span class="trend-icon"></span></div>
         </div>
         <div class="kpi-card">
@@ -112,16 +82,11 @@
     const STORAGE_PRODUCTS_KEY = 'pos_products';
 
     function getData(key) {
-      try {
-        return JSON.parse(localStorage.getItem(key)) || [];
-      } catch {
-        return [];
-      }
+      try { return JSON.parse(localStorage.getItem(key)) || []; } 
+      catch { return []; }
     }
 
-    function formatCurrency(value) {
-      return '₱' + Number(value).toFixed(2);
-    }
+    function formatCurrency(value) { return '₱' + Number(value).toFixed(2); }
 
     function updateDashboard() {
       const txs = getData(STORAGE_TRANSACTIONS_KEY);
@@ -180,22 +145,11 @@
 
       new Chart(ctx, {
         type: 'bar',
-        data: {
-          labels,
-          datasets: [{
-            label: 'Sales',
-            data,
-            backgroundColor: ['#C43E38'],
-            borderRadius: 6
-          }]
-        },
+        data: { labels, datasets: [{ label: 'Sales', data, backgroundColor: ['#C43E38'], borderRadius: 6 }] },
         options: {
           responsive: true,
           plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true, ticks: { color: '#374151' } },
-            x: { ticks: { color: '#374151' } }
-          }
+          scales: { y: { beginAtZero: true, ticks: { color: '#374151' } }, x: { ticks: { color: '#374151' } } }
         }
       });
     }
