@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - </title>
+    <link rel="stylesheet" href="login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="login-background-placeholder">
+    </div>
+    
+    <div id="login-container">
+        <div id="login-box"> 
+            <div id="login-header">
+                <img id="logo" src="logo.png" alt="PharmaCare Logo"> 
+                <h2>Cashier Login</h2>
+            </div>
+            
+            <form action="login-handler.php" method="POST" id="login-form"> 
+                
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                
+                <button type="submit" id="login-button">LOG IN</button>
+                
+                <div id="login-message" style="color: red; margin-top: 10px; text-align: center;">
+                    <?php 
+                        if (isset($_GET['error'])) {
+                            $error_message = "";
+                            switch ($_GET['error']) {
+                                case 'invalid_credentials':
+                                case 'missing_credentials':
+                                    $error_message = "Invalid username or password. Please try again.";
+                                    break;
+                                case 'db_error':
+                                    $error_message = "A server error occurred. Please try again later.";
+                                    break;
+                                default:
+                                    $error_message = "An unknown login error occurred.";
+                                    break;
+                            }
+                            echo htmlspecialchars($error_message);
+                        }
+                    ?>
+                </div>
+
+                <div id="forgot-password">
+                    <a href="#">Forgot Password? (Contact Administrator)</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
