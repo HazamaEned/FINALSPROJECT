@@ -93,6 +93,7 @@
         .nav-text {
             opacity: 0;
             visibility: hidden;
+            font-family: "Work Sans", system-ui, sans-serif;
             white-space: nowrap;
             font-size: 1.5ch;
             font-weight: 600;
