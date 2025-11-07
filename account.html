@@ -8,32 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    </head>
+</head>
 <body>
-    <div id="sidebar">
-        <div id="sidebar-header">
-            <img id="apollogo" src="logomed.png" alt="apollogo">
-        </div>
-        <nav id="sidebar-nav">
-            <a href="admin.html" class="nav-item">
-                <img src="icons/dashboard.png" alt="Dashboard" class="nav-icon">
-            </a>
-            <a href="#" class="nav-item active">
-                <img src="icons/account.png" alt="Account Management" class="nav-icon">
-            </a>
-            <a href="cashier-transaction-history.html" class="nav-item">
-                <img src="icons/history.png" alt="Transaction History" class="nav-icon">
-            </a>
-            <a href="settings.html" class="nav-item">
-                <img src="icons/setting.png" alt="Settings" class="nav-icon">
-            </a>
-        </nav>
-        <div id="sidebar-footer">
-            <a href="login.html" class="nav-item">
-                <img src="icons/power-off.png" alt="Logout" class="nav-icon">
-            </a>
-        </div>
-    </div>
 
     <div id="main-content">
         <div id="LeftArea">
@@ -136,10 +112,9 @@
                 dateCreated: "2024-01-25",
                 accessLevel: "Cashier"
             },
-          
+            
         ];
 
-        // Function to update user details in the Right Area
         function updateUserDetails(user) {
             $('#AccountDetailsContent .detail-row').each(function() {
                 const label = $(this).find('.detail-label').text();
@@ -150,7 +125,6 @@
                         valueElement.text(user.status);
                         valueElement.removeClass('status-active status-inactive');
                         valueElement.addClass(user.status === 'ACTIVE' ? 'status-active' : 'status-inactive');
-                        // Also update the Deactivate/Activate button text
                         if (user.status === 'ACTIVE') {
                             $('.deactivate-btn').text('DEACTIVATE ACCOUNT');
                         } else {
@@ -178,10 +152,7 @@
             });
         }
 
-        // --- NEW FUNCTIONALITY: Add User ---
-
         function addNewUser(name, username, accessLevel) {
-            // Simple ID generation for the client-side array
             const newId = users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1;
             const today = new Date();
             const dateCreated = `${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getDate().toString().padStart(2, '0')}/${today.getFullYear()}`;
@@ -190,15 +161,13 @@
                 id: newId,
                 name: name,
                 username: username,
-                status: "ACTIVE", // Default new users to active
+                status: "ACTIVE", 
                 dateCreated: dateCreated,
                 accessLevel: accessLevel
             };
 
-            // 1. Add to JS array
             users.push(newUser);
 
-            // 2. Create the new HTML row
             const newRowHtml = `
                 <div class="user-row" data-user-id="${newUser.id}">
                     <div class="user-id">${newUser.id}</div>
@@ -207,11 +176,9 @@
                 </div>
             `;
             
-            // Append the new row to the table
             $('#UserTable').append(newRowHtml);
             
-            // 3. Attach the click handler to the newly created row
-            $(`[data-user-id="${newUser.id}"]`).on('click', function() {
+            $(r`[data-user-id="${newUser.id}"]`).on('click', function() {
                 $('.user-row').removeClass('active');
                 $(this).addClass('active');
                 
@@ -223,17 +190,12 @@
                 }
             });
 
-            // Select the new user and display their details
             $(`[data-user-id="${newUser.id}"]`).trigger('click');
 
             alert(`New account for ${name} (ID: ${newId}) created successfully with access level: ${accessLevel}!`);
         }
 
-        // --- Action Button Handlers ---
-
-        // 1. ADD NEW USER Button Handler
         $('.add-user-btn').on('click', function() {
-            // Simulate gathering user data using prompts
             const name = prompt('Enter the full name for the new user:');
             if (!name) return;
 
@@ -244,7 +206,6 @@
             let accessLevel = prompt(`Enter the access level for ${name} (${validLevels.join(', ')}):`);
             if (!accessLevel) return;
 
-            // Basic validation
             accessLevel = accessLevel.charAt(0).toUpperCase() + accessLevel.slice(1).toLowerCase();
 
             if (validLevels.includes(accessLevel)) {
@@ -254,7 +215,6 @@
             }
         });
 
-        // User search functionality
         $('#userSearch').on('input', function() {
             const searchTerm = $(this).val().toLowerCase();
             $('.user-row').each(function() {
@@ -269,8 +229,6 @@
             });
         });
 
-        // User row click functionality (Selects a user and updates details)
-        // Note: This applies to existing HTML rows. New rows attach this event inside addNewUser.
         $('.user-row').on('click', function() {
             $('.user-row').removeClass('active');
             $(this).addClass('active');
@@ -283,15 +241,10 @@
             }
         });
 
-        // Initialize with the first user selected
         if (users.length > 0) {
             updateUserDetails(users[0]);
         }
-
-        // Remaining Action Button Handlers (Delete, Deactivate, Reset, Edit) remain the same as before
-        // ... (The rest of your existing button handlers for delete, deactivate, reset, and edit go here)
         
-        // 2. DELETE ACCOUNT Button
         $('.delete-btn').on('click', function() {
             const selectedId = $('.user-row.active').data('user-id');
             const selectedUser = users.find(u => u.id === selectedId);
@@ -302,28 +255,23 @@
             }
 
             if (confirm(`Are you sure you want to delete ${selectedUser.name}'s account (ID: ${selectedId})? This action cannot be undone.`)) {
-                // Find and remove from JS array
                 const userIndex = users.findIndex(u => u.id === selectedId);
                 if (userIndex > -1) {
                     users.splice(userIndex, 1);
                 }
                 
-                // Remove the row from the table (UI update)
                 $(`[data-user-id="${selectedId}"]`).remove();
                 
                 alert(`${selectedUser.name}'s Account deleted successfully! (ID: ${selectedId})`);
 
-                // Select the first remaining user or clear the details panel
                 if (users.length > 0) {
                     $(`[data-user-id="${users[0].id}"]`).trigger('click');
                 } else {
-                    // Clear details if no users are left (placeholder logic)
                     $('#AccountDetailsContent .detail-value').text(''); 
                 }
             }
         });
 
-        // 3. DEACTIVATE/ACTIVATE ACCOUNT Button (Toggles status)
         $('.deactivate-btn').on('click', function() {
             const selectedId = $('.user-row.active').data('user-id');
             const selectedUser = users.find(u => u.id === selectedId);
@@ -338,9 +286,8 @@
 
             if (confirm(`Are you sure you want to ${action} ${selectedUser.name}'s account?`)) {
                 selectedUser.status = newStatus;
-                updateUserDetails(selectedUser); // Update details panel and button text
+                updateUserDetails(selectedUser); 
 
-                // Update the status cell in the user list table (Left Area)
                 const userRowStatus = $(`[data-user-id="${selectedId}"] .user-status`);
                 userRowStatus.text(newStatus);
                 userRowStatus.removeClass('active inactive').addClass(newStatus.toLowerCase());
@@ -349,7 +296,6 @@
             }
         });
 
-        // 4. RESET PASSWORD Button
         $('.reset-btn').on('click', function() {
             const selectedUser = users.find(u => u.id === $('.user-row.active').data('user-id'));
 
@@ -363,7 +309,6 @@
             }
         });
 
-        // 5. EDIT ACCESS LEVEL Button (Uses a prompt for simulation)
         $('.edit-btn').on('click', function() {
             const selectedUser = users.find(u => u.id === $('.user-row.active').data('user-id'));
 

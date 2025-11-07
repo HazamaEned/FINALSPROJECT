@@ -15,42 +15,20 @@ body {
 
 #main-content {
     flex: 1;
-    margin: 0; /* removed sidebar margin */
-    padding: 30px 40px;
-    background-color: #e5e7eb;
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: stretch;
-    gap: 25px;
-    height: 100vh;
-    box-sizing: border-box;
-    overflow: hidden;
+    background-color: #e5e7eb;
+    padding: 20px;
+    padding-bottom: 40px;
+    gap: 20px;
+    justify-content: center;
 }
 
 #DashboardGrid {
     display: grid;
     grid-template-columns: 1.4fr 2.6fr;
-    gap: 25px;
-    flex: 1;
-    align-items: flex-start; 
-    justify-content: center;
-    min-height: 0;
-    height: calc(100vh - 100px); 
-    box-sizing: border-box;
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-#DateInputs input[type="date"],
-#RangeDates input[type="date"] {
-    animation: fadeIn 0.3s ease forwards;
-    opacity: 0;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
+    gap: 20px;
 }
 
 #DailySummaryPanel {
@@ -58,10 +36,13 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    height: auto; 
     display: flex;
+    height: auto;
+    margin-bottom: 20px;
     flex-direction: column;
     gap: 20px;
+    align-self: stretch;
+    min-height: calc(100vh - 120px);
 }
 
 #SummaryTitle {
@@ -103,6 +84,7 @@ body {
     margin-top: 10px;
     padding-top: 15px;
     border-top: 1px solid #e5e7eb;
+    flex-grow: 1;
 }
 
 #ReportGenerationSection h3 {
@@ -203,15 +185,25 @@ select:focus {
     filter: invert(100%);
 }
 
-/* Transaction History Container and items */
+#ReportStatus {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #f0f4f8;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    color: #4b5563;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+}
+
 #TransactionHistoryContainer {
     background-color: #ffffff;
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    height: 100%;
     min-height: 0;
+    min-height: calc(100vh - 120px);
 }
 
 #TransactionHeader {
@@ -276,23 +268,24 @@ select:focus {
     padding: 20px;
 }
 
-/* Scrollbar */
 #TransactionList::-webkit-scrollbar {
     width: 8px;
 }
+
 #TransactionList::-webkit-scrollbar-track {
     background: #f1f5f9;
     border-radius: 4px;
 }
+
 #TransactionList::-webkit-scrollbar-thumb {
     background-color: #C43E38;
     border-radius: 4px;
 }
+
 #TransactionList::-webkit-scrollbar-thumb:hover {
     background-color: #8B2F2F;
 }
 
-/* Transaction cards */
 .transaction-card {
     background-color: #ffffff;
     border: 2px solid #e5e7eb;
@@ -443,7 +436,10 @@ select:focus {
     padding: 40px 20px;
 }
 
-/* Modal */
+#CashierSelect {
+    margin-top: 6px;
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -585,4 +581,8 @@ select:focus {
 #PrintHistoryBtn:hover,
 #ExportHistoryBtn:hover {
     background-color: #8B2F2F;
+}
+
+#HistoryExport select {
+    min-width: 150px;
 }

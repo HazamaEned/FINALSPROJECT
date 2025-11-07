@@ -1,9 +1,7 @@
-/* ---------- Base Layout ---------- */
 body {
     margin: 0;
     padding: 0;
     font-family: "Work Sans", system-ui, sans-serif;
-    /* Updated background color to match previous base */
     background-color: #e5e7eb;
     color: #1f2937;
     display: flex;
@@ -11,131 +9,18 @@ body {
     overflow: hidden;
 }
 
-/* ---------- Sidebar ---------- */
-#sidebar {
-    width: 80px;
-    background-color: #f8fafc;
-    border-right: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-}
-
-
-#sidebar-header {
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 25px;
-}
-
-#apollogo {
-    width: 66px;
-    height: auto;
-    padding: 0;
-    margin: 0 auto;
-    display: block;
-}
-
-#logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #C43E38; /* Accent Red */
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-#sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
-}
-
-.nav-item {
-    width: 50px;
-    height: 50px;
-    /* Added border-radius to match previous base */
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    position: relative;
-    /* Updated color to Accent Red */
-    color: #C43E38;
-}
-
-.nav-item:hover {
-    background-color: #FCE8E7; /* Light Red Hover */
-    /* Updated transform to match previous base */
-    transform: scale(1.05);
-    /* Updated color to Accent Red */
-    color: #C43E38;
-}
-
-.nav-item.active {
-    background-color: #C43E38; /* Accent Red */
-    color: white; 
-    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3); /* Red Shadow */
-}
-
-.nav-icon {
-    width: 20px;
-    height: 20px;
-    display: block;
-    /* Updated filter for C43E38 Red */
-    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
-    transition: all 0.2s ease;
-}
-
-/* Added nav-item:hover .nav-icon to match previous base */
-.nav-item:hover .nav-icon {
-    /* Updated filter for C43E38 Red */
-    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
-}
-
-.nav-item.active .nav-icon {
-    /* Updated filter to match previous base */
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-}
-
-#sidebar-footer {
-    display: flex; /* Updated to flex to align with previous base's intent */
-    flex-direction: column;
-    align-items: center;
-    /* Updated margin to padding-bottom to match previous base's structure */
-    padding-bottom: 40px; 
-}
-
-/* ---------- Main Content ---------- */
 #main-content {
     flex: 1;
-    margin-left: 80px;
-    /* Updated padding to match previous base's structure (simplified) */
+    margin-left: 40px;
     padding: 20px;
-    /* Increased padding-bottom for better visibility on scrollable content */
-    padding-bottom: 60px; 
-    /* Updated overflow and height to match previous base */
+    padding-bottom: 60px;
     height: 100vh;
     overflow: hidden;
-    /* Updated background color to match previous base */
     background-color: #e5e7eb;
-    /* Updated display and gap to align with the new layout while using base styling */
     display: flex;
     gap: 20px;
 }
 
-/* Scrollbar styling for #main-content if overflow-y: auto is reapplied in a section */
-/* Removed specific scrollbar styling from #main-content to match the previous version's outer wrapper approach */
-
-/* ---------- Left and Right Areas ---------- */
 #LeftArea {
     flex: 1;
     display: flex;
@@ -145,27 +30,22 @@ body {
 }
 
 #RightArea {
-    /* Changed flex: 1 to flex: none to allow content-driven width, and restored explicit width */
     flex: none;
-    width: 40%; /* Assuming the right area should be about 40% as in the previous layout */
+    width: 40%;
     display: flex;
     flex-direction: column;
     gap: 20px;
     min-width: 0;
 }
 
-/* ---------- Panel Styles (General Panel Style from previous file) ---------- */
 .panel {
-    background-color: #ffffff; /* Updated color to match previous base */
-    border-radius: 12px; /* Updated border-radius to match previous base */
-    /* Removed padding, border, and transition from .panel and moved to specific IDs if needed, 
-    but kept basic style for consistency. Added transition. */
+    background-color: #ffffff;
+    border-radius: 12px;
     transition: 0.2s ease;
-    padding: 20px; /* Kept padding, will override if necessary */
-    border: none; /* Removed border */
+    padding: 20px;
+    border: none;
 }
 
-/* Re-added panel structure for consistency with the base template's common elements */
 #AccountList,
 #AccountDetails,
 #ActionButtons {
@@ -173,37 +53,30 @@ body {
     border-radius: 12px;
 }
 
-
-/* ---------- Account List Panel (Left) ---------- */
 #AccountList {
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* Added back padding to match the general panel style but removed the border */
     padding: 20px;
-    /* Increased margin for responsive scrolling fix */
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
 
 #AccountSearch {
-    /* Simplified font size to match previous styling patterns (2ch/1.8ch) */
     font-size: 2ch;
-    font-weight: 700; /* Increased font weight to match previous titles */
-    color: #C43E38; /* Accent Red */
-    margin-bottom: 10px; /* Adjusted margin */
-    /* Added border-bottom for a distinct title area */
+    font-weight: 700;
+    color: #C43E38;
+    margin-bottom: 10px;
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 15px;
 }
 
 #SearchBarContainer {
-    padding: 0; /* Adjusted padding */
-    margin-bottom: 15px; /* Adjusted margin */
+    padding: 0;
+    margin-bottom: 15px;
 }
 
 #SearchBarContainer input {
     width: 100%;
-    /* Updated border, padding, and border-radius to match previous search bar */
     border-radius: 8px;
     border: 2px solid #d1d5db;
     padding: 12px 16px;
@@ -216,7 +89,6 @@ body {
 }
 
 #SearchBarContainer input:focus {
-    /* Updated focus style to Accent Red */
     border-color: #C43E38;
     box-shadow: 0 0 0 3px rgba(196, 62, 56, 0.1);
 }
@@ -228,18 +100,16 @@ body {
     overflow-y: auto;
 }
 
-/* Scrollbar styling for #UserTable (copied from ProductGrid) */
 #UserTable::-webkit-scrollbar {
     width: 8px;
 }
 #UserTable::-webkit-scrollbar-thumb {
-    background-color: #C43E38; /* Accent Red */
+    background-color: #C43E38;
     border-radius: 8px;
 }
 #UserTable::-webkit-scrollbar-thumb:hover {
-    background-color: #8B2F2F; /* Darker Red */
+    background-color: #8B2F2F;
 }
-
 
 .table-header {
     display: grid;
@@ -248,8 +118,8 @@ body {
     padding: 12px 0;
     border-bottom: 1px solid #e5e7eb;
     font-weight: 600;
-    color: #374151; /* Adjusted color */
-    font-size: 1.6ch; /* Adjusted font size */
+    color: #374151;
+    font-size: 1.6ch;
 }
 
 .header-cell {
@@ -260,48 +130,48 @@ body {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 12px;
-    padding: 10px 0; /* Adjusted padding */
+    padding: 10px 0;
     border-bottom: 1px solid #f3f4f6;
     cursor: pointer;
     transition: all 0.2s ease;
     align-items: center;
-    font-size: 1.6ch; /* Adjusted font size */
+    font-size: 1.6ch;
 }
 
 .user-row:hover {
-    background-color: #FCE8E7; /* Light Red/Pink Hover */
+    background-color: #FCE8E7;
 }
 
 .user-row.active {
-    background-color: #FDECEC; /* Very Light Red Active Background */
-    border-left: 3px solid #C43E38; /* Accent Red Active Border */
+    background-color: #FDECEC;
+    border-left: 3px solid #C43E38;
     padding-left: 8px;
 }
 
 .user-id {
     font-weight: 500;
     color: #111827;
-    font-size: 1.6ch; /* Adjusted font size */
+    font-size: 1.6ch;
 }
 
 .user-name {
     font-weight: 500;
     color: #111827;
-    font-size: 1.6ch; /* Adjusted font size */
+    font-size: 1.6ch;
 }
 
 .user-status {
-    font-size: 1.5ch; /* Adjusted font size */
-    font-weight: 600; /* Increased font weight */
+    font-size: 1.5ch;
+    font-weight: 600;
     text-align: left;
 }
 
 .user-status.active {
-    color: #C43E38; /* Accent Red for Active Status */
+    color: #C43E38;
 }
 
 .user-status.inactive {
-    color: #C43E38; /* Accent Red for Inactive Status */
+    color: #C43E38;
 }
 
 .add-user-section {
@@ -312,12 +182,11 @@ body {
 
 .add-user-btn {
     width: 100%;
-    /* Updated to Accent Red */
     background-color: #C43E38;
     color: white;
     border: none;
     padding: 12px 16px;
-    border-radius: 8px; /* Slightly larger radius */
+    border-radius: 8px;
     font-size: 1.6ch;
     font-weight: 600;
     cursor: pointer;
@@ -325,23 +194,21 @@ body {
 }
 
 .add-user-btn:hover {
-    background-color: #8B2F2F; /* Darker Red Hover */
+    background-color: #8B2F2F;
     color: white;
 }
 
-/* ---------- Account Details Panel (Top Right) ---------- */
 #AccountDetails {
     flex: 1;
     display: flex;
     flex-direction: column;
-    /* Added back padding to match the general panel style but removed the border */
     padding: 20px;
 }
 
 #AccountDetailsHeader {
     font-size: 2ch;
     font-weight: 700;
-    color: #C43E38; /* Accent Red */
+    color: #C43E38;
     margin-bottom: 20px;
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 15px;
@@ -359,7 +226,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 10px 12px;
-    background-color: #f9fafb; /* Lighter background */
+    background-color: #f9fafb;
     border-radius: 8px;
     border: 1px solid #e5e7eb;
 }
@@ -379,8 +246,8 @@ body {
 }
 
 .detail-value.status-active {
-    background-color: #FDECEC; /* Light Red Background */
-    color: #C43E38; /* Accent Red Text */
+    background-color: #FDECEC;
+    color: #C43E38;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 1.4ch;
@@ -388,7 +255,7 @@ body {
 
 .detail-value.status-inactive {
     background-color: #fee2e2;
-    color: #C43E38; /* Accent Red Text */
+    color: #C43E38;
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 1.4ch;
@@ -411,7 +278,6 @@ body {
 }
 
 .detail-value.access-cashier {
-    /* Updated Cashier role to use Accent Red theme */
     background-color: #FDECEC;
     color: #C43E38;
     padding: 4px 10px;
@@ -419,21 +285,18 @@ body {
     font-size: 1.4ch;
 }
 
-/* ---------- Action Buttons Panel (Bottom Right) ---------- */
 #ActionButtons {
     flex: 0 0 auto;
     display: flex;
     flex-direction: column;
-    /* Added back padding to match the general panel style but removed the border */
     padding: 20px;
-    /* Increased margin for responsive scrolling fix */
-    margin-bottom: 30px; 
+    margin-bottom: 30px;
 }
 
 #ActionButtonsHeader {
     font-size: 2ch;
     font-weight: 700;
-    color: #C43E38; /* Accent Red */
+    color: #C43E38;
     margin-bottom: 20px;
     border-bottom: 1px solid #e5e7eb;
     padding-bottom: 15px;
@@ -448,34 +311,34 @@ body {
 .action-btn {
     padding: 12px 16px;
     border: none;
-    border-radius: 8px; /* Increased radius */
+    border-radius: 8px;
     font-size: 1.6ch;
-    font-weight: 600; /* Increased font weight */
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
 }
 
 .delete-btn {
-    background-color: #C43E38; /* Accent Red */
+    background-color: #C43E38;
     color: white;
 }
 
 .delete-btn:hover {
-    background-color: #8B2F2F; /* Darker red on hover */
+    background-color: #8B2F2F;
 }
 
 .deactivate-btn {
-    background-color: #E7AB0F; /* Yellow Accent */
+    background-color: #E7AB0F;
     color: #111827;
 }
 
 .deactivate-btn:hover {
-    background-color: #D49A0E; /* Darker yellow on hover */
+    background-color: #D49A0E;
 }
 
 .reset-btn {
-    background-color: #d1d5db; /* Adjusted to base gray tint */
+    background-color: #d1d5db;
     color: #111827;
 }
 
@@ -484,37 +347,32 @@ body {
 }
 
 .edit-btn {
-    background-color: #C43E38; /* Accent Red (used in place of primary green) */
+    background-color: #C43E38;
     color: white;
 }
 
 .edit-btn:hover {
-    background-color: #8B2F2F; /* Darker red on hover */
+    background-color: #8B2F2F;
 }
 
-
-/* ---------- Responsive Design (Adjusted based on base) ---------- */
 @media (max-width: 1200px) {
     #main-content {
         flex-direction: column;
-     
         overflow-y: auto;
         height: auto;
     }
-    
+
     #LeftArea, #RightArea {
         flex: none;
         width: auto;
     }
-
-
 }
 
 @media (max-width: 768px) {
     #main-content {
         padding: 20px;
     }
-    
+
     .panel {
         padding: 15px;
     }

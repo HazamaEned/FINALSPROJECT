@@ -1,125 +1,26 @@
-/* ---------- Base Layout ---------- */
 body {
     margin: 0;
     padding: 0;
     font-family: "Work Sans", system-ui, sans-serif;
     background-color: #e5e7eb;
     color: #1f2937;
-    display: flex;
     height: 100vh;
     overflow: hidden;
 }
 
-/* ---------- Sidebar ---------- */
-#sidebar {
-    width: 80px;
-    background-color: #f8fafc;
-    border-right: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 0;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    z-index: 1000;
-}
 
-#sidebar-header {
-    text-align: center;
-    padding: 10px 0;
-    margin-bottom: 25px;
-}
-
-#apollogo {
-    width: 66px;
-    height: auto;
-    padding: 0;
-    margin: 0 auto;
-    display: block;
-}
-
-
-#logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: #C43E38; /* Accent Red */
-    text-align: center;
-    letter-spacing: 1px;
-}
-
-#sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    flex: 1;
-}
-
-.nav-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    position: relative;
-    color: #C43E38; /* Accent Red */
-}
-
-.nav-item:hover {
-    background-color: #FCE8E7; /* Light Red Hover */
-    transform: scale(1.05);
-    color: #C43E38;
-}
-
-.nav-item.active {
-    background-color: #C43E38; /* Accent Red */
-    color: white;
-    box-shadow: 0 4px 12px rgba(196, 62, 56, 0.3);
-}
-
-.nav-icon {
-    width: 20px;
-    height: 20px;
-    display: block;
-    /* Adjusted filter for C43E38 Red */
-    filter: brightness(0) saturate(100%) invert(18%) sepia(35%) saturate(3000%) hue-rotate(330deg) brightness(80%) contrast(90%);
-    transition: filter 0.2s ease;
-}
-
-.nav-item:hover .nav-icon {
-    /* Adjusted filter for C43E38 Red */
-    filter: brightness(0) saturate(100%) invert(15%) sepia(85%) saturate(750%) hue-rotate(350deg) brightness(85%) contrast(90%);
-}
-
-.nav-item.active .nav-icon {
-    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
-}
-
-#sidebar-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 40px;
-}
-
-/* ---------- Main Content ---------- */
 #main-content {
-    flex: 1;
-    margin-left: 80px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
     background-color: #e5e7eb;
-    padding: 20px;
-    padding-bottom: 40px;
+    padding: 20px 40px;
+    box-sizing: border-box;
 }
 
-/*----------- Settings Container -----------*/
+
 #SettingsContainer {
     width: 100%;
     background-color: #ffffff;
@@ -131,6 +32,7 @@ body {
     height: 100%;
 }
 
+
 #SettingsHeader {
     padding: 20px 25px;
     border-bottom: 2px solid #e5e7eb;
@@ -139,17 +41,16 @@ body {
 
 #SettingsHeader h2 {
     margin: 0 0 8px 0;
-    color: #C43E38; /* Accent Red */
+    color: #C43E38;
     font-size: 1.8rem;
-    font-family: "Work Sans", system-ui, sans-serif;
 }
 
 #SettingsHeader p {
     margin: 0;
     color: #6b7280;
     font-size: 1rem;
-    font-family: "Work Sans", system-ui, sans-serif;
 }
+
 
 #SettingsContent {
     flex: 1;
@@ -158,7 +59,7 @@ body {
     max-height: calc(100vh - 200px);
 }
 
-/* Scrollbar styling */
+
 #SettingsContent::-webkit-scrollbar {
     width: 8px;
 }
@@ -169,15 +70,15 @@ body {
 }
 
 #SettingsContent::-webkit-scrollbar-thumb {
-    background-color: #C43E38; /* Accent Red */
+    background-color: #C43E38;
     border-radius: 4px;
 }
 
 #SettingsContent::-webkit-scrollbar-thumb:hover {
-    background-color: #8B2F2F; /* Darker Red */
+    background-color: #8B2F2F;
 }
 
-/* Settings Sections */
+
 .settings-section {
     margin-bottom: 30px;
     padding: 20px;
@@ -188,9 +89,8 @@ body {
 
 .settings-section h3 {
     margin: 0 0 20px 0;
-    color: #C43E38; /* Accent Red */
+    color: #C43E38;
     font-size: 1.3rem;
-    font-family: "Work Sans", system-ui, sans-serif;
     border-bottom: 2px solid #e5e7eb;
     padding-bottom: 10px;
 }
@@ -211,7 +111,6 @@ body {
     font-weight: 600;
     color: #374151;
     font-size: 0.95rem;
-    font-family: "Work Sans", system-ui, sans-serif;
 }
 
 .setting-item input,
@@ -221,16 +120,15 @@ body {
     border: 2px solid #d1d5db;
     border-radius: 8px;
     font-size: 16px;
-    font-family: "Work Sans", system-ui, sans-serif;
-    transition: border-color 0.2s ease;
     background-color: #ffffff;
+    transition: border-color 0.2s ease;
 }
 
 .setting-item input:focus,
 .setting-item select:focus,
 .setting-item textarea:focus {
     outline: none;
-    border-color: #C43E38; /* Accent Red on Focus */
+    border-color: #C43E38;
     box-shadow: 0 0 0 3px rgba(196, 62, 56, 0.1);
 }
 
@@ -243,7 +141,7 @@ body {
     width: 120px;
 }
 
-/* Action Buttons */
+
 .settings-actions {
     display: flex;
     gap: 15px;
@@ -253,6 +151,7 @@ body {
     border-top: 2px solid #e5e7eb;
 }
 
+
 .btn-primary,
 .btn-secondary,
 .btn-outline {
@@ -261,18 +160,17 @@ body {
     border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    font-family: "Work Sans", system-ui, sans-serif;
     font-size: 16px;
     transition: all 0.2s ease;
 }
 
 .btn-primary {
-    background-color: #C43E38; /* Accent Red */
+    background-color: #C43E38;
     color: white;
 }
 
 .btn-primary:hover {
-    background-color: #8B2F2F; /* Darker Red */
+    background-color: #8B2F2F;
     transform: translateY(-1px);
 }
 
@@ -288,17 +186,136 @@ body {
 
 .btn-outline {
     background-color: transparent;
-    color: #C43E38; /* Accent Red */
-    border: 2px solid #C43E38; /* Accent Red Border */
+    color: #C43E38;
+    border: 2px solid #C43E38;
 }
 
 .btn-outline:hover {
-    background-color: #C43E38; /* Accent Red */
+    background-color: #C43E38;
     color: white;
     transform: translateY(-1px);
 }
 
-/* Responsive Design */
+
+.settings-group#productList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+#productList .setting-item {
+    padding: 0;
+    background-color: #ffffff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s;
+    overflow: hidden;
+}
+
+#productList .product-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    margin: 0;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+}
+
+#productList .product-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1; 
+    padding-right: 10px;
+    align-self: stretch; 
+}
+
+#productList .product-info-name {
+    font-weight: 600;
+}
+
+#productList .product-info-form {
+    color: #6b7280;
+    font-size: 0.85em;
+    font-weight: 400;
+}
+
+#productList .product-brand {
+    font-weight: 500;
+    color: #9ca3af;
+    font-size: 0.9em;
+}
+
+#productList .dimmed {
+    opacity: 0.6;
+    background-color: #fef2f2;
+}
+
+#productList .product-label.otc {
+    border-left: 4px solid #34d399;
+}
+
+#productList .product-label.rx {
+    border-left: 4px solid #f87171;
+}
+
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    min-width: 45px;
+    margin-right: 20px;
+    flex-shrink: 0; 
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #10b981;
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.slider.round {
+    border-radius: 25px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+
 @media (max-width: 768px) {
     .settings-group {
         gap: 15px;

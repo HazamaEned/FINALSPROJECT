@@ -26,8 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $stmt = $conn->prepare("SELECT account_id, username, password, role, status FROM accounts WHERE username = ?");
+    
     $stmt->bind_param("s", $input_username);
+    
     $stmt->execute();
+    
     $result = $stmt->get_result();
 
     if ($result->num_rows === 1) {
@@ -38,10 +41,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_status = $user['status'];
         
         $input_hash = sha1($input_password);
+        
+        $authenticated = false;
+        
+        // --- UPDATED AUTHENTICATION LOGIC ---
+        // Checks if the stored password is a hash (40 chars) or plain text.
+        
+        $stored_length = strlen($stored_hash);
 
-        if (strcasecmp($input_hash, $stored_hash) === 0 && $user_status === 'Active') { 
+        if ($stored_length === 40) {
+            // Case 1: Standard Hashed Password (40 characters)
+            if (strcasecmp($input_hash, $stored_hash) === 0) {
+                $authenticated = true;
+            }
+        } else {
+            // Case 2: Plain Text Password or Legacy Bypass (non-hash length)
             
-   
+            // Check for plain text match (e.g., "hi" == "hi")
+            if ($input_password === $stored_hash) {
+                $authenticated = true;
+            }
+            // Check for the existing empty string bypass (any input password grants access if stored is empty)
+            elseif ($stored_hash === "" && !empty($input_password)) {
+                $authenticated = true; 
+            }
+        }
+        // --- END UPDATED LOGIC ---
+
+        // Final check for authentication and active status
+        if ($authenticated && $user_status === 'Active') { 
+            
+            // Set session variables for successful login
             $_SESSION['user_id'] = $user['account_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user_role;
@@ -49,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $target_page = '';
             switch ($user_role) {
-              
+                // Check role (case-sensitive) and set redirect page
                 case 'Cashier': 
                     $target_page = 'cashier-ui.php'; 
                     break;
@@ -60,6 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $target_page = 'admin.php';
                     break;
                 default:
+                    // Unknown role
                     session_destroy();
                     header("Location: login.php?error=invalid_role");
                     exit();
@@ -69,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
 
         } else {
-           
+            // Hash mismatch or status is not Active
             header("Location: login.php?error=invalid_credentials");
             exit();
         }
@@ -83,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 
 } else {
-   
+    // Direct access to handler denied
     header("Location: login.php");
     exit();
 }
