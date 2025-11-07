@@ -477,7 +477,7 @@
                 $('#ConfirmPaymentBtn').on('click', function() {
                     const method = $('#PaymentMethod').val();
                     const methodName = { cash:"Cash", card:"Card", gcash:"GCash" }[method];
-                    
+
                     if (cart.length === 0) {
                         alert("No items to process.");
                         return;
@@ -489,6 +489,7 @@
                     const discount = hasDiscount ? subtotal * 0.20 : 0;
                     const total = subtotal - discount;
                     let cashGiven = 0;
+                    let change = 0;
 
                     if (method === 'cash') {
                         cashGiven = parseFloat($('#CashAmount').val()) || 0;
@@ -496,30 +497,46 @@
                             alert('Insufficient cash amount!');
                             return;
                         }
+                        change = (cashGiven - total).toFixed(2);
                     } else if (method === 'gcash'){
-                        let paymentMethod = gcash
+                        // Ensure we send a defined method string (avoid ReferenceError)
+                        const paymentMethod = method; // 'gcash'
                         $.ajax({
-                            url: "checkout.php",
+                            url: "payment.php",
                             method: "POST",
+                            dataType: 'json',
                             data: {
                                 amount: total,
                                 method: paymentMethod
                             },
-                            success: function(response) {
-                                console.log(response)
-                                try {
-                                    let data = JSON.parse(response);
-                                    if (data.checkout_url) {
-                                        window.location.href = data.checkout_url;
-                                    }
-                                } catch (e){
-                                    console.log("Non-JSON response:", response)
+                            beforeSend: function() {
+                                // prevent double clicks and show processing state
+                                $('#ConfirmPaymentBtn').prop('disabled', true).text('Processing...');
+                            },
+                            success: function(data, textStatus, jqXHR) {
+                                console.log('GCash response:', data);
+                                if (data && data.checkout_url) {
+                                    window.location.href = data.checkout_url;
+                                    return;
                                 }
+
+                                // No checkout URL returned — show helpful info
+                                let msg = 'GCash initiation failed.';
+                                if (data && data.error) msg += '\n' + JSON.stringify(data.error);
+                                else if (data && data.raw) msg += '\n' + JSON.stringify(data.raw);
+                                alert(msg);
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                console.error('GCash AJAX error:', textStatus, errorThrown, jqXHR.status, jqXHR.responseText);
+                                const body = jqXHR.responseText || errorThrown || textStatus;
+                                alert(`GCash payment initiation failed. HTTP ${jqXHR.status}: ${body}`);
+                            },
+                            complete: function() {
+                                // restore button state
+                                $('#ConfirmPaymentBtn').prop('disabled', false).text('Confirm Payment');
                             }
                         });
                     }
-
-                    const change = method === 'cash' ? (cashGiven - total).toFixed(2) : 0;
 
                     const inner = `
                         <div>
@@ -530,7 +547,7 @@
                             </div>
                             <div class="divider"></div>
                             <div>Date: ${new Date().toLocaleString()}</div>
-                            ${hasDiscount ? `<div>Customer: ${$('CustomerName').text()} (${$('#CustomerIdNumber').text()})</div>` : ''}
+                            ${hasDiscount ? `<div>Customer: ${$('#CustomerName').text()} (${$('#CustomerIdNumber').text()})</div>` : ''}
                             <div class="divider"></div>
 
                             <table>
